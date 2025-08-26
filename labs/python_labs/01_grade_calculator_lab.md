@@ -49,7 +49,7 @@ We are both **declaring** a variable called `name` AND **initializing** it with 
 
 ### Your Task: Gather Input and Store in Variables
 
-Create a new Python file called `grade_calculator.py` and follow these steps:
+Create a new Python file called `grade_calculator1.py` and follow these steps:
 
 1. **Declare and initialize** a variable to store the exit tickets average:
    ```python
@@ -251,7 +251,7 @@ print(message)  # Output: Hello, Alice!
 
 ## Your Task: Refactor Using Functions
 
-Now let's take your working Phase 1 code and improve it using functions.
+Now let's take your working Phase 1 code and improve it using functions. Create a new file called `grade_calculator2.py` and build upon your Phase 1 work.
 
 ### Function 1: input_float()
 
@@ -356,7 +356,7 @@ print("Goodbye!")
 
 ## Your Task: Multiple Grade Calculations
 
-Now modify your Phase 2 code to allow calculating grades for multiple students.
+Now modify your Phase 2 code to allow calculating grades for multiple students. Create a new file called `grade_calculator3.py` and build upon your Phase 2 work.
 
 ### Program Flow
 Your program should:
@@ -406,8 +406,12 @@ Test your complete program by:
 
 ## Final Submission Requirements
 
-Submit your completed `grade_calculator.py` file that includes all three phases (you can comment out the first two phases with a multi-line comment).
-Your final program should:
+Submit all three versions of your grade calculator:
+- [ ] `grade_calculator1.py` - Your Phase 1 procedural solution
+- [ ] `grade_calculator2.py` - Your Phase 2 function-based solution  
+- [ ] `grade_calculator3.py` - Your Phase 3 complete solution with while loop
+
+Your final program (`grade_calculator3.py`) should:
 - [ ] Use the `input_float()` function for all grade input
 - [ ] Use the `calculate_overall_grade()` function for calculations
 - [ ] Allow multiple grade calculations using a while loop
