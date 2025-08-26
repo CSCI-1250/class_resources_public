@@ -1,4 +1,4 @@
-# CSCI 1250 Lab 1: Grade Calculator (Complete Version)
+# CSCI 1250 Lab 1: Grade Calculator (Programming Fundamentals)
 
 ## Learning Objectives
 By the end of this lab, you will be able to:
