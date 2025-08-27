@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Python Programming Reference Sheet - CSCI 1250</title>
+    <style>
+        body { 
+            font-family: 'Courier New', monospace; 
+            margin: 20px; 
+            line-height: 1.4;
+            font-size: 14px;
+        }
+        h1, h2 { 
+            font-family: Arial, sans-serif; 
+            color: #2c3e50;
+        }
+        h1 { 
+            border-bottom: 3px solid #3498db; 
+            padding-bottom: 10px;
+        }
+        h2 { 
+            background-color: #ecf0f1; 
+            padding: 8px; 
+            margin-top: 25px;
+            border-left: 4px solid #3498db;
+        }
+        .code-block {
+            display: block;
+            background-color: #f8f9fa; 
+            border: 1px solid #e9ecef; 
+            padding: 10px; 
+            margin: 10px 0;
+            border-radius: 4px;
+            overflow-wrap: break-word;
+            white-space: pre-wrap;
+        }
+        .highlight { 
+            background-color: #fff3cd; 
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        .error { 
+            background-color: #f8d7da; 
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        .success { 
+            background-color: #d1edff; 
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        table { 
+            border-collapse: collapse; 
+            width: 100%; 
+            margin: 10px 0;
+        }
+        td, th { 
+            border: 1px solid #ddd; 
+            padding: 6px; 
+            text-align: left;
+            font-size: 13px;
+        }
+        th { 
+            background-color: #f2f2f2; 
+            font-weight: bold;
+        }
+        .two-column {
+            display: flex;
+            gap: 20px;
+        }
+        .column {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <h1>Programming Fundamentals with Python Reference Sheet</h1>
+    <p><strong>CSCI 1250 - Introduction to Computer Science and Programming</strong></p>
+
+    <h2>Variables</h2>
+    <div class="code-block">
+<strong>Declaration and Initialization:</strong>
+variable_name = value    # Declares AND initializes in one step
+
+<strong>Examples:</strong>
+name = "Alice"           # String variable
+age = 20                 # Integer variable  
+grade = 85.7             # Float variable
+is_student = True        # Boolean variable
+    </div>
+
+    <div class="two-column">
+        <div class="column">
+            <h3>✅ Legal Variable Names</h3>
+            <div class="code-block">
+student_name
+grade1
+final_project
+my_variable
+_private_var
+userName (camelCase)
+            </div>
+        </div>
+        <div class="column">
+            <h3>❌ Illegal Variable Names</h3>
+            <div class="code-block">
+2student        # Can't start with number
+student-name    # No hyphens
+student name    # No spaces
+class           # Reserved word
+def             # Reserved word
+            </div>
+        </div>
+    </div>
+
+    <h2>Python Reserved Words (Keywords)</h2>
+    <div class="code-block">
+<span class="highlight">and</span>    <span class="highlight">as</span>      <span class="highlight">assert</span>   <span class="highlight">break</span>    <span class="highlight">class</span>    <span class="highlight">continue</span>  <span class="highlight">def</span>      <span class="highlight">del</span>
+<span class="highlight">elif</span>   <span class="highlight">else</span>    <span class="highlight">except</span>   <span class="highlight">False</span>    <span class="highlight">finally</span>  <span class="highlight">for</span>       <span class="highlight">from</span>     <span class="highlight">global</span>
+<span class="highlight">if</span>     <span class="highlight">import</span>  <span class="highlight">in</span>       <span class="highlight">is</span>       <span class="highlight">lambda</span>   <span class="highlight">None</span>      <span class="highlight">not</span>      <span class="highlight">or</span>
+<span class="highlight">pass</span>   <span class="highlight">raise</span>   <span class="highlight">return</span>   <span class="highlight">True</span>     <span class="highlight">try</span>      <span class="highlight">while</span>     <span class="highlight">with</span>     <span class="highlight">yield</span>
+
+<em>Cannot use these as variable names!</em>
+    </div>
+
+    <h2>Data Types and Type Conversion</h2>
+    <table>
+        <tr>
+            <th>Data Type</th>
+            <th>Example</th>
+            <th>Conversion Function</th>
+            <th>Example Conversion</th>
+        </tr>
+        <tr>
+            <td>String (str)</td>
+            <td>"Hello"</td>
+            <td>str()</td>
+            <td>str(42) → "42"</td>
+        </tr>
+        <tr>
+            <td>Integer (int)</td>
+            <td>42</td>
+            <td>int()</td>
+            <td>int("42") → 42</td>
+        </tr>
+        <tr>
+            <td>Float (float)</td>
+            <td>3.14</td>
+            <td>float()</td>
+            <td>float("3.14") → 3.14</td>
+        </tr>
+        <tr>
+            <td>Boolean (bool)</td>
+            <td>True, False</td>
+            <td>bool()</td>
+            <td>bool(1) → True</td>
+        </tr>
+    </table>
+
+    <h2>Mathematical Operations</h2>
+    <table>
+        <tr>
+            <th>Operator</th>
+            <th>Description</th>
+            <th>Example</th>
+            <th>Result</th>
+        </tr>
+        <tr>
+            <td>+</td>
+            <td>Addition</td>
+            <td>5 + 3</td>
+            <td>8</td>
+        </tr>
+        <tr>
+            <td>-</td>
+            <td>Subtraction</td>
+            <td>5 - 3</td>
+            <td>2</td>
+        </tr>
+        <tr>
+            <td>*</td>
+            <td>Multiplication</td>
+            <td>5 * 3</td>
+            <td>15</td>
+        </tr>
+        <tr>
+            <td>/</td>
+            <td>Division</td>
+            <td>5 / 2</td>
+            <td>2.5</td>
+        </tr>
+        <tr>
+            <td>//</td>
+            <td>Floor Division</td>
+            <td>5 // 2</td>
+            <td>2</td>
+        </tr>
+        <tr>
+            <td>%</td>
+            <td>Modulus (remainder)</td>
+            <td>5 % 2</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>**</td>
+            <td>Exponentiation</td>
+            <td>5 ** 2</td>
+            <td>25</td>
+        </tr>
+    </table>
+
+    <h2>Core Built-in Functions</h2>
+    <div class="code-block">
+<strong>input(prompt)</strong> - Gets user input as a string
+user_name = input("Enter your name: ")
+
+<strong>print(value)</strong> - Displays output to screen
+print("Hello World")
+print(variable_name)
+
+<strong>len(sequence)</strong> - Returns length of string/list
+length = len("hello")  # Returns 5
+
+<strong>type(variable)</strong> - Returns the data type
+print(type(42))        # &lt;class 'int'&gt;
+    </div>
+
+    <h2>String Formatting</h2>
+    <div class="code-block">
+<strong>F-Strings (Formatted String Literals):</strong>
+name = "Alice"
+age = 20
+print(f"Hello, {name}! You are {age} years old.")
+
+<strong>Number Formatting:</strong>
+grade = 87.6666
+print(f"Your grade is: {grade:.2f}%")  # Shows: 87.67%
+
+<strong>Common Format Specifiers:</strong>
+{variable:.2f}   # 2 decimal places
+{variable:>10}   # Right align in 10 spaces  
+{variable:&lt;10}   # Left align in 10 spaces
+    </div>
+
+    <h2>Functions</h2>
+    <div class="code-block">
+<strong>Function Definition Syntax:</strong>
+def function_name(parameter1, parameter2):
+    """Optional docstring describing the function"""
+    # Function body
+    result = parameter1 + parameter2
+    return result
+
+<strong>Function Call:</strong>
+answer = function_name(5, 3)  # Arguments: 5 and 3
+    </div>
+
+    <h3>Function Components</h3>
+    <table>
+        <tr>
+            <th>Component</th>
+            <th>Description</th>
+            <th>Example</th>
+        </tr>
+        <tr>
+            <td><strong>Method Signature</strong></td>
+            <td>First line defining function name and parameters</td>
+            <td>def calculate_grade(exam, hw):</td>
+        </tr>
+        <tr>
+            <td><strong>Parameters</strong></td>
+            <td>Variable names in function definition</td>
+            <td>exam, hw (in the definition)</td>
+        </tr>
+        <tr>
+            <td><strong>Arguments</strong></td>
+            <td>Actual values passed when calling function</td>
+            <td>85, 92 (when calling)</td>
+        </tr>
+        <tr>
+            <td><strong>Return Statement</strong></td>
+            <td>Sends value back to caller</td>
+            <td>return final_grade</td>
+        </tr>
+        <tr>
+            <td><strong>Function Body</strong></td>
+            <td>Indented code that runs when called</td>
+            <td>All indented lines after colon</td>
+        </tr>
+    </table>
+
+    <h2>Control Flow - While Loops</h2>
+    <div class="code-block">
+<strong>Basic While Loop:</strong>
+counter = 1
+while counter &lt;= 3:
+    print(f"Count: {counter}")
+    counter = counter + 1  # Don't forget to update!
+
+<strong>User-Controlled Loop:</strong>
+user_input = ""
+while user_input != "quit":
+    user_input = input("Enter 'quit' to stop: ")
+    print(f"You entered: {user_input}")
+    </div>
+
+    <h2>Common String Methods</h2>
+    <table>
+        <tr>
+            <th>Method</th>
+            <th>Description</th>
+            <th>Example</th>
+            <th>Result</th>
+        </tr>
+        <tr>
+            <td>.lower()</td>
+            <td>Convert to lowercase</td>
+            <td>"HELLO".lower()</td>
+            <td>"hello"</td>
+        </tr>
+        <tr>
+            <td>.upper()</td>
+            <td>Convert to uppercase</td>
+            <td>"hello".upper()</td>
+            <td>"HELLO"</td>
+        </tr>
+        <tr>
+            <td>.strip()</td>
+            <td>Remove whitespace</td>
+            <td>" hello ".strip()</td>
+            <td>"hello"</td>
+        </tr>
+    </table>
+
+    <h2>Syntax Reminders</h2>
+    <div class="code-block">
+<strong>Important Syntax Rules:</strong>
+• Use colons (:) after if, while, for, def statements
+• <span class="success">Indentation matters!</span> Use 4 spaces for each level
+• <span class="error">Parentheses required</span> for function calls: print(), input(), float()
+• <span class="success">Case sensitive:</span> myVariable ≠ myvariable ≠ MyVariable
+• Use = for assignment, == for comparison
+• Comments start with # symbol
+
+<strong>Common Syntax Errors:</strong>
+<span class="error">❌ print "Hello"</span>        → <span class="success">✅ print("Hello")</span>
+<span class="error">❌ if x = 5:</span>           → <span class="success">✅ if x == 5:</span>
+<span class="error">❌ def myfunction</span>       → <span class="success">✅ def myfunction():</span>
+<span class="error">❌ while x < 10</span>        → <span class="success">✅ while x < 10:</span>
+    </div>
+
+    <p><em>Keep this reference handy while coding!</em></p>
+</body>
+</html>
