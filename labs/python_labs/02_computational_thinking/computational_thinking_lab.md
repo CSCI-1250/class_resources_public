@@ -293,7 +293,7 @@ def get_letter_grade(percentage):
         return "F"
 
 def calculate_current_grade(exit_tickets, quizzes, labs, final_project):
-    """Calculate weighted average - reuse from Activity 2"""
+    """Calculate weighted average - reuse from the grade calculator lab"""
     # Your implementation here
     pass
 
