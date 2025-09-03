@@ -336,58 +336,18 @@ if __name__ == "__main__":
 
 ---
 
-# Activity 5: Testing and Reflection (15 minutes)
-
-### Part A: Test Your Programs (10 minutes)
-Test your academic advisor with these scenarios:
-
-**Test Case 1**: Struggling Student
-- Exit Tickets: 65, Quizzes: 70, Labs: 68, Final Project: 72
-- Expected: Overall ≈ 69.5% (D), should suggest improvements
-
-**Test Case 2**: Good Student  
-- Exit Tickets: 85, Quizzes: 88, Labs: 92, Final Project: 90
-- Expected: Overall ≈ 89.2% (B), positive feedback
-
-**Test Case 3**: Excellent Student
-- Exit Tickets: 95, Quizzes: 94, Labs: 96, Final Project: 98  
-- Expected: Overall ≈ 96.5% (A), congratulations
-
-### Part B: Reflection (5 minutes)
-Answer these questions with your group:
-
-1. **Decomposition**: How did breaking down the advisor problem into smaller parts help?
-
-2. **Pattern Recognition**: What patterns did you notice between the grade calculator and the advisor program?
-
-3. **Abstraction**: What real-world details did you choose to ignore in your student model?
-
-4. **Algorithm Design**: How did writing pseudocode first help with your Python implementation?
-
-5. **Decision Making**: Give an example of a decision your program makes and why it's useful.
-
----
-
 # Submission Requirements
 
 Submit all your Python files with proper documentation:
-
-
+- [ ] `models.txt` - Your building, student, and route models from Activity 1
+- [ ] `data_processor.py` - Your code to calculate the totals and averages from Activity 2
 - [ ] `academic_advisor.py` - Your complete academic advisor program  
 - [ ] `pseudocode.txt` - Your pseudocode for the advisor program
-- [ ] `models.txt` - Your building, student, and route models from Activity 1
 
 **Code Requirements**:
-- [ ] All functions have docstrings explaining their purpose
 - [ ] Code uses meaningful variable names
-- [ ] Programs handle invalid input gracefully
 - [ ] Programs produce correct output for test cases
 - [ ] Code is properly indented and readable
-
-**Documentation Requirements**:
-- [ ] Include your name and group members at the top of each file
-- [ ] Comment complex calculations and logic
-- [ ] Explain your abstraction choices in the models file
 
 ---
 
@@ -422,5 +382,3 @@ Today you practiced computational thinking by:
 These skills are fundamental to programming and problem-solving in computer science. Every complex system starts with these basic thinking patterns!
 
 **Remember**: Professional programmers spend more time thinking about problems than typing code. The thinking skills you practiced today are what separate good programmers from great ones.
-
-**Next Week**: We'll explore loops and iteration - how to make programs repeat actions efficiently.
