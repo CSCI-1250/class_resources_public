@@ -67,7 +67,7 @@ Route Model:
 - [List 3-4 important attributes]
 ```
 
-**Discussion Questions (in class -- don't need these in your submission)**:
+**Discussion Questions (in class; don't need these in your submission)**:
 - What information did you choose to leave out? Why?
 - How is this an example of abstraction?
 
@@ -105,7 +105,7 @@ english_hours = 3
 total_hours = math_hours + science_hours + english_hours
 ```
 
-**Discussion Questions** (with your group):
+**Discussion Questions** (in class; don't need these in your submission):
 1. What pattern do you see across all three tasks?
 2. What's similar about the operations being performed?
 3. How could we create a reusable solution?
