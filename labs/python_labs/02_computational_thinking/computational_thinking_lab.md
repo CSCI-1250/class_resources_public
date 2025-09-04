@@ -295,7 +295,7 @@ def get_letter_grade(percentage):
 def calculate_current_grade(exit_tickets, quizzes, labs, final_project):
     """Calculate weighted average - reuse from the grade calculator lab"""
     # Your implementation here
-    pass
+    pass # pass is just a placeholder for your code. Don't leave it in the final implementation
 
 def main():
     print("=== Academic Advisor ===")
