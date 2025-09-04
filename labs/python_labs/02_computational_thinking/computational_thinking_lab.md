@@ -67,7 +67,7 @@ Route Model:
 - [List 3-4 important attributes]
 ```
 
-**Discussion Questions**:
+**Discussion Questions (in class -- don't need these in your submission)**:
 - What information did you choose to leave out? Why?
 - How is this an example of abstraction?
 
