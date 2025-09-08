@@ -297,41 +297,37 @@ def calculate_current_grade(exit_tickets, quizzes, labs, final_project):
     # Your implementation here
     pass
 
-def main():
-    print("=== Academic Advisor ===")
-    
-    # Get current grades
-    # Your code here
-    
-    # Calculate current grade
-    current_grade = calculate_current_grade(exit_tickets, quizzes, labs, final_project)
-    letter_grade = get_letter_grade(current_grade)
-    
-    # Display current status
-    print(f"Your current grade is: {current_grade:.2f}% ({letter_grade})")
-    
-    # Provide advice based on grade
-    if letter_grade == "F":
-        print("⚠️ You are currently failing. Consider:")
-        print("- Meeting with your professor during office hours")
-        print("- Focusing extra effort on upcoming assignments")
-        print("- Forming a study group with classmates")
-    elif letter_grade == "D":
-        print("⚠️ You're passing but at risk. Consider:")
-        print("- Reviewing areas where you lost points")
-        print("- Asking for help on challenging topics")
-    elif letter_grade == "C":
-        print("✓ You're passing! To improve:")
-        print("- Review quiz mistakes for patterns")
-        print("- Start assignments earlier")
-    elif letter_grade == "B":
-        print("✓ Good work! You're doing well.")
-        print("- Keep up the consistent effort!")
-    else:  # A grade
-        print("🎉 Excellent work! Keep it up!")
+print("=== Academic Advisor ===")
 
-if __name__ == "__main__":
-    main()
+# Get current grades
+# Your code here
+
+# Calculate current grade
+current_grade = calculate_current_grade(exit_tickets, quizzes, labs, final_project)
+letter_grade = get_letter_grade(current_grade)
+
+# Display current status
+print(f"Your current grade is: {current_grade:.2f}% ({letter_grade})")
+
+# Provide advice based on grade
+if letter_grade == "F":
+    print("⚠️ You are currently failing. Consider:")
+    print("- Meeting with your professor during office hours")
+    print("- Focusing extra effort on upcoming assignments")
+    print("- Forming a study group with classmates")
+elif letter_grade == "D":
+    print("⚠️ You're passing but at risk. Consider:")
+    print("- Reviewing areas where you lost points")
+    print("- Asking for help on challenging topics")
+elif letter_grade == "C":
+    print("✓ You're passing! To improve:")
+    print("- Review quiz mistakes for patterns")
+    print("- Start assignments earlier")
+elif letter_grade == "B":
+    print("✓ Good work! You're doing well.")
+    print("- Keep up the consistent effort!")
+else:  # A grade
+    print("🎉 Excellent work! Keep it up!")
 ```
 
 ---
