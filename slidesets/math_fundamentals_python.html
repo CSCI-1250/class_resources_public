@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSCI-1250 Mathematics Fundamentals - Python Edition</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    
+    <!-- jsPDF and html2canvas for PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #3776ab 0%, #ffd43b 50%, #306998 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            font-size: 1.2em;
+        }
+
+        .presentation-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            width: 95%;
+            max-width: 1400px;
+            height: 95vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #3776ab, #306998);
+            color: white;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 1.8em;
+            font-weight: 700;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .slide-counter {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+
+        .download-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .download-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+            color: white;
+            text-decoration: none;
+            transform: translateY(-1px);
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            width: 100%;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #ffd43b;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+
+        .slide-content {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .slide {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+            height: 100%;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-title {
+            color: #1F2937;
+            font-size: 2.2em;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 3px solid #3776ab;
+            padding-bottom: 15px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .info-card {
+            background: white;
+            border: 2px solid #3776ab;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-card.yellow {
+            border-color: #ffd43b;
+        }
+
+        .info-card.dark {
+            border-color: #306998;
+        }
+
+        .info-card h3 {
+            margin-bottom: 15px;
+            color: #3776ab;
+        }
+
+        .info-card.yellow h3 {
+            color: #e6b800;
+        }
+
+        .info-card.dark h3 {
+            color: #306998;
+        }
+
+        .highlight-box {
+            background: #e6f3ff;
+            border: 2px solid #3776ab;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+
+        .highlight-box.yellow {
+            background: #fffacd;
+            border-color: #ffd43b;
+        }
+
+        .highlight-box.dark {
+            background: #f0f5ff;
+            border-color: #306998;
+        }
+
+        .highlight-box h3 {
+            color: #3776ab;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .highlight-box.yellow h3 {
+            color: #e6b800;
+        }
+
+        .highlight-box.dark h3 {
+            color: #306998;
+        }
+
+        .bullet-points {
+            list-style: none;
+            padding: 0;
+        }
+
+        .bullet-points li {
+            padding: 8px 0;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .bullet-points li::before {
+            content: "▶";
+            color: #3776ab;
+            margin-right: 10px;
+            margin-top: 2px;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-size: 1.1em;
+        }
+
+        .code-block .comment {
+            color: #68d391;
+        }
+
+        .code-block .keyword {
+            color: #ffd43b;
+        }
+
+        .code-block .string {
+            color: #fbb6ce;
+        }
+
+        .code-block .number {
+            color: #90cdf4;
+        }
+
+        .code-block .variable {
+            color: #a78bfa;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: #f8f9fa;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .nav-button {
+            background: #3776ab;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-button:hover {
+            background: #306998;
+            transform: translateY(-2px);
+        }
+
+        .nav-button:disabled {
+            background: #9CA3AF;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .timer-display {
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+
+        .math-example {
+            background: #f8f9fa;
+            border-left: 4px solid #3776ab;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .binary-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .binary-cell {
+            background: #3776ab;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: monospace;
+            font-size: 1.2em;
+        }
+
+        .set-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 30px 0;
+        }
+
+        .venn-circle {
+            width: 150px;
+            height: 150px;
+            border: 3px solid #3776ab;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(55, 118, 171, 0.1);
+            margin: 0 -30px;
+            position: relative;
+        }
+
+        .pdf-mode .slide {
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            position: static !important;
+            height: auto !important;
+            page-break-after: always;
+            margin-bottom: 50px;
+            border: 2px solid #ddd;
+            background: white;
+            padding: 40px;
+        }
+
+        .pdf-mode .slide-content {
+            overflow: visible !important;
+            height: auto !important;
+        }
+
+        .pdf-loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            color: white;
+            font-size: 1.2em;
+        }
+
+        .pdf-loading.active {
+            display: flex;
+        }
+
+        .loading-content {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #3776ab;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading overlay for PDF generation -->
+    <div class="pdf-loading" id="pdfLoading">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <div id="progressText">Generating PDF...</div>
+            <div id="slideCounter">Slide 0 of 47</div>
+        </div>
+    </div>
+
+    <div class="presentation-container">
+        <div class="header">
+            <h1>Mathematics Fundamentals - CSCI-1250-003 - Lecture 2</h1>
+            <div class="header-right">
+                <button class="download-btn" id="downloadPDF" onclick="generatePDF()">
+                    <span>📄</span>
+                    <span>Download PDF</span>
+                </button>
+                <div class="slide-counter">
+                    <span id="current-slide">1</span> / <span id="total-slides">47</span>
+                </div>
+            </div>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+        </div>
+
+        <div class="slide-content">
+            <!-- Slide 1: Title -->
+            <div class="slide active">
+                <div class="slide-title">Mathematics Fundamentals</div>
+                <div style="text-align: center; margin-top: 80px;">
+                    <h2 style="color: #3776ab; margin-bottom: 30px;">CSCI-1250-003</h2>
+                    <h2 style="color: #306998;">Lecture 2</h2>
+                </div>
+            </div>
+
+            <!-- Slide 2: What Math Does CS Use? -->
+            <div class="slide">
+                <div class="slide-title">What Math Does CS Use?</div>
+                <div class="highlight-box">
+                    <h3>In 1250:</h3>
+                    <ul class="bullet-points">
+                        <li>Sets – basics</li>
+                        <li>Number systems</li>
+                        <li>Constants</li>
+                        <li>Variables</li>
+                        <li>Arithmetic</li>
+                        <li>Order of Operations (PEMDAS)</li>
+                        <li>Functions</li>
+                        <li>And much, much more.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Slide 3: Higher Level CS Math -->
+            <div class="slide">
+                <div class="slide-title">What Math Is In Higher Level CS Classes?</div>
+                <ul class="bullet-points" style="font-size: 1.1em;">
+                    <li><strong>Linear algebra</strong>&nbsp;– vectors, matrices, linear equations and transformations</li>
+                    <li><strong>Discrete mathematics</strong>&nbsp;– logic, sets, combinatorics, graph theory</li>
+                    <li><strong>Algorithms</strong>&nbsp;– automata theory, formal languages, mathematical proofs, complexity theory</li>
+                    <li><strong>Calculus</strong>&nbsp;– Though briefly, you may encounter integrals and basics of limits</li>
+                    <li><strong>You'll learn more about all of this in CSCI 1900</strong></li>
+                </ul>
+            </div>
+
+            <!-- Slide 4: What is a Data Structure? -->
+            <div class="slide">
+                <div class="slide-title">What is a Data Structure?</div>
+                <div class="highlight-box">
+                    <h3>Data Structure</h3>
+                    <p style="font-size: 1.2em;">A method of storing data in a computer</p>
+                    <ul class="bullet-points">
+                        <li>Ideally, with easy, fast access</li>
+                        <li>Like a filing cabinet or shelves in a library – organized with labels</li>
+                        <li>Some examples include arrays, lists, hash maps, dispatch tables</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Slide 5: Why Use Data Structures? -->
+            <div class="slide">
+                <div class="slide-title">Why Use Data Structures?</div>
+                <ul class="bullet-points" style="font-size: 1.1em;">
+                    <li><strong>Scalability</strong>&nbsp;– Programs quickly become quite large in scale, as does the data within them. Holding that data is difficult – accessing it moreso</li>
+                    <li><strong>Organization</strong>&nbsp;– Data structures, if used correctly, are an easy way to organize that data into a readable, maintainable, singular structure</li>
+                    <li><strong>Efficiency</strong>&nbsp;– The correct data structure can make accessing a piece of data nearly instantaneous (more about complexity theory later)</li>
+                </ul>
+            </div>
+
+            <!-- Slide 6: Arrays -->
+            <div class="slide">
+                <div class="slide-title">Arrays</div>
+                <ul class="bullet-points" style="font-size: 1.1em;">
+                    <li><strong>Arrays</strong>&nbsp;are the simplest, most common data structure</li>
+                    <li>Collection of items, of the same type, stored in a specific order</li>
+                    <li>Items labeled in relation to their position within the array</li>
+                    <li>Allocates a section of memory in the computer to store this information</li>
+                    <li>Great at storing sets of numbers</li>
+                </ul>
+            </div>
+
+            <!-- Slide 7: Anatomy of an Array -->
+            <div class="slide">
+                <div class="slide-title">Anatomy of an Array</div>
+                <div class="code-block">
+<span class="comment"># Python arrays (lists)</span>
+<span class="variable">fruits</span> = [<span class="string">"Apple"</span>, <span class="string">"Banana"</span>, <span class="string">"Cherry"</span>]
+<span class="variable">prime_numbers</span> = [<span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>]
+                </div>
+            </div>
+
+            <!-- Slide 8: Basics of Sets -->
+            <div class="slide">
+                <div class="slide-title">Basics of Sets</div>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>Set Definition</h3>
+                        <ul class="bullet-points">
+                            <li><strong>Set</strong>&nbsp;– an unordered collection of unique items</li>
+                            <li>Items in a set are called <strong>elements</strong></li>
+                            <li>Ex: Set of prime numbers < 10...</li>
+                            <li>P = { 2, 3, 5, 7 }</li>
+                        </ul>
+                    </div>
+                    <div class="info-card yellow">
+                        <h3>Set Properties</h3>
+                        <ul class="bullet-points">
+                            <li><strong>Unique:</strong>&nbsp;{ 1, 2, 3 } = { 1, 1, 2, 2, 3 }</li>
+                            <li><strong>Unordered:</strong>&nbsp;{ c, a, b } = { a, b, c }</li>
+                            <li>Almost anything can be defined as a set</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 9: Set Operations -->
+            <div class="slide">
+                <div class="slide-title">Set Operations</div>
+                <div class="math-example">
+                    <h4>Union:</h4>
+                    <p>A = { 1, 3, 5, 7 }</p>
+                    <p>B = { 2, 4, 6, 8 }</p>
+                    <p><strong>A ∪ B = { 1, 2, 3, 4, 5, 6, 7, 8 }</strong></p>
+                </div>
+                <div class="math-example">
+                    <h4>Intersection:</h4>
+                    <p>A = { 1, 2, 3, 4 }</p>
+                    <p>B = { 2, 4 }</p>
+                    <p><strong>A ∩ B = { 2, 4 }</strong></p>
+                </div>
+            </div>
+
+            <!-- Slide 10: Set Operations (cont.) -->
+            <div class="slide">
+                <div class="slide-title">Set Operations (cont.)</div>
+                <div class="math-example">
+                    <h4>Difference:</h4>
+                    <p>A = { 1, 3, 5, 7 }</p>
+                    <p>B = { 1, 2, 3, 4 }</p>
+                    <p><strong>A - B = { 5, 7 }</strong></p>
+                    <p><strong>B - A = { 2, 4 }</strong></p>
+                </div>
+                <div class="math-example">
+                    <h4>Complement:</h4>
+                    <p>U = { 10, 20, 30, 40, 50 }</p>
+                    <p>P = { 20, 30 }</p>
+                    <p><strong>P<sup>C</sup> = U – P = { 10, 40, 50 }</strong></p>
+                </div>
+            </div>
+
+            <!-- Slide 11: Sets Illustrated -->
+            <div class="slide">
+                <div class="slide-title">Sets Illustrated</div>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>Union (A ∪ B)</h3>
+                        <div class="set-diagram">
+                            <div class="venn-circle" style="background: rgba(55, 118, 171, 0.3);">A</div>
+                            <div class="venn-circle" style="background: rgba(55, 118, 171, 0.3);">B</div>
+                        </div>
+                    </div>
+                    <div class="info-card yellow">
+                        <h3>Intersection (A ∩ B)</h3>
+                        <div class="set-diagram">
+                            <div class="venn-circle">A</div>
+                            <div class="venn-circle" style="background: rgba(255, 212, 59, 0.3);">B</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-grid">
+                    <div class="info-card dark">
+                        <h3>Difference (A - B)</h3>
+                        <div class="set-diagram">
+                            <div class="venn-circle" style="background: rgba(48, 105, 152, 0.3);">A</div>
+                            <div class="venn-circle">B</div>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <h3>Complement (A<sup>c</sup>)</h3>
+                        <p style="text-align: center;">Everything outside A within the universal set U</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 12: Difference vs. Complement -->
+            <div class="slide">
+                <div class="slide-title">Difference vs. Complement</div>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>Difference</h3>
+                        <ul class="bullet-points">
+                            <li><strong>Binary operation</strong></li>
+                            <li>Needs two sets, A and B</li>
+                        </ul>
+                    </div>
+                    <div class="info-card yellow">
+                        <h3>Complement</h3>
+                        <ul class="bullet-points">
+                            <li><strong>Unary operation</strong></li>
+                            <li>Only affects one set, P</li>
+                            <li>U only gives context to P itself</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 13: Basics of Number Systems -->
+            <div class="slide">
+                <div class="slide-title">Basics of Number Systems</div>
+                <div class="highlight-box">
+                    <h3>Number Systems</h3>
+                    <p>Representing numbers using symbols in a consistent manner</p>
+                    <ul class="bullet-points">
+                        <li>Has a <strong>base (or radix)</strong>&nbsp;– Total number of unique digits used to represent numbers</li>
+                        <li><strong>Decimals</strong>&nbsp;– 1, 2, 3, 4</li>
+                        <li><strong>Roman Numerals</strong>&nbsp;– I, II, III, IV</li>
+                        <li><strong>Binary</strong>&nbsp;– 0001, 0010, 0011, 0100</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Slide 14: Decimal Number System -->
+            <div class="slide">
+                <div class="slide-title">Decimal Number System</div>
+                <ul class="bullet-points" style="font-size: 1.1em;">
+                    <li><strong>Decimal (base 10)</strong>&nbsp;– 1, 2, 3, 4, 5, etc.</li>
+                    <li>Position of each digit determines its value (Place value)</li>
+                    <li>Each place value is a power of 10, so the number 132 is:</li>
+                </ul>
+                <div class="math-example">
+                    <h4>132 = 1×10² + 3×10¹ + 2×10⁰</h4>
+                    <p>= 100 + 30 + 2 = 132</p>
+                </div>
+                <p style="font-size: 1.1em; margin-top: 20px;">Easily readable by humans, not so much by computers...</p>
+            </div>
+
+            <!-- Slide 15: Binary Number System -->
+            <div class="slide">
+                <div class="slide-title">Binary Number System</div>
+                <ul class="bullet-points" style="font-size: 1.1em;">
+                    <li><strong>Binary (base 2)</strong>&nbsp;– 0001, 0010, 0011, 0100</li>
+                    <li>Only two digits – 0, and 1</li>
+                    <li>Represents voltage state: 0 = off, no voltage; 1 = on, voltage present</li>
+                    <li>Each binary digit is called a <strong>bit</strong>, a series of bits is data</li>
+                    <li>A series of 1011 is a series of four bits</li>
+                    <li>Every program that runs on your computer is a long series of bits</li>
+                </ul>
+            </div>
+
+            <!-- Slide 16: Converting Decimal to Binary -->
+            <div class="slide">
+                <div class="slide-title">Converting Decimal to Binary</div>
+                <div class="highlight-box">
+                    <p>1011, from our previous example, can be represented as so:</p>
+                </div>
+                <div class="math-example">
+                    <h4>1×2³ + 0×2² + 1×2¹ + 1×2⁰</h4>
+                    <h4>8 + 0 + 2 + 1 = 11</h4>
+                </div>
+                <p style="font-size: 1.1em; margin-top: 20px;">As a reminder, you're working in powers of 2, since binary is base 2</p>
+            </div>
+
+            <!-- Slide 17: Constants vs. Variables -->
+            <div class="slide">
+                <div class="slide-title">Constants vs. Variables</div>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>Constants</h3>
+                        <p>A symbol that does not change in its respective context:</p>
+                        <div class="code-block">
+<span class="variable">PI</span> = <span class="number">3.141592653</span>
+<span class="variable">E</span> = <span class="number">2.71828</span>
+<span class="variable">GRAVITY</span> = <span class="number">-9.8</span>  <span class="comment"># m/s²</span>
+<span class="variable">TEACHER</span> = <span class="string">"Brycen Dunn"</span>
+                        </div>
+                    </div>
+                    <div class="info-card yellow">
+                        <h3>Variables</h3>
+                        <p>Representations of values that can dynamically change</p>
+                        <div class="code-block">
+<span class="variable">exit_ticket_average</span> = <span class="number">85</span>
+<span class="variable">time</span> = <span class="string">"3:14 PM"</span>
+<span class="variable">current_teacher</span> = <span class="string">"Brycen Dunn"</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 18: Variables -->
+            <div class="slide">
+                <div class="slide-title">Variables</div>
+                <div class="highlight-box">
+                    <p>Variables are representations of values that can dynamically change</p>
+                    <p>You saw this in your lab, but...</p>
+                </div>
+                <div class="code-block">
+<span class="variable">exit_ticket_average</span> = <span class="number">85</span>
+
+<span class="comment"># If you were to add a missed exit ticket (received a grade of 0),</span>
+<span class="comment"># that average would decrease...</span>
+<span class="variable">exit_ticket_average</span> = <span class="number">80</span>
+                </div>
+                <div class="math-example">
+                    <h4>Other examples:</h4>
+                    <p>time = "3:14 PM"</p>
+                    <p>current_teacher = "Brycen Dunn"</p>
+                </div>
+            </div>
+
+            <!-- Slide 19: Working with Variables - Arithmetic -->
+            <div class="slide">
+                <div class="slide-title">Working with Variables - Arithmetic</div>
+                <div class="highlight-box">
+                    <p>As you saw in our first lab, certain operations can be done on variables or constants that we initialize</p>
+                    <ul class="bullet-points">
+                        <li>Addition, subtraction, multiplication, etc</li>
+                        <li>More specifically, <strong>arithmetic</strong>&nbsp;describes this</li>
+                        <li>Can be thought of as the work done on basic sets of numbers to perform basic operations</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Slide 20: Examples of Arithmetic -->
+            <div class="slide">
+                <div class="slide-title">Examples of Arithmetic</div>
+                <div class="code-block">
+<span class="comment"># Basic arithmetic in Python</span>
+<span class="variable">result</span> = <span class="number">4</span> + <span class="number">5</span>
+
+<span class="variable">x</span> = (<span class="number">15</span> - <span class="number">5</span>) * <span class="number">2</span>
+
+<span class="variable">m</span> = <span class="number">4</span>
+<span class="variable">y</span> = <span class="variable">m</span>**<span class="number">5</span> + <span class="number">1</span>  <span class="comment"># m to the power of 5, plus 1</span>
+
+<span class="comment"># Converting exit tickets to average</span>
+<span class="variable">exit_tickets_average</span> = <span class="keyword">float</span>(<span class="variable">exit_tickets</span>) * (<span class="number">1</span>/<span class="number">6</span>)
+                </div>
+            </div>
+
+            <!-- Slide 21: Arithmetic Complexity -->
+            <div class="slide">
+                <div class="slide-title">Arithmetic Complexity</div>
+                <ul class="bullet-points" style="font-size: 1.1em;">
+                    <li>As our programs become larger, doing the same operation over and over again is tedious</li>
+                    <li>It's also not memory efficient</li>
+                    <li>What if we could simplify, for example, the process of weighting a certain grade item in the lab against its respective worth?</li>
+                </ul>
+            </div>
+
+            <!-- Slide 22: Functions -->
+            <div class="slide">
+                <div class="slide-title">Functions</div>
+                <div class="highlight-box">
+                    <h3>Function</h3>
+                    <p>A user-defined, reusable block of code that accomplishes a certain task</p>
+                    <ul class="bullet-points">
+                        <li><code>print()</code> – writes to the console</li>
+                        <li><code>float()</code> – converts an input to a floating point number</li>
+                        <li>Given some input, an output is produced (think back to Von Neumann architecture)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Slide 23: Why Use Functions? -->
+            <div class="slide">
+                <div class="slide-title">Why Use Functions?</div>
+                <ul class="bullet-points" style="font-size: 1.1em;">
+                    <li><strong>Modularity:</strong>&nbsp;Break down complex problems into smaller, more manageable pieces.</li>
+                    <li><strong>Reusability:</strong>&nbsp;You can use the same function multiple times without rewriting the code.</li>
+                    <li><strong>Readability:</strong>&nbsp;Make your code cleaner and easier for you and others to understand.</li>
+                    <li>Allow us to convert/map data from one set to another</li>
+                    <li><strong>Domain</strong>&nbsp;– input of the function</li>
+                    <li><strong>Codomain</strong>&nbsp;– output of the function</li>
+                </ul>
+            </div>
+
+            <!-- Slide 24: Anatomy of a Function -->
+            <div class="slide">
+                <div class="slide-title">Anatomy of a Function</div>
+                <div class="highlight-box">
+                    <p>Functions have three main components:</p>
+                    <ol style="font-size: 1.1em;">
+                        <li><strong>Function Name:</strong>&nbsp;This specifies the unique name of the function</li>
+                        <li><strong>Parameters:</strong>&nbsp;Variables that are placeholders for the information the function needs to work. These are inside the parentheses ()</li>
+                        <li><strong>Body:</strong>&nbsp;The code block inside the function that contains the instructions</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Slide 25: Anatomy of a Function Example -->
+            <div class="slide">
+                <div class="slide-title">Anatomy of a Function</div>
+                <div class="highlight-box">
+                    <p>Let's say we want to create a function in Python to calculate the area of a rectangle:</p>
+                </div>
+                <div class="code-block">
+<span class="keyword">def</span> <span class="variable">calculate_area</span>(<span class="variable">length</span>, <span class="variable">width</span>):
+    <span class="variable">area</span> = <span class="variable">length</span> * <span class="variable">width</span>
+    <span class="keyword">return</span> <span class="variable">area</span>
+                </div>
+                <p style="margin-top: 20px;">Here, the parameters are the length and width of the rectangle, the body multiplies them together, and it returns the area</p>
+            </div>
+
+            <!-- Slide 26: Calling a Function -->
+            <div class="slide">
+                <div class="slide-title">Calling a Function</div>
+                <div class="highlight-box">
+                    <p>Calling a function is the process of using the function, in code, for its intended purpose</p>
+                    <p>We call, or invoke, functions using their parameters as described during their definition:</p>
+                </div>
+                <div class="code-block">
+<span class="comment"># For a rectangle that's 5x10...</span>
+<span class="variable">result</span> = <span class="variable">calculate_area</span>(<span class="number">5</span>, <span class="number">10</span>)
+
+<span class="comment"># To print that to the console...</span>
+<span class="keyword">print</span>(<span class="variable">calculate_area</span>(<span class="number">5</span>, <span class="number">10</span>))
+                </div>
+            </div>
+
+            <!-- Slide 27: Return Values -->
+            <div class="slide">
+                <div class="slide-title">Return Values</div>
+                <div class="highlight-box">
+                    <p>Functions, as a structure, can perform an action or return a value</p>
+                    <p>A <strong>return statement</strong>&nbsp;gives a value back to the code that called the function</p>
+                    <p>This is useful when you need to use the result of a function's task:</p>
+                </div>
+                <div class="code-block">
+<span class="keyword">def</span> <span class="variable">add_numbers</span>(<span class="variable">a</span>, <span class="variable">b</span>):
+    <span class="keyword">return</span> <span class="variable">a</span> + <span class="variable">b</span>
+
+<span class="variable">result</span> = <span class="variable">add_numbers</span>(<span class="number">3</span>, <span class="number">4</span>)
+                </div>
+            </div>
+
+            <!-- Slide 28: Return Values (cont.) -->
+            <div class="slide">
+                <div class="slide-title">Return Values (cont.)</div>
+                <div class="highlight-box">
+                    <p>If we don't want to return a value, we can omit the return statement or return None.</p>
+                    <p>Useful when we want to simply perform an action, and finish:</p>
+                </div>
+                <div class="code-block">
+<span class="keyword">def</span> <span class="variable">greet</span>(<span class="variable">name</span>):
+    <span class="keyword">print</span>(<span class="string">f"Hello, </span><span class="variable">{name}</span><span class="string">!"</span>)
+
+<span class="variable">greet</span>(<span class="string">"Alice"</span>)
+                </div>
+            </div>
+
+            <!-- Slide 29: Recursion -->
+            <div class="slide">
+                <div class="slide-title">Recursion</div>
+                <ul class="bullet-points" style="font-size: 1.1em;">
+                    <li>Sometimes, you want a function to call itself.</li>
+                    <li><strong>Recursion</strong>&nbsp;- The process of a function calling itself</li>
+                    <li>A lot like Russian nesting dolls - each doll contains a smaller version of itself.</li>
+                    <li>Every recursive function needs a <strong>base case</strong>, a condition that stops the recursion and prevents an infinite loop.</li>
+                    <li>It's often used for problems that can be broken down into smaller, self-similar sub-problems.</li>
+                </ul>
+            </div>
+
+            <!-- Slide 30: Loops -->
+            <div class="slide">
+                <div class="slide-title">Loops</div>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>What are Loops?</h3>
+                        <ul class="bullet-points">
+                            <li>Say you want to do something over and over again...</li>
+                            <li>For example, watering 10 plants</li>
+                            <li>You'd water the first, then the second, then the third, sequentially, until all 10 plants were watered</li>
+                            <li>If you quit on the first, you'd have 9 unwatered plants</li>
+                        </ul>
+                    </div>
+                    <div class="info-card yellow">
+                        <h3>Loop Definition</h3>
+                        <p><strong>Loop</strong>&nbsp;– a control structure that executes a block of code repeatedly until a certain condition is met</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 31: Why use Loops? -->
+            <div class="slide">
+                <div class="slide-title">Why use Loops?</div>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>Benefits</h3>
+                        <ul class="bullet-points">
+                            <li><strong>Efficiency:</strong>&nbsp;Save you from writing the same code over and over again.</li>
+                            <li><strong>Automation:</strong>&nbsp;Essential for handling large collections of data, such as items in a list or characters in a string.</li>
+                            <li><strong>Flexibility:</strong>&nbsp;You can perform an action a specific number of times or until a condition changes.</li>
+                        </ul>
+                    </div>
+                    <div class="info-card yellow">
+                        <h3>Bad Example</h3>
+                        <p>You don't want something like this!</p>
+                        <div class="code-block" style="font-size: 0.8em;">
+<span class="keyword">if</span> <span class="variable">number</span> == <span class="number">1</span>: <span class="keyword">return</span> <span class="keyword">False</span>
+<span class="keyword">elif</span> <span class="variable">number</span> == <span class="number">2</span>: <span class="keyword">return</span> <span class="keyword">True</span>
+<span class="keyword">elif</span> <span class="variable">number</span> == <span class="number">3</span>: <span class="keyword">return</span> <span class="keyword">False</span>
+<span class="comment"># ... and so on</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 32: Loop Types - The 'for' Loop -->
+            <div class="slide">
+                <div class="slide-title">Loop Types – The 'for' Loop</div>
+                <div class="highlight-box">
+                    <p>The 'for' loop is ideal when you know exactly how many times you want to repeat an action before your loop begins.</p>
+                    <p>Are formatted with a variable, followed by an iterable:</p>
+                </div>
+                <div class="code-block">
+<span class="keyword">for</span> <span class="variable">i</span> <span class="keyword">in</span> <span class="keyword">range</span>(<span class="number">5</span>):
+    <span class="keyword">print</span>(<span class="variable">i</span>)
+                </div>
+            </div>
+
+            <!-- Slide 33: Loop Types - The 'while' Loop -->
+            <div class="slide">
+                <div class="slide-title">Loop Types – The 'while' Loop</div>
+                <div class="highlight-box">
+                    <p>When you don't know how many iterations you need to do before the loop begins</p>
+                    <p>Continues as long as the statement in the loop condition is 'True'</p>
+                    <p>If you wanted to double a number until it's greater than 100...</p>
+                </div>
+                <div class="code-block">
+<span class="variable">number</span> = <span class="number">5</span>
+<span class="keyword">while</span> <span class="variable">number</span> <= <span class="number">100</span>:
+    <span class="variable">number</span> = <span class="variable">number</span> * <span class="number">2</span>
+    <span class="keyword">print</span>(<span class="variable">number</span>)
+                </div>
+                <p>If the condition starts as false, however, the loop will never run</p>
+            </div>
+
+            <!-- Slide 34: Loop Types - The 'for' Loop with Lists -->
+            <div class="slide">
+                <div class="slide-title">Loop Types – The 'for' Loop with Lists</div>
+                <div class="highlight-box">
+                    <p>When iterating over elements (like those in a list), you can use a for loop</p>
+                    <p>Automatically handles the starting and termination of the loop:</p>
+                </div>
+                <div class="code-block">
+<span class="variable">fruits</span> = [<span class="string">"Apple"</span>, <span class="string">"Banana"</span>, <span class="string">"Cherry"</span>]
+<span class="keyword">for</span> <span class="variable">fruit</span> <span class="keyword">in</span> <span class="variable">fruits</span>:
+    <span class="keyword">print</span>(<span class="variable">fruit</span>)
+                </div>
+            </div>
+
+            <!-- Slide 35: Conditional Statements - Branching -->
+            <div class="slide">
+                <div class="slide-title">Conditional Statements – Branching</div>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>What are Conditionals?</h3>
+                        <ul class="bullet-points">
+                            <li>Conditional statements allow your program to make decisions.</li>
+                            <li>Execute different blocks of code based on whether a condition is true or false.</li>
+                        </ul>
+                    </div>
+                    <div class="info-card yellow">
+                        <h3>Types</h3>
+                        <ul class="bullet-points">
+                            <li><strong>'if' Statement:</strong>&nbsp;The code inside the if block only runs if the condition is true.</li>
+                            <li><strong>'else' Statement:</strong>&nbsp;The code inside the else block runs if the if condition is false.</li>
+                            <li><strong>'elif' Statement:</strong>&nbsp;Checks for an additional condition if the first if statement is false.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 36: Conditionals - if/else -->
+            <div class="slide">
+                <div class="slide-title">Conditionals – if/else</div>
+                <div class="highlight-box">
+                    <p>Example: Checking whether a student passed or failed:</p>
+                </div>
+                <div class="code-block">
+<span class="variable">score</span> = <span class="number">75</span>
+<span class="keyword">if</span> <span class="variable">score</span> >= <span class="number">60</span>:
+    <span class="keyword">print</span>(<span class="string">"You passed!"</span>)
+<span class="keyword">else</span>:
+    <span class="keyword">print</span>(<span class="string">"You failed."</span>)
+                </div>
+            </div>
+
+            <!-- Slide 37: Conditionals - if/else (cont.) -->
+            <div class="slide">
+                <div class="slide-title">Conditionals – if/else (cont.)</div>
+                <div class="highlight-box">
+                    <p>This can be extended almost indefinitely – there isn't really a limit as to how many if/else statements you can make.</p>
+                    <p>Especially with the 'elif' block, which produces what is essentially another 'if' statement should the first not be true:</p>
+                </div>
+            </div>
+
+            <!-- Slide 38: Conditionals - 'elif' -->
+            <div class="slide">
+                <div class="slide-title">Conditionals – 'elif'</div>
+                <div class="code-block">
+<span class="variable">score</span> = <span class="number">88</span>
+<span class="keyword">if</span> <span class="variable">score</span> >= <span class="number">90</span>:
+    <span class="keyword">print</span>(<span class="string">"Grade: A"</span>)
+<span class="keyword">elif</span> <span class="variable">score</span> >= <span class="number">80</span>:
+    <span class="keyword">print</span>(<span class="string">"Grade: B"</span>)
+<span class="keyword">elif</span> <span class="variable">score</span> >= <span class="number">70</span>:
+    <span class="keyword">print</span>(<span class="string">"Grade: C"</span>)
+<span class="keyword">else</span>:
+    <span class="keyword">print</span>(<span class="string">"Grade: F"</span>)
+                </div>
+            </div>
+
+            <!-- Slide 39: Conditionals - Dictionary Alternative -->
+            <div class="slide">
+                <div class="slide-title">Conditionals – Dictionary Alternative</div>
+                <div class="highlight-box">
+                    <p>If you have a lot of 'elif' statements, it may be cleaner to use a dictionary for lookup.</p>
+                    <p>This is especially true if you're testing a single variable against a range of values</p>
+                </div>
+                <div class="code-block">
+<span class="variable">day</span> = <span class="number">3</span>
+<span class="variable">days</span> = {
+    <span class="number">1</span>: <span class="string">"Monday"</span>,
+    <span class="number">2</span>: <span class="string">"Tuesday"</span>,
+    <span class="number">3</span>: <span class="string">"Wednesday"</span>
+}
+<span class="keyword">print</span>(<span class="variable">days</span>.<span class="variable">get</span>(<span class="variable">day</span>, <span class="string">"Another day"</span>))
+                </div>
+            </div>
+
+            <!-- Slide 40: Nested Loops -->
+            <div class="slide">
+                <div class="slide-title">Nested Loops</div>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>What are Nested Loops?</h3>
+                        <ul class="bullet-points">
+                            <li>What if you want a loop inside a loop?</li>
+                            <li>This is accomplished using nested loops.</li>
+                            <li>Used when you need to iterate over multiple sequences</li>
+                            <li>When a task requires repeated actions within another repeating process, nested loops are also useful.</li>
+                        </ul>
+                    </div>
+                    <div class="info-card yellow">
+                        <h3>Use Cases</h3>
+                        <ul class="bullet-points">
+                            <li>Useful when creating multidimensional data structures like matrices.</li>
+                            <li>Processing 2D grids or tables</li>
+                            <li>Generating patterns</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 41: Nested Loops Example -->
+            <div class="slide">
+                <div class="slide-title">Nested Loops</div>
+                <div class="code-block">
+<span class="keyword">for</span> <span class="variable">i</span> <span class="keyword">in</span> <span class="keyword">range</span>(<span class="number">4</span>):
+    <span class="keyword">for</span> <span class="variable">j</span> <span class="keyword">in</span> <span class="keyword">range</span>(<span class="number">4</span>):
+        <span class="keyword">print</span>(<span class="string">"*"</span>, <span class="variable">end</span>=<span class="string">""</span>)
+    <span class="keyword">print</span>()  <span class="comment"># New line after each row</span>
+                </div>
+            </div>
+
+            <!-- Slide 42: Nested Conditionals -->
+            <div class="slide">
+                <div class="slide-title">Nested Conditionals</div>
+                <div class="highlight-box">
+                    <p>Just like loops, you can also place conditional statements inside other conditional statements.</p>
+                    <ul class="bullet-points">
+                        <li>This allows for very specific decision-making based on multiple criteria at the same time.</li>
+                        <li>A nested if statement is only evaluated if its parent if statement is true.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Slide 43: Nested Conditionals Example -->
+            <div class="slide">
+                <div class="slide-title">Nested Conditionals</div>
+                <div class="code-block">
+<span class="variable">age</span> = <span class="number">18</span>
+<span class="variable">has_permission</span> = <span class="keyword">True</span>
+
+<span class="keyword">if</span> <span class="variable">age</span> >= <span class="number">18</span>:
+    <span class="keyword">print</span>(<span class="string">"You are old enough to enter."</span>)
+    <span class="keyword">if</span> <span class="variable">has_permission</span>:
+        <span class="keyword">print</span>(<span class="string">"Permission granted. Welcome!"</span>)
+    <span class="keyword">else</span>:
+        <span class="keyword">print</span>(<span class="string">"You need permission to enter."</span>)
+<span class="keyword">else</span>:
+    <span class="keyword">print</span>(<span class="string">"You are not old enough to enter."</span>)
+                </div>
+            </div>
+
+            <!-- Slide 44: Conditionals - Prediction -->
+            <div class="slide">
+                <div class="slide-title">Conditionals – Prediction</div>
+                <ul class="bullet-points" style="font-size: 1.1em;">
+                    <li>If we can predict the outcome of these branched conditions, we can make execution of a program much, much faster.</li>
+                    <li>Modern processors can look <strong>hundreds</strong>&nbsp;of instructions into the future, just by looking back at what previous branches it took.</li>
+                    <li>Though not inherently guaranteed, a 4KiB program running on an Apple M1 can successfully predict 95+% of all the branches the code will take</li>
+                    <li>This allows computers to potentially process entire chunks of a program ahead of time and is a lot of the reason that modern CPUs have gotten so fast.</li>
+                </ul>
+            </div>
+
+            <!-- Slide 45: Next - Examples -->
+            <div class="slide">
+                <div class="slide-title">Next – Examples</div>
+                <div style="text-align: center; margin-top: 100px;">
+                    <h2 style="color: #3776ab; margin-bottom: 50px;">Let's Practice with Python!</h2>
+                    <div style="background: linear-gradient(135deg, #3776ab, #306998); color: white; padding: 30px; border-radius: 15px; max-width: 600px; margin: 0 auto;">
+                        <p style="font-size: 1.3em; margin-bottom: 20px;"><strong>Brycen Dunn</strong></p>
+                        <p style="font-size: 1.1em; margin-bottom: 15px;">Graduate Assistant</p>
+                        <p style="font-size: 1.1em; margin-bottom: 15px;">dunnbe@etsu.edu</p>
+                        <p style="font-size: 1.1em;">Dept. of Computing</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-button" id="prev-btn" onclick="previousSlide()">
+                ← Previous
+            </button>
+            <div class="timer-display" id="timer">
+                00:00
+            </div>
+            <button class="nav-button" id="next-btn" onclick="nextSlide()">
+                Next →
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        let startTime = Date.now();
+        let timerInterval;
+
+        // Initialize
+        document.getElementById('total-slides').textContent = totalSlides;
+        updateSlideDisplay();
+        startTimer();
+
+        function updateSlideDisplay() {
+            // Hide all slides
+            slides.forEach(slide => slide.classList.remove('active'));
+            
+            // Show current slide
+            slides[currentSlide].classList.add('active');
+            
+            // Update counter
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+            
+            // Update progress bar
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+            
+            // Update navigation buttons
+            document.getElementById('prev-btn').disabled = currentSlide === 0;
+            document.getElementById('next-btn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updateSlideDisplay();
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlideDisplay();
+            }
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                const elapsed = Math.floor((Date.now() - startTime) / 1000);
+                const minutes = Math.floor(elapsed / 60);
+                const seconds = elapsed % 60;
+                document.getElementById('timer').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+
+        // PDF Generation Function (simplified for this example)
+        async function generatePDF() {
+            alert('PDF generation would be implemented here');
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                previousSlide();
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                currentSlide = 0;
+                updateSlideDisplay();
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                currentSlide = totalSlides - 1;
+                updateSlideDisplay();
+            }
+        });
+    </script>
+</body>
+</html>
