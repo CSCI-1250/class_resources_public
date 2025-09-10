@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Functions and Sets Reference Sheet - CSCI 1250 Lab 3</title>
+    <style>
+        body { 
+            font-family: 'Courier New', monospace; 
+            margin: 20px; 
+            line-height: 1.4;
+            font-size: 14px;
+        }
+        h1, h2 { 
+            font-family: Arial, sans-serif; 
+            color: #2c3e50;
+        }
+        h1 { 
+            border-bottom: 3px solid #3498db; 
+            padding-bottom: 10px;
+        }
+        h2 { 
+            background-color: #ecf0f1; 
+            padding: 8px; 
+            margin-top: 25px;
+            border-left: 4px solid #3498db;
+        }
+        .code-block {
+            display: block;
+            background-color: #f8f9fa; 
+            border: 1px solid #e9ecef; 
+            padding: 10px; 
+            margin: 10px 0;
+            border-radius: 4px;
+            overflow-wrap: break-word;
+            white-space: pre-wrap;
+        }
+        .highlight { 
+            background-color: #fff3cd; 
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        .error { 
+            background-color: #f8d7da; 
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        .success { 
+            background-color: #d1edff; 
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        table { 
+            border-collapse: collapse; 
+            width: 100%; 
+            margin: 10px 0;
+        }
+        td, th { 
+            border: 1px solid #ddd; 
+            padding: 6px; 
+            text-align: left;
+            font-size: 13px;
+        }
+        th { 
+            background-color: #f2f2f2; 
+            font-weight: bold;
+        }
+        .two-column {
+            display: flex;
+            gap: 20px;
+        }
+        .column {
+            flex: 1;
+        }
+        .venn-container {
+            text-align: center;
+            margin: 15px 0;
+        }
+        .venn-diagram {
+            display: inline-block;
+            position: relative;
+            width: 200px;
+            height: 120px;
+            margin: 0 10px;
+        }
+        .circle-a, .circle-b {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid #2c3e50;
+            opacity: 0.7;
+        }
+        .circle-a {
+            left: 20px;
+            top: 20px;
+            background-color: #e74c3c;
+        }
+        .circle-b {
+            left: 60px;
+            top: 20px;
+            background-color: #3498db;
+        }
+        .venn-label {
+            position: absolute;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        .label-a { left: 10px; top: 5px; }
+        .label-b { right: 10px; top: 5px; }
+        .label-intersection { left: 50%; top: 45px; transform: translateX(-50%); }
+        .venn-title {
+            font-weight: bold;
+            margin-top: 10px;
+            font-size: 12px;
+        }
+        .flow-arrow {
+            display: inline-block;
+            color: #3498db;
+            font-size: 18px;
+            margin: 0 10px;
+        }
+        .assembly-line {
+            background-color: #f0f8ff;
+            border: 2px dashed #3498db;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Functions and Sets Reference Sheet</h1>
+    <p><strong>CSCI 1250 Lab 3 - Function Chains, Boolean Logic, and Set Operations</strong></p>
+
+    <h2>Function Vocabulary and Components</h2>
+    <div class="code-block">
+<strong>Function Definition Anatomy:</strong>
+def function_name(parameter1, parameter2):     <span class="highlight">← Method Signature</span>
+    """This is a docstring"""                 <span class="highlight">← Documentation</span>
+    result = parameter1 + parameter2          <span class="highlight">← Function Body</span>
+    return result                             <span class="highlight">← Return Statement</span>
+
+<strong>Function Call:</strong>
+answer = function_name(5, 3)                  <span class="highlight">← Arguments: 5 and 3</span>
+    </div>
+
+    <table>
+        <tr>
+            <th>Term</th>
+            <th>Definition</th>
+            <th>Example</th>
+        </tr>
+        <tr>
+            <td><strong>Method Signature</strong></td>
+            <td>First line with function name and parameters</td>
+            <td>def calculate_grade(exam, homework):</td>
+        </tr>
+        <tr>
+            <td><strong>Parameters</strong></td>
+            <td>Variable names in function definition</td>
+            <td>exam, homework (in the def line)</td>
+        </tr>
+        <tr>
+            <td><strong>Arguments</strong></td>
+            <td>Actual values passed when calling</td>
+            <td>85, 92 (when calling the function)</td>
+        </tr>
+        <tr>
+            <td><strong>Return Value</strong></td>
+            <td>Data sent back to the caller</td>
+            <td>return final_grade</td>
+        </tr>
+        <tr>
+            <td><strong>Function Body</strong></td>
+            <td>Indented code that executes</td>
+            <td>All lines after the colon (:)</td>
+        </tr>
+    </table>
+
+    <h2>Function Chaining - The Assembly Line Pattern</h2>
+    <div class="assembly-line">
+        <strong>Concept:</strong> Functions work together like stations in an assembly line
+        <br><br>
+        <span style="background-color: #ffe6e6; padding: 5px; border-radius: 3px;">Input Data</span>
+        <span class="flow-arrow">→</span>
+        <span style="background-color: #e6f3ff; padding: 5px; border-radius: 3px;">Function 1</span>
+        <span class="flow-arrow">→</span>
+        <span style="background-color: #e6ffe6; padding: 5px; border-radius: 3px;">Function 2</span>
+        <span class="flow-arrow">→</span>
+        <span style="background-color: #fff3e6; padding: 5px; border-radius: 3px;">Function 3</span>
+        <span class="flow-arrow">→</span>
+        <span style="background-color: #f0e6ff; padding: 5px; border-radius: 3px;">Final Result</span>
+    </div>
+
+    <div class="code-block">
+<strong>Function Chaining Example:</strong>
+# Each function does ONE job and passes result to next
+domain = get_user_input()           # Step 1: Get data
+risk_level = assess_risk(domain)    # Step 2: Process data  
+action = decide_action(risk_level)  # Step 3: Make decision
+display_result(domain, action)      # Step 4: Show result
+
+<strong>Key Rules:</strong>
+• Return value from Function 1 → Parameter for Function 2
+• Each function has ONE clear responsibility  
+• Order matters - call functions in correct sequence
+• Store return values in variables for next function
+    </div>
+
+    <h2>Boolean Logic and Operators</h2>
+    <table>
+        <tr>
+            <th>Operator</th>
+            <th>Description</th>
+            <th>Example</th>
+            <th>Result</th>
+        </tr>
+        <tr>
+            <td><strong>and</strong></td>
+            <td>Both conditions must be True</td>
+            <td>True and False</td>
+            <td>False</td>
+        </tr>
+        <tr>
+            <td><strong>or</strong></td>
+            <td>At least one condition must be True</td>
+            <td>True or False</td>
+            <td>True</td>
+        </tr>
+        <tr>
+            <td><strong>not</strong></td>
+            <td>Reverses the truth value</td>
+            <td>not True</td>
+            <td>False</td>
+        </tr>
+        <tr>
+            <td><strong>in</strong></td>
+            <td>Check if item exists in collection</td>
+            <td>"spam.com" in blocklist</td>
+            <td>True/False</td>
+        </tr>
+    </table>
+
+    <div class="code-block">
+<strong>Boolean Logic in Security Decisions:</strong>
+# Multiple conditions for blocking emails
+if (domain in high_risk_domains) or (risk_score > 75 and user_level == "strict"):
+    action = "BLOCK"
+elif domain in trusted_domains and not domain.startswith("suspicious"):
+    action = "ALLOW"
+else:
+    action = "REVIEW"
+
+<strong>Truth Table for AND/OR:</strong>
+A     B     A and B    A or B
+True  True  True       True
+True  False False      True  
+False True  False      True
+False False False      False
+    </div>
+
+    <h2>Sets - Collections of Unique Items</h2>
+    <div class="code-block">
+<strong>Creating Sets:</strong>
+# Method 1: Curly braces
+threats = {"spam.com", "malware.net", "phishing.org"}
+
+# Method 2: set() function  
+safe_domains = set(["google.com", "etsu.edu", "github.com"])
+
+# Method 3: From list (removes duplicates)
+mixed = ["apple.com", "google.com", "apple.com"]
+unique = set(mixed)  # {'apple.com', 'google.com'}
+
+<strong>Basic Set Operations:</strong>
+threats.add("new-threat.com")           # Add item
+threats.remove("spam.com")             # Remove (error if not found)
+threats.discard("maybe-missing.com")   # Safe remove
+"malware.net" in threats               # Check membership → True/False
+len(threats)                           # Count items
+    </div>
+
+    <h2>Set Operations with Venn Diagrams</h2>
+    
+    <div class="venn-container">
+        <div class="venn-diagram">
+            <div class="circle-a"></div>
+            <div class="circle-b"></div>
+            <div class="venn-label label-a">A</div>
+            <div class="venn-label label-b">B</div>
+            <div class="venn-title">A | B (Union)<br>"All from both"</div>
+        </div>
+        
+        <div class="venn-diagram">
+            <div class="circle-a" style="background-color: transparent;"></div>
+            <div class="circle-b" style="background-color: transparent;"></div>
+            <div style="position: absolute; left: 65px; top: 35px; width: 30px; height: 30px; background-color: #9b59b6; border-radius: 50%;"></div>
+            <div class="venn-label label-a">A</div>
+            <div class="venn-label label-b">B</div>
+            <div class="venn-title">A & B (Intersection)<br>"What they share"</div>
+        </div>
+        
+        <div class="venn-diagram">
+            <div class="circle-a" style="background-color: #e74c3c;"></div>
+            <div class="circle-b" style="background-color: transparent;"></div>
+            <div style="position: absolute; left: 65px; top: 35px; width: 30px; height: 30px; background-color: white; border-radius: 50%;"></div>
+            <div class="venn-label label-a">A</div>
+            <div class="venn-label label-b">B</div>
+            <div class="venn-title">A - B (Difference)<br>"In A but not B"</div>
+        </div>
+    </div>
+
+    <table>
+        <tr>
+            <th>Operation</th>
+            <th>Syntax</th>
+            <th>Real-World Question</th>
+            <th>Example</th>
+        </tr>
+        <tr>
+            <td><strong>Union</strong></td>
+            <td>A | B<br>A.union(B)</td>
+            <td>"What if we combined both lists?"</td>
+            <td>all_threats = fbi_list | vendor_list</td>
+        </tr>
+        <tr>
+            <td><strong>Intersection</strong></td>
+            <td>A & B<br>A.intersection(B)</td>
+            <td>"What do both sources agree on?"</td>
+            <td>confirmed = list1 & list2</td>
+        </tr>
+        <tr>
+            <td><strong>Difference</strong></td>
+            <td>A - B<br>A.difference(B)</td>
+            <td>"What's new that we don't have?"</td>
+            <td>gaps = new_threats - current_blocks</td>
+        </tr>
+        <tr>
+            <td><strong>Subset Check</strong></td>
+            <td>A <= B<br>A.issubset(B)</td>
+            <td>"Do we cover all requirements?"</td>
+            <td>compliant = required <= our_blocks</td>
+        </tr>
+    </table>
+
+    <h2>Set Operations Examples</h2>
+    <div class="code-block">
+<strong>Email Security Scenario:</strong>
+fbi_threats = {"threat1.com", "spam.net", "malware.org"}
+vendor_list = {"spam.net", "adware.biz", "malware.org"} 
+our_blocks = {"spam.net", "old-threat.com"}
+
+# Union: All possible threats to consider
+all_threats = fbi_threats | vendor_list
+# Result: {"threat1.com", "spam.net", "malware.org", "adware.biz"}
+
+# Intersection: High-confidence threats (multiple sources agree)
+confirmed = fbi_threats & vendor_list  
+# Result: {"spam.net", "malware.org"}
+
+# Difference: What we're missing from FBI recommendations
+gaps = fbi_threats - our_blocks
+# Result: {"threat1.com", "malware.org"}
+
+# Subset: Are we compliant with FBI requirements?
+fbi_compliant = fbi_threats <= our_blocks
+# Result: False (we're missing some FBI threats)
+    </div>
+
+    <h2>Common Patterns and Best Practices</h2>
+    <div class="two-column">
+        <div class="column">
+            <h3>✅ Good Function Design</h3>
+            <div class="code-block">
+def assess_domain_risk(domain):
+    """Single clear purpose"""
+    if "malware" in domain:
+        return "HIGH"
+    return "LOW"
+
+def make_decision(risk_level):
+    """One job: decide action"""
+    if risk_level == "HIGH":
+        return "BLOCK"
+    return "ALLOW"
+
+# Chain them together
+risk = assess_domain_risk("bad.com")
+action = make_decision(risk)
+            </div>
+        </div>
+        <div class="column">
+            <h3>❌ Avoid These Patterns</h3>
+            <div class="code-block">
+def do_everything(domain):
+    """TOO MANY responsibilities"""
+    risk = assess_risk(domain)
+    action = make_decision(risk)
+    print(f"Blocking {domain}")
+    send_alert_email()
+    update_database()
+    # Don't do this!
+
+# Using return value before it exists
+action = make_decision(risk)  # Error!
+risk = assess_domain_risk("test.com")
+            </div>
+        </div>
+    </div>
+
+    <h2>Quick Reference - Set vs List vs Dictionary</h2>
+    <table>
+        <tr>
+            <th>Data Type</th>
+            <th>Duplicates?</th>
+            <th>Ordered?</th>
+            <th>Best For</th>
+            <th>Example</th>
+        </tr>
+        <tr>
+            <td><strong>Set</strong></td>
+            <td>No</td>
+            <td>No</td>
+            <td>Unique collections, membership testing</td>
+            <td>{"spam.com", "malware.net"}</td>
+        </tr>
+        <tr>
+            <td><strong>List</strong></td>
+            <td>Yes</td>
+            <td>Yes</td>
+            <td>Sequences, ordered data</td>
+            <td>["first", "second", "first"]</td>
+        </tr>
+        <tr>
+            <td><strong>Dictionary</strong></td>
+            <td>No (keys)</td>
+            <td>Yes (3.7+)</td>
+            <td>Key-value pairs, lookups</td>
+            <td>{"domain": "risk_level"}</td>
+        </tr>
+    </table>
+
+    <h2>Debugging Tips</h2>
+    <div class="code-block">
+<strong>Function Chain Debugging:</strong>
+# Print intermediate results to see data flow
+domain = get_domain()
+print(f"DEBUG: Got domain: {domain}")
+
+risk = assess_risk(domain)  
+print(f"DEBUG: Risk level: {risk}")
+
+action = decide_action(risk)
+print(f"DEBUG: Final action: {action}")
+
+<strong>Set Operation Debugging:</strong>
+# Check set contents and sizes
+print(f"Set A has {len(set_a)} items: {set_a}")
+print(f"Set B has {len(set_b)} items: {set_b}")
+print(f"Intersection: {set_a & set_b}")
+print(f"Union size: {len(set_a | set_b)}")
+    </div>
+
+    <p><em>Remember: Functions are like assembly line stations - each does one job well. Sets are like bags of unique items - perfect for "who's in the group" questions!</em></p>
+</body>
+</html>
