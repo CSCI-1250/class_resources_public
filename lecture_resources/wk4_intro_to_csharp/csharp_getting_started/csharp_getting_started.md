@@ -166,11 +166,6 @@ string name = "Ryan";
 int age = 35;
 double gpa = 3.8;
 bool isProfessor = true;
-
-// OR use 'var' for type inference
-var name = "Ryan";        // Still string, just inferred
-var age = 35;            // Still int
-var gpa = 3.8;           // Still double
 ```
 
 ### Input and Output
