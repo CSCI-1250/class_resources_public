@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>C# Programming Reference Sheet - CSCI 1250</title>
+    <style>
+        body { 
+            font-family: 'Courier New', monospace; 
+            margin: 20px; 
+            line-height: 1.4;
+            font-size: 14px;
+        }
+        h1, h2 { 
+            font-family: Arial, sans-serif; 
+            color: #2c3e50;
+        }
+        h1 { 
+            border-bottom: 3px solid #3498db; 
+            padding-bottom: 10px;
+        }
+        h2 { 
+            background-color: #ecf0f1; 
+            padding: 8px; 
+            margin-top: 25px;
+            border-left: 4px solid #3498db;
+        }
+        .code-block {
+            display: block;
+            background-color: #f8f9fa; 
+            border: 1px solid #e9ecef; 
+            padding: 10px; 
+            margin: 10px 0;
+            border-radius: 4px;
+            overflow-wrap: break-word;
+            white-space: pre-wrap;
+        }
+        .highlight { 
+            background-color: #fff3cd; 
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        .error { 
+            background-color: #f8d7da; 
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        .success { 
+            background-color: #d1edff; 
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        table { 
+            border-collapse: collapse; 
+            width: 100%; 
+            margin: 10px 0;
+        }
+        td, th { 
+            border: 1px solid #ddd; 
+            padding: 6px; 
+            text-align: left;
+            font-size: 13px;
+        }
+        th { 
+            background-color: #f2f2f2; 
+            font-weight: bold;
+        }
+        .two-column {
+            display: flex;
+            gap: 20px;
+        }
+        .column {
+            flex: 1;
+        }
+        .important-note {
+            background-color: #e8f4fd;
+            border-left: 4px solid #2196F3;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>C# Programming Fundamentals Reference Sheet</h1>
+    <p><strong>CSCI 1250 - Introduction to Computer Science and Programming</strong></p>
+
+    <h2>Basic Program Structure</h2>
+    <div class="code-block">
+<strong>Every C# program needs this structure:</strong>
+using System;
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        // Your code goes here
+        Console.WriteLine("Hello, World!");
+    }
+}
+
+<strong>Key Points:</strong>
+• <span class="highlight">Everything must be inside a class</span>
+• <span class="highlight">Main method is where execution starts</span>
+• <span class="highlight">Case sensitive:</span> Main (not main), Console (not console)
+• <span class="highlight">Every statement ends with semicolon ;</span>
+• <span class="highlight">Code blocks use curly braces { }</span>
+    </div>
+
+    <h2>Variables and Data Types</h2>
+    <div class="important-note">
+        <strong>Major Difference from Python:</strong> In C#, you must declare the data type of every variable explicitly!
+    </div>
+    
+    <div class="code-block">
+<strong>Variable Declaration Syntax:</strong>
+dataType variableName = value;
+
+<strong>Examples:</strong>
+string name = "Alice";           // String variable
+int age = 20;                    // Integer variable
+double grade = 85.7;             // Decimal number variable
+bool isStudent = true;           // Boolean variable
+
+<strong>Variable Lifecycle:</strong>
+// 1. Declaration - reserve memory space
+int studentAge;
+
+// 2. Initialization - first assignment
+studentAge = 20;
+
+// 3. Assignment - changing the value
+studentAge = 21;
+
+// 4. Combined declaration + initialization
+int maxStudents = 30;
+    </div>
+
+    <h2>C# Data Types</h2>
+    <table>
+        <tr>
+            <th>Data Type</th>
+            <th>Purpose</th>
+            <th>Example</th>
+            <th>Size/Range</th>
+        </tr>
+        <tr>
+            <td>int</td>
+            <td>Whole numbers</td>
+            <td>int count = 42;</td>
+            <td>±2.1 billion</td>
+        </tr>
+        <tr>
+            <td>double</td>
+            <td>Decimal numbers</td>
+            <td>double price = 19.99;</td>
+            <td>~15 digits precision</td>
+        </tr>
+        <tr>
+            <td>decimal</td>
+            <td>Financial calculations</td>
+            <td>decimal money = 123.45m;</td>
+            <td>28 digits precision</td>
+        </tr>
+        <tr>
+            <td>string</td>
+            <td>Text</td>
+            <td>string name = "Ryan";</td>
+            <td>Any length</td>
+        </tr>
+        <tr>
+            <td>bool</td>
+            <td>True/False values</td>
+            <td>bool isComplete = true;</td>
+            <td>true or false</td>
+        </tr>
+        <tr>
+            <td>char</td>
+            <td>Single character</td>
+            <td>char grade = 'A';</td>
+            <td>Single character</td>
+        </tr>
+    </table>
+
+    <div class="two-column">
+        <div class="column">
+            <h3>✅ Legal Variable Names</h3>
+            <div class="code-block">
+studentName
+grade1
+finalProject
+myVariable
+_privateVar
+userName
+            </div>
+        </div>
+        <div class="column">
+            <h3>❌ Illegal Variable Names</h3>
+            <div class="code-block">
+2student        // Can't start with number
+student-name    // No hyphens
+student name    // No spaces
+class           // Reserved word
+int             // Reserved word (data type)
+            </div>
+        </div>
+    </div>
+
+    <h2>Type Conversion</h2>
+    <div class="code-block">
+<strong>Automatic Widening (Safe):</strong>
+int smallNumber = 100;
+double bigNumber = smallNumber;    // Automatic - no data loss
+
+<strong>Explicit Casting (Potentially Unsafe):</strong>
+double bigNumber = 100.7;
+int smallNumber = (int)bigNumber;  // Result: 100 (decimal part lost)
+
+<strong>String to Number Conversion:</strong>
+string userInput = Console.ReadLine();  // Always returns string
+int age = int.Parse(userInput);         // Convert to integer
+double price = double.Parse(userInput); // Convert to double
+
+<strong>Safe Parsing (Recommended):</strong>
+string input = Console.ReadLine();
+if (int.TryParse(input, out int result))
+{
+    Console.WriteLine($"Valid number: {result}");
+}
+else
+{
+    Console.WriteLine("Invalid input!");
+}
+    </div>
+
+    <h2>Mathematical Operations</h2>
+    <table>
+        <tr>
+            <th>Operator</th>
+            <th>Description</th>
+            <th>Example</th>
+            <th>Result</th>
+        </tr>
+        <tr>
+            <td>+</td>
+            <td>Addition</td>
+            <td>5 + 3</td>
+            <td>8</td>
+        </tr>
+        <tr>
+            <td>-</td>
+            <td>Subtraction</td>
+            <td>5 - 3</td>
+            <td>2</td>
+        </tr>
+        <tr>
+            <td>*</td>
+            <td>Multiplication</td>
+            <td>5 * 3</td>
+            <td>15</td>
+        </tr>
+        <tr>
+            <td>/</td>
+            <td>Division</td>
+            <td>10 / 3 (integers)<br>10.0 / 3</td>
+            <td>3 (truncated)<br>3.333...</td>
+        </tr>
+        <tr>
+            <td>%</td>
+            <td>Modulus (remainder)</td>
+            <td>10 % 3</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>++</td>
+            <td>Increment</td>
+            <td>x++</td>
+            <td>x = x + 1</td>
+        </tr>
+        <tr>
+            <td>--</td>
+            <td>Decrement</td>
+            <td>x--</td>
+            <td>x = x - 1</td>
+        </tr>
+    </table>
+
+    <div class="important-note">
+        <strong>Division Behavior:</strong> Integer division truncates the decimal part!<br>
+        int result1 = 10 / 3;     // Result: 3 (not 3.33)<br>
+        double result2 = 10.0 / 3; // Result: 3.333...
+    </div>
+
+    <h2>Input and Output</h2>
+    <div class="code-block">
+<strong>Console Output:</strong>
+Console.Write("Enter your name: ");        // No newline
+Console.WriteLine("Welcome to C#!");       // With newline
+
+<strong>Console Input:</strong>
+string userInput = Console.ReadLine();     // Always returns string!
+
+<strong>Complete Input Example:</strong>
+Console.Write("Enter your age: ");
+string ageText = Console.ReadLine();
+int age = int.Parse(ageText);
+Console.WriteLine($"You are {age} years old.");
+    </div>
+
+    <h2>String Formatting</h2>
+    <div class="code-block">
+<strong>String Interpolation (Recommended):</strong>
+string name = "Alice";
+int age = 20;
+Console.WriteLine($"Hello, {name}! You are {age} years old.");
+
+<strong>Number Formatting:</strong>
+double grade = 87.6666;
+Console.WriteLine($"Your grade is: {grade:F2}%");  // Shows: 87.67%
+
+<strong>String Concatenation:</strong>
+string firstName = "Alice";
+string lastName = "Smith";
+string fullName = firstName + " " + lastName;
+
+<strong>Common Format Specifiers:</strong>
+{variable:F2}    // 2 decimal places
+{variable:C}     // Currency format
+{variable:P}     // Percentage format
+    </div>
+
+    <h2>Control Flow - While Loops</h2>
+    <div class="code-block">
+<strong>Basic While Loop:</strong>
+int counter = 1;
+while (counter <= 3)
+{
+    Console.WriteLine($"Count: {counter}");
+    counter++;  // Same as counter = counter + 1
+}
+
+<strong>User-Controlled Loop:</strong>
+string userInput = "";
+while (userInput != "quit")
+{
+    Console.Write("Enter 'quit' to stop: ");
+    userInput = Console.ReadLine();
+    Console.WriteLine($"You entered: {userInput}");
+}
+    </div>
+
+    <h2>Common String Methods</h2>
+    <table>
+        <tr>
+            <th>Method</th>
+            <th>Description</th>
+            <th>Example</th>
+            <th>Result</th>
+        </tr>
+        <tr>
+            <td>.ToLower()</td>
+            <td>Convert to lowercase</td>
+            <td>"HELLO".ToLower()</td>
+            <td>"hello"</td>
+        </tr>
+        <tr>
+            <td>.ToUpper()</td>
+            <td>Convert to uppercase</td>
+            <td>"hello".ToUpper()</td>
+            <td>"HELLO"</td>
+        </tr>
+        <tr>
+            <td>.Trim()</td>
+            <td>Remove whitespace</td>
+            <td>" hello ".Trim()</td>
+            <td>"hello"</td>
+        </tr>
+        <tr>
+            <td>.Length</td>
+            <td>Get string length</td>
+            <td>"hello".Length</td>
+            <td>5</td>
+        </tr>
+    </table>
+
+    <h2>C# vs Python Quick Comparison</h2>
+    <table>
+        <tr>
+            <th>Concept</th>
+            <th>Python</th>
+            <th>C#</th>
+        </tr>
+        <tr>
+            <td>Variable Declaration</td>
+            <td>name = "Alice"</td>
+            <td>string name = "Alice";</td>
+        </tr>
+        <tr>
+            <td>Print/Output</td>
+            <td>print("Hello")</td>
+            <td>Console.WriteLine("Hello");</td>
+        </tr>
+        <tr>
+            <td>User Input</td>
+            <td>name = input("Name: ")</td>
+            <td>string name = Console.ReadLine();</td>
+        </tr>
+        <tr>
+            <td>String Formatting</td>
+            <td>f"Hello {name}"</td>
+            <td>$"Hello {name}"</td>
+        </tr>
+        <tr>
+            <td>Convert to Integer</td>
+            <td>int(user_input)</td>
+            <td>int.Parse(userInput)</td>
+        </tr>
+        <tr>
+            <td>While Loop</td>
+            <td>while condition:</td>
+            <td>while (condition) { }</td>
+        </tr>
+    </table>
+
+    <h2>Syntax Reminders</h2>
+    <div class="code-block">
+<strong>Critical Syntax Rules:</strong>
+• <span class="success">Every statement ends with semicolon ;</span>
+• <span class="success">Use curly braces { } for code blocks</span>
+• <span class="success">Parentheses required</span> for method calls and conditions
+• <span class="success">Case sensitive:</span> Console ≠ console, Main ≠ main
+• Use = for assignment, == for comparison
+• Comments: // single line, /* multi-line */
+
+<strong>Common Syntax Errors:</strong>
+<span class="error">❌ console.writeline("Hello")</span>   → <span class="success">✅ Console.WriteLine("Hello");</span>
+<span class="error">❌ string name = "Alice"</span>        → <span class="success">✅ string name = "Alice";</span>
+<span class="error">❌ while x < 10</span>               → <span class="success">✅ while (x < 10) { }</span>
+<span class="error">❌ if x = 5</span>                   → <span class="success">✅ if (x == 5) { }</span>
+<span class="error">❌ name = "Alice"</span>              → <span class="success">✅ string name = "Alice";</span>
+    </div>
+
+    <h2>Building and Running C# Programs</h2>
+    <div class="code-block">
+<strong>Terminal Commands:</strong>
+dotnet new console -n ProjectName    // Create new project
+cd ProjectName                       // Navigate to project
+dotnet run                          // Build and run
+dotnet build                        // Build only (check for errors)
+
+<strong>File Structure:</strong>
+ProjectName/
+├── Program.cs                      // Your code goes here
+├── ProjectName.csproj             // Project configuration
+└── bin/                           // Compiled output (auto-generated)
+    </div>
+
+    <div class="important-note">
+        <strong>Remember:</strong> Unlike Python where you can write code directly in a file, C# requires all code to be inside a class and method structure. Everything you write must go inside the Main method!
+    </div>
+
+    <p><em>Keep this reference handy while coding in C#!</em></p>
+</body>
+</html>
