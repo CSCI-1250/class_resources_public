@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intro to CS & Programming Study Guide</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            color: #4a5568;
+            text-align: center;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: #2d3748;
+            background: linear-gradient(90deg, #f7fafc, #edf2f7);
+            padding: 12px 15px;
+            border-left: 4px solid #667eea;
+            border-radius: 5px;
+            margin-top: 25px;
+        }
+        
+        .concept-box {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .example {
+            background: #e8f5e8;
+            border-left: 4px solid #28a745;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .code {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 12px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 10px 0;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        
+        .boolean-table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 15px 0;
+        }
+        
+        .boolean-table th,
+        .boolean-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        
+        .boolean-table th {
+            background-color: #667eea;
+            color: white;
+        }
+        
+        .key-point {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        
+        .problem-solving-steps {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .problem-solving-steps ol {
+            margin: 0;
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 Intro to CS & Programming Study Guide</h1>
+        
+        <h2>🔧 Algorithm Design</h2>
+        <div class="concept-box">
+            <strong>Definition:</strong> A systematic approach to creating step-by-step solutions for computational problems.
+            
+            <div class="key-point">
+                <strong>Key Components:</strong> Problem analysis, input/output identification, logical sequencing, efficiency considerations
+            </div>
+            
+            <div class="example">
+                <strong>Example:</strong> Designing an algorithm to find the largest number in a list:
+                <div class="code">
+1. Start with first number as current maximum
+2. Compare each remaining number to current max
+3. If larger, update maximum
+4. Return final maximum</div>
+            </div>
+        </div>
+
+        <h2>💻 Console Input/Output</h2>
+        <div class="concept-box">
+            <strong>Common Methods Across Languages:</strong>
+            <div class="code">
+Python: input(), print()
+C#: Console.ReadLine(), Console.WriteLine()</div>
+
+            <div class="key-point">
+                Do you know the differences between the input function and Console.Read()/Readline() ?
+            </div>
+        </div>
+
+        <h2>🧠 Types of Reasoning</h2>
+        <div class="concept-box">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                    <h3>Inductive Reasoning</h3>
+                    <p><strong>Pattern:</strong> Specific → General</p>
+                    <div class="example">
+                        <strong>Example:</strong> Testing several prime numbers and noticing they're all odd (except 2), then hypothesizing "most primes are odd"
+                    </div>
+                </div>
+                <div>
+                    <h3>Deductive Reasoning</h3>
+                    <p><strong>Pattern:</strong> General → Specific</p>
+                    <div class="example">
+                        <strong>Example:</strong> Knowing "all programming languages have syntax rules" and "Python is a programming language," therefore "Python has syntax rules"
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2>🔀 Control Flow & Conditionals</h2>
+        <div class="concept-box">
+            <strong>Execution Order:</strong> Conditions are evaluated sequentially until one is true.
+            
+            <div class="code">
+def categorize_temperature(temp):
+    if temp > 100:
+        return "Too hot!"
+    elif temp > 80:
+        return "Warm"
+    elif temp > 60:
+        return "Mild"
+    else:
+        return "Cool"</div>
+        
+            <div class="key-point">
+                <strong>Trace Practice:</strong> Walk through each condition step-by-step with specific values
+            </div>
+        </div>
+
+        <h2>🔢 Set Operations</h2>
+        <div class="concept-box">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                <div class="example">
+                    <strong>Union (|)</strong><br>
+                    Combines all unique elements<br>
+                    <code>{1,2} | {2,3} = {1,2,3}</code>
+                </div>
+                <div class="example">
+                    <strong>Intersection (&)</strong><br>
+                    Elements in both sets<br>
+                    <code>{1,2} & {2,3} = {2}</code>
+                </div>
+                <div class="example">
+                    <strong>Difference (-)</strong><br>
+                    Elements in first, not second<br>
+                    <code>{1,2} - {2,3} = {1}</code>
+                </div>
+            </div>
+        </div>
+
+        <h2>⚡ Boolean Logic</h2>
+        <div class="concept-box">
+            <table class="boolean-table">
+                <tr>
+                    <th>Operation</th>
+                    <th>Symbol</th>
+                    <th>True when...</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td>AND</td>
+                    <td>&& or and</td>
+                    <td>Both operands true</td>
+                    <td>true && false = false</td>
+                </tr>
+                <tr>
+                    <td>OR</td>
+                    <td>|| or or</td>
+                    <td>At least one operand true</td>
+                    <td>true || false = true</td>
+                </tr>
+                <tr>
+                    <td>NOT</td>
+                    <td>! or not</td>
+                    <td>Operand is false</td>
+                    <td>!true = false</td>
+                </tr>
+            </table>
+            
+            <div class="key-point">
+                <strong>Order of Operations:</strong> Parentheses → NOT → AND → OR
+            </div>
+        </div>
+
+        <h2>🚗 Problem-Solving Framework</h2>
+        <div class="problem-solving-steps">
+            <h3>Computational Thinking Steps:</h3>
+            <ol>
+                <li><strong>Problem Understanding:</strong> Define inputs, outputs, and constraints</li>
+                <li><strong>Decomposition:</strong> Break complex problem into smaller sub-problems</li>
+                <li><strong>Pattern Recognition:</strong> Identify similarities to known problems</li>
+                <li><strong>Abstraction:</strong> Focus on essential features, ignore irrelevant details</li>
+                <li><strong>Algorithm Design:</strong> Create step-by-step solution</li>
+                <li><strong>Testing & Optimization:</strong> Verify correctness and improve efficiency</li>
+            </ol>
+        </div>
+
+        <h2>🔧 Programming Fundamentals</h2>
+        <div class="concept-box">
+            <h3>Variable Declaration & Data Types</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                    <h4>Python</h4>
+                    <div class="code">
+name = "Alice"      # string
+age = 20           # int  
+grade = 85.7       # float
+is_student = True  # bool</div>
+                </div>
+                <div>
+                    <h4>C#</h4>
+                    <div class="code">
+string name = "Alice";
+int age = 20;
+double grade = 85.7;
+bool isStudent = true;</div>
+                </div>
+            </div>
+            
+            <div class="key-point">
+                <strong>Key Difference:</strong> Python infers types automatically, C# requires explicit type declaration
+            </div>
+        </div>
+
+        <h2>📥📤 Input/Output Operations</h2>
+        <div class="concept-box">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                    <h4>Python I/O</h4>
+                    <div class="code">
+# Output
+print("Hello World")
+print(f"Age: {age}")
+
+# Input (always string)
+name = input("Enter name: ")
+age = int(input("Enter age: "))</div>
+                </div>
+                <div>
+                    <h4>C# I/O</h4>
+                    <div class="code">
+// Output
+Console.WriteLine("Hello World");
+Console.WriteLine($"Age: {age}");
+
+// Input (always string)
+string name = Console.ReadLine();
+int age = int.Parse(Console.ReadLine());</div>
+                </div>
+            </div>
+        </div>
+
+        <h2>🔄 Type Conversion</h2>
+        <div class="concept-box">
+            <table class="boolean-table">
+                <tr>
+                    <th>Conversion</th>
+                    <th>Python</th>
+                    <th>C#</th>
+                </tr>
+                <tr>
+                    <td>String to Integer</td>
+                    <td>int("42")</td>
+                    <td>int.Parse("42")</td>
+                </tr>
+                <tr>
+                    <td>String to Float/Double</td>
+                    <td>float("3.14")</td>
+                    <td>double.Parse("3.14")</td>
+                </tr>
+                <tr>
+                    <td>Number to String</td>
+                    <td>str(42)</td>
+                    <td>42.ToString()</td>
+                </tr>
+                <tr>
+                    <td>Safe Conversion</td>
+                    <td>try/except blocks</td>
+                    <td>int.TryParse(input, out result)</td>
+                </tr>
+            </table>
+        </div>
+
+        <h2>🔁 Loop Structures</h2>
+        <div class="concept-box">
+            <h3>While Loop Patterns</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                    <h4>Python</h4>
+                    <div class="code">
+counter = 1
+while counter <= 5:
+    print(f"Count: {counter}")
+    counter += 1
+
+# User input loop
+response = ""
+while response != "quit":
+    response = input("Command: ")</div>
+                </div>
+                <div>
+                    <h4>C#</h4>
+                    <div class="code">
+int counter = 1;
+while (counter <= 5)
+{
+    Console.WriteLine($"Count: {counter}");
+    counter++;
+}
+
+// User input loop
+string response = "";
+while (response != "quit")
+{
+    response = Console.ReadLine();
+}</div>
+                </div>
+            </div>
+        </div>
+
+        <h2>📏 String Operations</h2>
+        <div class="concept-box">
+            <table class="boolean-table">
+                <tr>
+                    <th>Operation</th>
+                    <th>Python</th>
+                    <th>C#</th>
+                    <th>Result</th>
+                </tr>
+                <tr>
+                    <td>Length</td>
+                    <td>len("hello")</td>
+                    <td>"hello".Length</td>
+                    <td>5</td>
+                </tr>
+                <tr>
+                    <td>Uppercase</td>
+                    <td>"hello".upper()</td>
+                    <td>"hello".ToUpper()</td>
+                    <td>"HELLO"</td>
+                </tr>
+                <tr>
+                    <td>Lowercase</td>
+                    <td>"HELLO".lower()</td>
+                    <td>"HELLO".ToLower()</td>
+                    <td>"hello"</td>
+                </tr>
+                <tr>
+                    <td>Remove spaces</td>
+                    <td>" hello ".strip()</td>
+                    <td>" hello ".Trim()</td>
+                    <td>"hello"</td>
+                </tr>
+            </table>
+        </div>
+
+        <h2>⚙️ Function Fundamentals</h2>
+        <div class="concept-box">
+            <h3>Function Components</h3>
+            <div class="example">
+                <strong>Method Signature:</strong> The first line defining function name and parameters<br>
+                <strong>Parameters:</strong> Variable names in the function definition<br>
+                <strong>Arguments:</strong> Actual values passed when calling the function<br>
+                <strong>Return Statement:</strong> Sends a value back to the caller<br>
+                <strong>Function Body:</strong> The code that executes when function is called
+            </div>
+            
+            <div class="code">
+def calculate_average(score1, score2):  # Method signature
+    total = score1 + score2             # Function body
+    average = total / 2                 # Function body
+    return average                      # Return statement
+
+result = calculate_average(85, 92)      # Arguments: 85, 92</div>
+        </div>
+
+        <h2>🔢 Mathematical Operations</h2>
+        <div class="concept-box">
+            <table class="boolean-table">
+                <tr>
+                    <th>Operator</th>
+                    <th>Description</th>
+                    <th>Python Example</th>
+                    <th>C# Example</th>
+                </tr>
+                <tr>
+                    <td>+ - * </td>
+                    <td>Basic arithmetic</td>
+                    <td>5 + 3, 5 - 3, 5 * 3</td>
+                    <td>5 + 3, 5 - 3, 5 * 3</td>
+                </tr>
+                <tr>
+                    <td>/ </td>
+                    <td>Division</td>
+                    <td>10 / 3 → 3.333...</td>
+                    <td>10.0 / 3 → 3.333...</td>
+                </tr>
+                <tr>
+                    <td>// or (int)/</td>
+                    <td>Integer division</td>
+                    <td>10 // 3 → 3</td>
+                    <td>10 / 3 → 3 (truncated)</td>
+                </tr>
+                <tr>
+                    <td>%</td>
+                    <td>Modulus (remainder)</td>
+                    <td>10 % 3 → 1</td>
+                    <td>10 % 3 → 1</td>
+                </tr>
+                <tr>
+                    <td>**</td>
+                    <td>Exponentiation</td>
+                    <td>5 ** 2 → 25</td>
+                    <td>Math.Pow(5, 2) → 25</td>
+                </tr>
+            </table>
+        </div>
+
+        <h2>⚠️ Common Syntax Differences</h2>
+        <div class="concept-box">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                    <h4>Python Syntax</h4>
+                    <div class="example">
+                        • Uses colons (:) after control statements<br>
+                        • Indentation defines code blocks<br>
+                        • No semicolons needed<br>
+                        • Dynamic typing<br>
+                        • Case sensitive variable names
+                    </div>
+                </div>
+                <div>
+                    <h4>C# Syntax</h4>
+                    <div class="example">
+                        • Uses curly braces { } for code blocks<br>
+                        • Semicolons end statements<br>
+                        • Parentheses required for conditions<br>
+                        • Static typing required<br>
+                        • Case sensitive everything
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2>📝 Study Tips</h2>
+        <div class="concept-box">
+            <ul>
+                <li><strong>Practice tracing:</strong> Work through code line-by-line with different inputs</li>
+                <li><strong>Draw it out:</strong> Use diagrams for set operations and boolean logic</li>
+                <li><strong>Break down problems:</strong> Start with simple cases, then add complexity</li>
+                <li><strong>Test edge cases:</strong> Consider boundary values and special conditions</li>
+                <li><strong>Explain your thinking:</strong> Verbalize your problem-solving process</li>
+                <li><strong>Know the syntax:</strong> Practice common syntax differences between languages</li>
+                <li><strong>Understand types:</strong> Remember when explicit type conversion is needed</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
