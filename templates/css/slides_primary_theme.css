@@ -15,6 +15,10 @@ body {
     font-size: 1.2em;
 }
 
+li {
+    white-space: pre-wrap!important; /* Fix lack of space when <strong> used */
+}
+
 .presentation-container {
     background: white;
     border-radius: 20px;
