@@ -31,6 +31,35 @@
             overflow-x: auto;
         }
         
+        .output-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            border: 1px solid #4a5568;
+            border-radius: 15px;
+            padding: 12px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.85em;
+            margin: 15px 0;
+            overflow-x: auto;
+            min-height: 60px;
+        }
+        
+        .output-block .output-line {
+            margin: 2px 0;
+        }
+        
+        .output-block .comment {
+            color: #a0aec0;
+            font-style: italic;
+        }
+
+                
+        .output-block .spam-domain {
+            color: #fc8181;
+            font-weight: bold;
+        }
+        
+        
         .memory-diagram {
             background: #f8f9fa;
             border: 2px solid #1D4ED8;
@@ -186,7 +215,9 @@
                     <p>Since we're working in static methods, all our array examples will be within static contexts.</p>
                 </div>
                 
-                <div class="code-block"><pre><code class="language-csharp">
+                <div class="row">
+                    <div class="col-8">
+                        <div class="code-block"><pre><code class="language-csharp">
 <strong>// Method 1: Declare size, then assign values</strong>
 static void Main(string[] args)
 {
@@ -204,6 +235,7 @@ static void ProcessGrades()
     int[] grades = {85, 92, 78, 96, 88};  // Size automatically determined
     // OR equivalently:
     int[] grades2 = new int[] {85, 92, 78, 96, 88};
+    Console.WriteLine($"grades.Length = {grades.Length}");
 }
 
 <strong>// Method 3: Different data types</strong>
@@ -213,7 +245,26 @@ static void ExampleArrays()
     double[] prices = {19.99, 25.50, 12.75};
     bool[] flags = {true, false, true, true};
 }
-                </pre></code></div>
+                        </pre></code></div>
+                    </div>
+                    <div class="col-4">
+                        <div class="output-block">
+                            <div class="comment">// Method 1 Output:</div>
+                            <div class="output-line">Array created with 5 elements</div>
+                            <div class="output-line">numbers = [10, 20, 30, 40, 50]</div>
+                            <br>
+                            <div class="comment">// Method 2 stores:</div>
+                            <div class="output-line">grades = [85, 92, 78, 96, 88]</div>
+                            <div class="output-line">grades2 = [85, 92, 78, 96, 88]</div>
+                            <div class="output-line">grades.Length = 5</div>
+                            <br>
+                            <div class="comment">// Method 3 Output:</div>
+                            <div class="output-line">names.Length = 3</div>
+                            <div class="output-line">prices.Length = 3</div>
+                            <div class="output-line">flags.Length = 4</div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Slide 4: Accessing Array Elements -->
@@ -239,7 +290,9 @@ static void ExampleArrays()
                     </div>
                 </div>
 
-                <div class="code-block"><pre><code class="language-csharp">
+                <div class="row">
+                    <div class="col-8">
+                        <div class="code-block"><pre><code class="language-csharp">
 <strong>// Example: Student test scores</strong>
 static void AnalyzeScores()
 {
@@ -257,7 +310,23 @@ static void AnalyzeScores()
     <strong>// Common mistake - index out of bounds!</strong>
     // testScores[5] = 100;  // ERROR! Index 5 doesn't exist
 }
-                </pre></code></div>
+                        </pre></code></div>
+                    </div>
+                    <div class="col-4">
+                        <div class="output-block">
+                            <div class="output-line">First score: 85</div>
+                            <div class="output-line">Last score: 88</div>
+                            <div class="output-line">Array length: 5</div>
+                            <div class="output-line">Updated third score: 82</div>
+                            <br>
+                            <div class="comment">// Array now:</div>
+                            <div class="output-line">[85, 92, 82, 96, 88]</div>
+                            <br>
+                            <div class="comment">// Index 5 would cause:</div>
+                            <div class="output-line" style="color: #fc8181;">IndexOutOfRangeException</div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Slide 5: Looping Through Arrays -->
@@ -269,7 +338,9 @@ static void AnalyzeScores()
                     <p>Arrays and loops are perfect partners! Instead of accessing each element individually, we can process all elements efficiently.</p>
                 </div>
 
-                <div class="code-block"><pre><code class="language-csharp">
+                <div class="row">
+                    <div class="col-8">
+                        <div class="code-block"><pre><code class="language-csharp">
 <strong>// Method 1: Traditional for loop</strong>
 static void PrintScoresForLoop()
 {
@@ -304,7 +375,116 @@ static void PrintScoresWhile()
         index++;
     }
 }
-                </pre></code></div>
+                        </pre></code></div>
+                    </div>
+                    <div class="col-4">
+                        <div class="output-block">
+                            <div class="comment">// For loop output:</div>
+                            <div class="output-line">Score 1: 85</div>
+                            <div class="output-line">Score 2: 92</div>
+                            <div class="output-line">Score 3: 78</div>
+                            <div class="output-line">Score 4: 96</div>
+                            <div class="output-line">Score 5: 88</div>
+                            <br>
+                            <div class="comment">// Foreach output:</div>
+                            <div class="output-line">Score: 85</div>
+                            <div class="output-line">Score: 92</div>
+                            <div class="output-line">Score: 78</div>
+                            <div class="output-line">Score: 96</div>
+                            <div class="output-line">Score: 88</div>
+                            <br>
+                            <div class="comment">// While loop: same as foreach</div>
+                            <div class="output-line">Score: 85</div>
+                            <div class="output-line">Score: 92</div>
+                            <div class="output-line">Score: 78</div>
+                            <div class="output-line">Score: 96</div>
+                            <div class="output-line">Score: 88</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-title">Practical Example: Extracting Domains from Spam Emails</div>
+                
+                <div class="highlight-box yellow">
+                    <h3>🎯 Real-World Application</h3>
+                    <p style="font-size: 1.1em;">I have a big array full of email addresses I have deemed to be spam. Most of the spam I get is from weird domains, so I'd rather just block the whole domain than play whack-a-mole on the different addresses they use!</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-8">
+                        <div class="code-block"><pre><code class="language-csharp">
+<strong>// Step 1: Sample spam email addresses (from my Outlook block list!)</strong>
+static void ExtractSpamDomains()
+{
+    string[] spamEmails = {
+        "abankolehameed@rtmbusinessgroup.com", "academic-deals@emails-thinkedu.com",
+        "admin@instats.org", "alex@connect.easydmarc.org", "amanda@blazethunder.com",
+        "analytics@e.alteryx.com", "info@cyrintraining.com"
+    };
+    
+    <strong>// Step 2: Initialize domains array with same length</strong>
+    string[] domains = new string[spamEmails.Length];
+    
+    <strong>// Step 3: Extract domains using foreach with index tracking</strong>
+    int index = 0;
+    foreach (string email in spamEmails)
+    {
+        <strong>// Split email at '@' symbol - returns array of parts</strong>
+        string[] emailParts = email.Split('@');
+        
+        <strong>// Domain is the second part (index 1)</strong>
+        domains[index] = emailParts[1];
+        
+        Console.WriteLine($"Email: {email}");
+        Console.WriteLine($"Domain: {domains[index]}");
+        Console.WriteLine(); // Empty line for readability
+        
+        index++; // Move to next position in domains array
+    }
+    
+    <strong>// Step 4: Display all extracted domains</strong>
+    Console.WriteLine("All extracted domains:");
+    foreach (string domain in domains)
+    {
+        Console.WriteLine($"→ {domain}");
+    }
+}
+                        </pre></code></div>
+                    </div>
+                    <div class="col-4">
+                        <div class="output-block">
+                            <div class="output-line">Email: abankolehameed@rtmbusinessgroup.com</div>
+                            <div class="output-line">Domain: <span class="spam-domain">rtmbusinessgroup.com</span></div>
+                            <br>
+                            <div class="output-line">Email: academic-deals@emails-thinkedu.com</div>
+                            <div class="output-line">Domain: <span class="spam-domain">emails-thinkedu.com</span></div>
+                            <br>
+                            <div class="output-line">Email: admin@instats.org</div>
+                            <div class="output-line">Domain: <span class="spam-domain">instats.org</span></div>
+                            <br>
+                            <div class="output-line">Email: alex@connect.easydmarc.org</div>
+                            <div class="output-line">Domain: <span class="spam-domain">connect.easydmarc.org</span></div>
+                            <br>
+                            <div class="comment">// ... continues for all emails</div>
+                            <br>
+                            <div class="output-line">All extracted domains:</div>
+                            <div class="output-line">→ <span class="spam-domain">rtmbusinessgroup.com</span></div>
+                            <div class="output-line">→ <span class="spam-domain">emails-thinkedu.com</span></div>
+                            <div class="output-line">→ <span class="spam-domain">instats.org</span></div>
+                            <div class="output-line">→ <span class="spam-domain">connect.easydmarc.org</span></div>
+                            <div class="output-line">→ <span class="spam-domain">blazethunder.com</span></div>
+                            <div class="output-line">→ <span class="spam-domain">e.alteryx.com</span></div>
+                            <div class="output-line">→ <span class="spam-domain">cyrintraining.com</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="highlight-box blue">
+                    <h3>🤔 Advanced Processing</h3>
+                    <p><strong>Challenge Ideas:</strong> How would you remove duplicate domains? Filter out legitimate domains like "cisco.com"? Count frequency of each domain?</p>
+                </div>
             </div>
 
             <!-- Slide 6: Array Copying Problem -->
@@ -316,7 +496,9 @@ static void PrintScoresWhile()
                     <p>Let's see what happens when we try to copy an array using simple assignment...</p>
                 </div>
 
-                <div class="code-block"><pre><code class="language-csharp">
+                <div class="row">
+                    <div class="col-8">
+                        <div class="code-block"><pre><code class="language-csharp">
 <strong>// What do you think this code does?</strong>
 static void ArrayCopyingProblem()
 {
@@ -338,55 +520,185 @@ static void ArrayCopyingProblem()
     foreach (int score in copiedScores)
         Console.Write(score + " ");  // Outputs: 100 92 78
 }
-                </pre></code></div>
+                        </pre></code></div>
+                    </div>
+                    <div class="col-4">
+                        <div class="output-block">
+                            <div class="output-line">Original before change:</div>
+                            <div class="output-line">85 92 78</div>
+                            <br>
+                            <div class="output-line">Original after changing 'copy':</div>
+                            <div class="output-line" style="color: #fc8181;">100 92 78</div>
+                            <br>
+                            <div class="output-line">'Copied' array:</div>
+                            <div class="output-line">100 92 78</div>
+                            <br>
+                            <div class="comment">// Both variables point to</div>
+                            <div class="comment">// the SAME array!</div>
+                        </div>
+                    </div>
+                </div>
                 
                 <div class="info-card">
                     <h3>🤔 What Just Happened?</h3>
                     <p>Both variables point to the <strong>same array in memory</strong>! This is called a <strong>shallow copy</strong>. To understand why, we need to learn about how memory works...</p>
+                    <p>So how would you successfully create a "deep copy"? Look at the previous slide again!</p>
                 </div>
             </div>
 
-            <!-- Slide 7: Primitives vs Reference Types -->
             <div class="slide">
                 <div class="slide-title">Primitives vs Reference Types</div>
+                <svg viewBox="0 0 1200 550" xmlns="http://www.w3.org/2000/svg">
+                <!-- Background -->
+                <rect width="1200" height="550" fill="#f8f9fa"/>
                 
+                <!-- Title -->
+                <text x="600" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#1f2937">
+                    Stack vs Heap: Primitives vs Reference Types
+                </text>
+                
+                <!-- Primitive Types Section -->
+                <g id="primitives-section">
+                    <!-- Section Title -->
+                    <text x="300" y="90" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#dc2626">
+                    Primitive Types (Value Types)
+                    </text>
+                    
+                    <!-- Code snippet -->
+                    <rect x="50" y="110" width="500" height="80" fill="#f3f4f6" stroke="#d1d5db" stroke-width="2" rx="8"/>
+                    <text x="60" y="135" font-family="Consolas, monospace" font-size="14" fill="#374151">
+                    int a = 10;
+                    </text>
+                    <text x="60" y="155" font-family="Consolas, monospace" font-size="14" fill="#374151">
+                    int b = a;    // b gets its own copy
+                    </text>
+                    <text x="60" y="175" font-family="Consolas, monospace" font-size="14" fill="#374151">
+                    a = 20;       // only a changes
+                    </text>
+                    
+                    <!-- Stack for primitives -->
+                    <rect x="100" y="220" width="150" height="200" fill="#fef2f2" stroke="#dc2626" stroke-width="3" rx="8"/>
+                    <text x="175" y="240" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#dc2626">
+                    STACK
+                    </text>
+                    
+                    <!-- Variable a -->
+                    <rect x="120" y="260" width="110" height="40" fill="#white" stroke="#dc2626" stroke-width="2" rx="4"/>
+                    <text x="130" y="275" font-family="Consolas, monospace" font-size="12" fill="#b4c3db">Variable: a</text>
+                    <text x="130" y="290" font-family="Consolas, monospace" font-size="14" font-weight="bold" fill="#dc2626">Value: 20</text>
+                    
+                    <!-- Variable b -->
+                    <rect x="120" y="320" width="110" height="40" fill="#white" stroke="#dc2626" stroke-width="2" rx="4"/>
+                    <text x="130" y="335" font-family="Consolas, monospace" font-size="12" fill="#b4c3db">Variable: b</text>
+                    <text x="130" y="350" font-family="Consolas, monospace" font-size="14" font-weight="bold" fill="#059669">Value: 10</text>
+                    
+                    <!-- Result explanation -->
+                    <text x="300" y="460" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#059669" font-weight="bold">
+                    ✓ Independent values
+                    </text>
+                    <text x="300" y="480" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#374151">
+                    Each variable has its own copy
+                    </text>
+                </g>
+                
+                <!-- Reference Types Section -->
+                <g id="reference-section">
+                    <!-- Section Title -->
+                    <text x="900" y="90" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#1d4ed8">
+                    Reference Types (Arrays, Objects)
+                    </text>
+                    
+                    <!-- Code snippet -->
+                    <rect x="650" y="110" width="500" height="80" fill="#f3f4f6" stroke="#d1d5db" stroke-width="2" rx="8"/>
+                    <text x="660" y="135" font-family="Consolas, monospace" font-size="14" fill="#374151">
+                    int[] array1 = {1, 2, 3};
+                    </text>
+                    <text x="660" y="155" font-family="Consolas, monospace" font-size="14" fill="#374151">
+                    int[] array2 = array1;  // copies reference
+                    </text>
+                    <text x="660" y="175" font-family="Consolas, monospace" font-size="14" fill="#374151">
+                    array1[0] = 999;        // affects both!
+                    </text>
+                    
+                    <!-- Stack for references -->
+                    <rect x="700" y="220" width="150" height="140" fill="#fef2f2" stroke="#dc2626" stroke-width="3" rx="8"/>
+                    <text x="775" y="240" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#dc2626">
+                    STACK
+                    </text>
+                    
+                    <!-- Variable array1 -->
+                    <rect x="720" y="260" width="110" height="40" fill="#white" stroke="#dc2626" stroke-width="2" rx="4"/>
+                    <text x="730" y="275" font-family="Consolas, monospace" font-size="12" fill="#b4c3db">array1:</text>
+                    <text x="730" y="290" font-family="Consolas, monospace" font-size="12" font-weight="bold" fill="#5881f5">→ 0x1234</text>
+                    
+                    <!-- Variable array2 -->
+                    <rect x="720" y="320" width="110" height="40" fill="#white" stroke="#dc2626" stroke-width="2" rx="4"/>
+                    <text x="730" y="335" font-family="Consolas, monospace" font-size="12" fill="#b4c3db">array2:</text>
+                    <text x="730" y="350" font-family="Consolas, monospace" font-size="12" font-weight="bold" fill="#5881f5">→ 0x1234</text>
+                    
+                    <!-- Heap -->
+                    <rect x="920" y="220" width="200" height="140" fill="#eff6ff" stroke="#1d4ed8" stroke-width="3" rx="8"/>
+                    <text x="1020" y="240" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1d4ed8">
+                    HEAP
+                    </text>
+                    
+                    <!-- Array data in heap -->
+                    <text x="930" y="265" font-family="Consolas, monospace" font-size="12" fill="#374151">Address: 0x1234</text>
+                    
+                    <!-- Array elements -->
+                    <rect x="940" y="280" width="40" height="30" fill="#white" stroke="#1d4ed8" stroke-width="2" rx="3"/>
+                    <text x="955" y="295" text-anchor="middle" font-family="Consolas, monospace" font-size="12" fill="#dc2626" font-weight="bold">999</text>
+                    <text x="960" y="325" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#6b7280">[0]</text>
+                    
+                    <rect x="990" y="280" width="40" height="30" fill="#white" stroke="#1d4ed8" stroke-width="2" rx="3"/>
+                    <text x="1010" y="295" text-anchor="middle" font-family="Consolas, monospace" font-size="12" fill="#b4c3db">2</text>
+                    <text x="1010" y="325" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#6b7280">[1]</text>
+                    
+                    <rect x="1040" y="280" width="40" height="30" fill="#white" stroke="#1d4ed8" stroke-width="2" rx="3"/>
+                    <text x="1060" y="295" text-anchor="middle" font-family="Consolas, monospace" font-size="12" fill="#b4c3db">3</text>
+                    <text x="1060" y="325" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#6b7280">[2]</text>
+                    
+                    <!-- Arrows from stack to heap -->
+                    <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+                        <polygon points="0 0, 10 3.5, 0 7" fill="#1d4ed8"/>
+                    </marker>
+                    </defs>
+                    
+                    <!-- Arrow from array1 to heap -->
+                    <line x1="830" y1="280" x2="915" y2="295" stroke="#1d4ed8" stroke-width="3" marker-end="url(#arrowhead)"/>
+                    
+                    <!-- Arrow from array2 to heap -->
+                    <line x1="830" y1="340" x2="915" y2="305" stroke="#1d4ed8" stroke-width="3" marker-end="url(#arrowhead)"/>
+                    
+                    <!-- Result explanation -->
+                    <text x="900" y="460" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" color="#dc2626" font-weight="bold" fill="#dc2626">
+                    ⚠️ Shared data!
+                    </text>
+                    <text x="900" y="480" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#374151">
+                    Both variables point to same memory
+                    </text>
+                </g>
+                </svg>
+
                 <div class="info-grid">
                     <div class="info-card">
                         <h3>🔢 Primitive Types</h3>
                         <ul class="bullet-points">
-                            <li>Store the actual value</li>
-                            <li>Stored on the Stack</li>
-                            <li>Copying creates new value</li>
+                            <li>Store the actual value directly in the <strong>Stack</strong></li>
+                            <li>Assignment creates a completely independent copy</li>
                             <li>Examples: int, double, bool, char</li>
                         </ul>
                     </div>
                     <div class="info-card blue">
                         <h3>📊 Reference Types</h3>
                         <ul class="bullet-points">
-                            <li>Store a reference (address)</li>
-                            <li>Actual data stored on Heap</li>
-                            <li>Copying copies the reference</li>
+                            <li>Store a reference (memory address) in the Stack</li>
+                            <li>Actual data stored in the <strong>Heap</strong></li>
+                            <li>Assignment copies the reference, NOT the data</li>
                             <li>Examples: arrays, strings, objects</li>
                         </ul>
                     </div>
-                </div>
-
-                <div class="code-block"><pre><code class="language-csharp">
-<strong>// Primitive behavior (normal copying)</strong>
-int a = 10;
-int b = a;    // b gets its own copy of the value 10
-a = 20;       // Only a changes, b is still 10
-
-<strong>// Reference type behavior (reference copying)</strong>
-int[] array1 = {1, 2, 3};
-int[] array2 = array1;  // array2 gets copy of the reference, not the data!
-array1[0] = 999;        // Changes the data that both references point to
-// Now both array1[0] and array2[0] are 999!
-                </pre></code></div>
-                
-                <div class="highlight-box">
-                    <h3>💡 Key Insight</h3>
-                    <p>Understanding the difference between <strong>value types</strong> (primitives) and <strong>reference types</strong> (arrays, objects) is crucial for avoiding bugs and understanding memory usage!</p>
                 </div>
             </div>
 
@@ -419,7 +731,9 @@ array1[0] = 999;        // Changes the data that both references point to
                     </div>
                 </div>
 
-                <div class="code-block"><pre><code class="language-csharp">
+                <div class="row">
+                    <div class="col-8">
+                        <div class="code-block"><pre><code class="language-csharp">
 <strong>// Example: What goes where?</strong>
 static void MemoryExample()
 {
@@ -430,7 +744,23 @@ static void MemoryExample()
     string text = "Hello";        // Stack: stores reference to heap
                                   // Heap: stores the actual string data
 }
-                </pre></code></div>
+                        </pre></code></div>
+                    </div>
+                    <div class="col-4">
+                        <div class="output-block">
+                            <div class="comment">// Memory Layout:</div>
+                            <br>
+                            <div class="comment">STACK:</div>
+                            <div class="output-line">number: 42</div>
+                            <div class="output-line">numbers: 0x12345678</div>
+                            <div class="output-line">text: 0xABCDEF00</div>
+                            <br>
+                            <div class="comment">HEAP:</div>
+                            <div class="output-line">0x12345678: [1, 2, 3]</div>
+                            <div class="output-line">0xABCDEF00: "Hello"</div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Slide 9: Hardware Components and Program Execution -->
@@ -589,7 +919,9 @@ static void MemoryExample()
             <div class="slide">
                 <div class="slide-title">Practical Array Examples & Challenges</div>
                 
-                <div class="code-block"><pre><code class="language-csharp">
+                <div class="row">
+                    <div class="col-8">
+                        <div class="code-block"><pre><code class="language-csharp">
 <strong>// Example 1: Calculate average of test scores</strong>
 static double CalculateAverage(int[] scores)
 {
@@ -614,26 +946,25 @@ static int FindMaxScore(int[] scores)
     }
     return max;
 }
-
-<strong>// Example 3: Count how many scores are above average</strong>
-static int CountAboveAverage(int[] scores)
-{
-    double average = CalculateAverage(scores);
-    int count = 0;
-    foreach (int score in scores)
-    {
-        if (score > average)
-        {
-            count++;
-        }
-    }
-    return count;
-}
-                </pre></code></div>
+                        </pre></code></div>
+                    </div>
+                    <div class="col-4">
+                        <div class="output-block">
+                            <div class="comment">// Using scores: [85, 92, 78, 96, 88]</div>
+                            <br>
+                            <div class="comment">// CalculateAverage output:</div>
+                            <div class="output-line">sum = 439</div>
+                            <div class="output-line">average = 87.8</div>
+                            <br>
+                            <div class="comment">// FindMaxScore output:</div>
+                            <div class="output-line">max = 96</div>
+                        </div>
+                    </div>
+                </div>
                 
                 <div class="highlight-box blue">
                     <h3>🎯 Challenge Time!</h3>
-                    <p><strong>Try These:</strong> Create a method to reverse an array, find the second-largest value, or determine if an array contains a specific value. Remember to work within static methods!</p>
+                    <p><strong>Try These:</strong> Create a method to reverse an array, find the second-largest value, or determine if an array contains a specific value.</p>
                 </div>
             </div>
         </div>
@@ -947,4 +1278,3 @@ static int CountAboveAverage(int[] scores)
     </script>
 </body>
 </html>
-                    
