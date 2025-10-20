@@ -1,0 +1,448 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSCI-1250 Course Overview - Lecture Slides</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/slides_primary_theme.css">
+
+    <!-- jsPDF and html2canvas for PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+    <!-- Loading overlay for PDF generation -->
+    <div class="pdf-loading" id="pdfLoading">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <div class="progress-text" id="progressText">🎯 Generating PDF...</div>
+            <div style="font-size: 0.9em; margin-bottom: 15px;">
+                <span id="slideCounter">Slide 0 of 15</span>
+            </div>
+            <div class="slide-progress">
+                <div class="slide-progress-fill" id="slideProgressFill" style="width: 0%"></div>
+            </div>
+            <div style="font-size: 0.8em; margin-top: 15px; opacity: 0.8;">
+                This may take a few moments...
+            </div>
+        </div>
+    </div>
+
+    <div class="presentation-container">
+        <div class="header">
+            <h1>CSCI-1250: Intro to Computer Science & Programming</h1>
+            <div class="header-right">
+                <button class="download-btn" id="downloadPDF" onclick="generatePDF()">
+                    <span class="download-icon">📄</span>
+                    <span>Download PDF</span>
+                </button>
+                <div class="slide-counter">
+                    <span id="current-slide">1</span> / <span id="total-slides">15</span>
+                </div>
+            </div>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+        </div>
+
+        <div class="slide-content">
+            <!-- Slide 1: Title Slide -->
+            <div class="slide active">
+                <div class="slide-title">CSCI-1250: Intro to Computer Science & Programming</div>
+                <div style="text-align: center; margin-top: 50px;">
+                    <div style="font-size: 1.5em; color: #1F2937; margin-bottom: 30px;">
+                        Introduction to Programming and Problem Solving
+                    </div>
+                    <div style="background: linear-gradient(135deg, #DC2626, #B91C1C); color: white; padding: 30px; border-radius: 15px; max-width: 800px; margin: 0 auto;">
+                        <p style="font-size: 1.2em; margin-bottom: 15px;"><strong>Instructor:</strong> Ryan Haas</p>
+                        <p style="font-size: 1.1em; margin-bottom: 15px;"><strong>Time:</strong> MW, 12:55 - 2:55 PM</p>
+                        <p style="font-size: 1.1em;"><strong>Location:</strong> Brinkley Center 225 (Mon) / 220 (Wed)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 2: Course Overview -->
+            <div class="slide">
+                <div class="slide-title">What This Course Is About</div>
+                <div class="highlight-box">
+                    <h3>📚 Course Description</h3>
+                    <p style="font-size: 1.2em; line-height: 1.6;">
+                        Introduces all aspects of the programming and problem-solving process and the elements of good programming style. A high-level language is used for introducing these concepts. Laboratory use of the computer in designing, coding, debugging, and executing programs is an integral part of the course.
+                    </p>
+                </div>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>🎯 Primary Focus</h3>
+                        <ul class="bullet-points">
+                            <li>Programming fundamentals</li>
+                            <li>Problem-solving methodology</li>
+                            <li>Good programming style</li>
+                            <li>Hands-on coding experience</li>
+                        </ul>
+                    </div>
+                    <div class="info-card blue">
+                        <h3>💻 Programming Languages</h3>
+                        <ul class="bullet-points">
+                            <li>C# (C-Sharp) and Python</li>
+                            <li>Modern, versatile language</li>
+                            <li>Industry-standard</li>
+                            <li>Great for learning fundamentals</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3: Ready to Begin -->
+            <div class="slide">
+                <div class="slide-title">Ready to Start Your Programming Journey?</div>
+                <div style="margin-top: 40px;">
+                    <div style="background: linear-gradient(135deg, #DC2626, #1D4ED8); color: white; padding: 30px; border-radius: 15px; margin-bottom: 30px;">
+                        <h3 style="margin-bottom: 20px; text-align: center;">What Lies Ahead</h3>
+                        <ul style="list-style: none; font-size: 1.1em; text-align: left;">
+                            <li style="padding: 8px 0;">🧠 Learn to think computationally</li>
+                            <li style="padding: 8px 0;">💻 Master C# programming fundamentals</li>
+                            <li style="padding: 8px 0;">🔧 Build real programs that solve problems</li>
+                            <li style="padding: 8px 0;">🎯 Prepare for advanced computer science courses</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>📅 This Week</h3>
+                        <ul class="bullet-points">
+                            <li>Review syllabus thoroughly</li>
+                            <li>Set up development environment</li>
+                            <li>Read Chapter 1 of textbook</li>
+                            <li>Prepare for first lab</li>
+                        </ul>
+                    </div>
+                    <div class="info-card blue">
+                        <h3>❓ Questions?</h3>
+                        <ul class="bullet-points">
+                            <li>Ask now or after class</li>
+                            <li>Email me anytime</li>
+                            <li>Visit during office hours</li>
+                            <li>Don't hesitate to reach out!</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 30px;">
+                    <p style="font-size: 1.4em; color: #1F2937; font-weight: bold;">
+                        Let's code! 🎉
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-button" id="prev-btn" onclick="previousSlide()">
+                ← Previous
+            </button>
+            <div class="timer-display" id="timer">
+                00:00
+            </div>
+            <button class="nav-button" id="next-btn" onclick="nextSlide()">
+                Next →
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        let startTime = Date.now();
+        let timerInterval;
+
+        // Initialize
+        document.getElementById('total-slides').textContent = totalSlides;
+        updateSlideDisplay();
+        startTimer();
+
+        function updateSlideDisplay() {
+            // Hide all slides
+            slides.forEach(slide => slide.classList.remove('active'));
+            
+            // Show current slide
+            slides[currentSlide].classList.add('active');
+            
+            // Update counter
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+            
+            // Update progress bar
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+            
+            // Update navigation buttons
+            document.getElementById('prev-btn').disabled = currentSlide === 0;
+            document.getElementById('next-btn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updateSlideDisplay();
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlideDisplay();
+            }
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                const elapsed = Math.floor((Date.now() - startTime) / 1000);
+                const minutes = Math.floor(elapsed / 60);
+                const seconds = elapsed % 60;
+                document.getElementById('timer').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+
+        // PDF Generation Function
+        async function generatePDF() {
+            console.log('🎯 INITIATING PDF GENERATION...');
+
+            await document.fonts.ready;
+            
+            // Show loading overlay
+            const loadingOverlay = document.getElementById('pdfLoading');
+            const progressText = document.getElementById('progressText');
+            const slideCounter = document.getElementById('slideCounter');
+            const slideProgressFill = document.getElementById('slideProgressFill');
+            const downloadBtn = document.getElementById('downloadPDF');
+            
+            loadingOverlay.classList.add('active');
+            downloadBtn.disabled = true;
+            
+            try {
+                // Initialize jsPDF with Letter size
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF({
+                    orientation: 'landscape',
+                    unit: 'in',
+                    format: 'letter'
+                });
+                
+                const pageWidth = pdf.internal.pageSize.getWidth();
+                const pageHeight = pdf.internal.pageSize.getHeight();
+                const margin = 0.5;
+                const contentWidth = pageWidth - (2 * margin);
+                const contentHeight = pageHeight - (2 * margin);
+                
+                console.log(`📏 PDF dimensions: ${pageWidth}" x ${pageHeight}"`);
+                
+                // Get all slides and prepare for generation
+                const slideElements = document.querySelectorAll('.slide');
+                const originalSlideContent = document.querySelector('.slide-content');
+                
+                // Store original styles
+                const originalStyles = {
+                    slideContent: originalSlideContent.style.cssText,
+                    slides: Array.from(slideElements).map(slide => slide.style.cssText)
+                };
+                
+                // Apply PDF-friendly styles
+                originalSlideContent.style.cssText += `
+                    overflow: visible !important;
+                    height: auto !important;
+                    padding: 0 !important;
+                `;
+
+                document.body.classList.add('pdf-mode');
+                
+                slideElements.forEach((slide, index) => {
+                    slide.style.cssText += `
+                        display: block !important;
+                        opacity: 1 !important;
+                        visibility: visible !important;
+                        position: static !important;
+                        height: auto !important;
+                        min-height: 800px !important;
+                        background: white !important;
+                        margin-bottom: 20px !important;
+                        padding: 40px !important;
+                        page-break-after: always;
+                        border: none !important;
+                    `;
+                });
+                
+                // Process each slide individually
+                for (let i = 0; i < slideElements.length; i++) {
+                    const slide = slideElements[i];
+                    
+                    progressText.textContent = `🖼️ Capturing slide ${i + 1}...`;
+                    slideCounter.textContent = `Slide ${i + 1} of ${slideElements.length}`;
+                    slideProgressFill.style.width = `${((i + 1) / slideElements.length) * 100}%`;
+                    
+                    // Hide all slides except current one
+                    slideElements.forEach((s, idx) => {
+                        if (idx !== i) {
+                            s.style.display = 'none';
+                        }
+                    });
+                    
+                    // Force reflow and wait for rendering
+                    slide.offsetHeight;
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                    
+                    try {
+                        // Capture the individual slide
+                        const canvas = await html2canvas(slide, {
+                            allowTaint: true,
+                            removeContainer: false,
+                            useCORS: true,
+                            scale: 2,
+                            width: slide.scrollWidth,
+                            height: slide.scrollHeight,
+                            backgroundColor: '#ffffff',
+                            logging: false,
+                            onclone: (clonedDoc) => {
+                                const clonedSlides = clonedDoc.querySelectorAll('.slide');
+                                clonedSlides.forEach(s => {
+                                    s.style.display = 'block';
+                                    s.style.opacity = '1';
+                                    s.style.visibility = 'visible';
+                                });
+                            }
+                        });
+                        
+                        console.log(`📊 Slide ${i + 1} canvas: ${canvas.width}x${canvas.height}`);
+                        
+                        // Calculate scaling to fit page
+                        const canvasAspectRatio = canvas.width / canvas.height;
+                        const pageAspectRatio = contentWidth / contentHeight;
+                        
+                        let finalWidth, finalHeight;
+                        if (canvasAspectRatio > pageAspectRatio) {
+                            finalWidth = contentWidth;
+                            finalHeight = contentWidth / canvasAspectRatio;
+                        } else {
+                            finalHeight = contentHeight;
+                            finalWidth = contentHeight * canvasAspectRatio;
+                        }
+                        
+                        // Center the image on page
+                        const x = (pageWidth - finalWidth) / 2;
+                        const y = (pageHeight - finalHeight) / 2;
+                        
+                        // Add to PDF
+                        if (i > 0) {
+                            pdf.addPage();
+                        }
+                        
+                        progressText.textContent = `📝 Adding slide ${i + 1} to PDF...`;
+                        
+                        pdf.addImage(
+                            canvas.toDataURL('image/jpeg', 0.85),
+                            'JPEG',
+                            x, y,
+                            finalWidth, finalHeight
+                        );
+                        
+                        console.log(`✅ Added slide ${i + 1} to PDF`);
+                        
+                    } catch (slideError) {
+                        console.error(`❌ Error capturing slide ${i + 1}:`, slideError);
+                        
+                        // Add error page instead of failing completely
+                        if (i > 0) {
+                            pdf.addPage();
+                        }
+                        
+                        pdf.setFontSize(20);
+                        pdf.setTextColor(220, 53, 69);
+                        pdf.text(`Error capturing slide ${i + 1}`, pageWidth / 2, pageHeight / 2, { align: 'center' });
+                        pdf.setFontSize(12);
+                        pdf.setTextColor(108, 117, 125);
+                        pdf.text('This slide could not be rendered properly', pageWidth / 2, (pageHeight / 2) + 0.5, { align: 'center' });
+                    }
+                }
+
+                document.body.classList.remove('pdf-mode');
+                
+                // Restore all slides visibility
+                slideElements.forEach(slide => {
+                    slide.style.display = 'block';
+                });
+                
+                // Restore original styles
+                progressText.textContent = '🧹 Cleaning up...';
+                originalSlideContent.style.cssText = originalStyles.slideContent;
+                slideElements.forEach((slide, index) => {
+                    slide.style.cssText = originalStyles.slides[index];
+                });
+                
+                // Save the PDF
+                progressText.textContent = '💾 Saving PDF...';
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                const fileName = `CSCI-1250_Course-Overview-Slides_${new Date().toISOString().split('T')[0]}.pdf`;
+                pdf.save(fileName);
+                
+                // Success!
+                progressText.textContent = '🎉 PDF Generated Successfully!';
+                slideCounter.textContent = `✅ All ${slideElements.length} slides exported`;
+                slideProgressFill.style.width = '100%';
+                
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+            } catch (error) {
+                console.error('💀 PDF GENERATION FAILED:', error);
+                
+                progressText.textContent = '❌ PDF Generation Failed';
+                slideCounter.textContent = 'Error occurred - check console';
+                
+                await new Promise(resolve => setTimeout(resolve, 3000));
+            } finally {
+                // Always hide loading and re-enable button
+                loadingOverlay.classList.remove('active');
+                downloadBtn.disabled = false;
+                updateSlideDisplay(); // Restore normal navigation
+            }
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                previousSlide();
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                currentSlide = 0;
+                updateSlideDisplay();
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                currentSlide = totalSlides - 1;
+                updateSlideDisplay();
+            }
+        });
+
+        // Touch/swipe support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) {
+                nextSlide(); // Swipe left
+            } else if (touchEndX - touchStartX > 50) {
+                previousSlide(); // Swipe right
+            }
+        });
+    </script>
+</body>
+</html>
+            

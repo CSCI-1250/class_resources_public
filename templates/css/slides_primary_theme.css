@@ -122,6 +122,143 @@ li {
     display: block;
 }
 
+/* Styles for code blocks and optional output lines or blocks */
+
+.code-block {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 15px;
+    padding: 4px 12px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.9em;
+    font-weight: 500;
+    margin: 15px 0;
+    overflow-x: auto;
+}
+
+.output-block {
+    background: #2d3748;
+    color: #e2e8f0;
+    border: 1px solid #4a5568;
+    border-radius: 15px;
+    padding: 12px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.85em;
+    margin: 15px 0;
+    overflow-x: auto;
+    min-height: 60px;
+}
+
+.output-line {
+    white-space: pre-wrap!important;
+}
+
+.output-block .output-line {
+    margin: 2px 0;
+}
+
+.output-block .comment {
+    color: #a0aec0;
+    font-style: italic;
+}
+
+.output-block .user-input {
+    color: #68d391;
+    font-weight: bold;
+}
+
+/* Styles for representing method signatures and parts of method */
+
+.method-signature {
+    background: linear-gradient(135deg, #1D4ED8, #3B82F6);
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+    margin: 20px 0;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 1.1em;
+    text-align: center;
+    font-weight: bold;
+}
+        
+.signature-breakdown {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.signature-part {
+    background: #f8f9fa;
+    border: 2px solid #1D4ED8;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+}
+
+.signature-part h4 {
+    color: #1D4ED8;
+    margin-bottom: 10px;
+    font-size: 1em;
+}
+
+/* Styles for flow diagram */
+        
+.flow-diagram {
+    background: #f8f9fa;
+    border: 2px solid #1D4ED8;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.flow-step {
+    display: inline-block;
+    background: #1D4ED8;
+    color: white;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.flow-arrow {
+    font-size: 1.5em;
+    color: #DC2626;
+    margin: 0 10px;
+}
+
+/* Useful styles and formatting for tables */
+
+.type-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.type-table th {
+    background: #DC2626;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-size: 1.1em;
+}
+
+.type-table td {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.type-table tbody tr:hover {
+    background: #f9fafb;
+}
+
 /* PDF GENERATION STYLES */
 .pdf-mode .slide {
     display: block !important;
