@@ -1,0 +1,1697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSCI-1250: Object Classes in C#</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://csci-1250.github.io/class_resources_public/templates/css/slides_primary_theme.css">
+
+    <!-- Prism CSS for syntax highlighting -->
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/themes/prism.css" rel="stylesheet" />
+
+    <!-- jsPDF and html2canvas for PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <!-- Prism JS for syntax highlighting -->
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/components/prism-csharp.min.js"></script>
+
+    <style>
+        .implementation-steps {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .step-number {
+            background: #DC2626;
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+            
+        .scaffold-step {
+            background: #f0f9ff;
+            border: 2px solid #0ea5e9;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .scaffold-step h4 {
+            color: #0ea5e9;
+            margin-bottom: 10px;
+        }
+
+        .vs-comparison {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+        
+        .vs-column {
+            width: 48%;
+            padding: 15px;
+            border-radius: 15px;
+        }
+        
+        .vs-column.static {
+            background: #f0f9ff;
+            border: 2px solid #0ea5e9;
+        }
+        
+        .vs-column.object {
+            background: #fdf2f8;
+            border: 2px solid #ec4899;
+        }
+        
+        .uml-diagram {
+            background: #f9fafb;
+            border: 2px solid #6b7280;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .uml-class-name {
+            font-weight: bold;
+            border-bottom: 1px solid #6b7280;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .uml-attributes {
+            text-align: left;
+            border-bottom: 1px solid #6b7280;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .uml-methods {
+            text-align: left;
+        }
+
+        .property-example {
+            background: #ecfdf5;
+            border: 2px solid #10b981;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .activity-box {
+            background: #eff6ff;
+            border: 2px solid #3b82f6;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .activity-step {
+            background: #ffffff;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading overlay for PDF generation -->
+    <div class="pdf-loading" id="pdfLoading">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <div class="progress-text" id="progressText">🎯 Generating PDF...</div>
+            <div style="font-size: 0.9em; margin-bottom: 15px;">
+                <span id="slideCounter">Slide 0 of 15</span>
+            </div>
+            <div class="slide-progress">
+                <div class="slide-progress-fill" id="slideProgressFill" style="width: 0%"></div>
+            </div>
+            <div style="font-size: 0.8em; margin-top: 15px; opacity: 0.8;">
+                This may take a few moments...
+            </div>
+        </div>
+    </div>
+
+    <div class="presentation-container">
+        <div class="header">
+            <h1>CSCI-1250: Object Classes in C#</h1>
+            <div class="header-right">
+                <button class="download-btn" id="downloadPDF" onclick="generatePDF()">
+                    <span class="download-icon">📄</span>
+                    <span>Download PDF</span>
+                </button>
+                <div class="slide-counter">
+                    <span id="current-slide">1</span> / <span id="total-slides">15</span>
+                </div>
+            </div>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+        </div>
+
+        <div class="slide-content">
+            <!-- Slide 1: Title and Introduction -->
+            <div class="slide active">
+                <div class="slide-title">Object Classes in C#</div>
+                <div style="text-align: center; margin-top: 50px;">
+                    <div style="font-size: 1.5em; color: #1F2937; margin-bottom: 30px;">
+                        From Static to Object-Oriented Programming
+                    </div>
+                    <div style="background: linear-gradient(135deg, #DC2626, #B91C1C); color: white; padding: 30px; border-radius: 15px; max-width: 800px; margin: 0 auto;">
+                        <p style="font-size: 1.2em; margin-bottom: 15px;"><strong>Today's Goals:</strong></p>
+                        <ol style="font-size: 1.1em;">
+                            <li style="padding: 8px 0;">Understand the difference between static and object classes</li>
+                            <li style="padding: 8px 0;">Learn how to design and create your own object classes</li>
+                            <li style="padding: 8px 0;">Practice building constructors and properties</li>
+                            <li style="padding: 8px 0;">Explore encapsulation and data hiding</li>
+                            <li style="padding: 8px 0;">Connect objects in complex applications</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 2: Static Class vs Object Class -->
+            <div class="slide">
+                <div class="slide-title">Static Class vs Object Class</div>
+                
+                <div class="vs-comparison">
+                    <div class="vs-column static">
+                        <h3>Static Class</h3>
+                        <ul class="bullet-points">
+                            <li>Cannot be instantiated (no objects)</li>
+                            <li>Call methods directly on the class</li>
+                            <li>All class members shared globally</li>
+                            <li>Use for utility functions and constants</li>
+                        </ul>
+                        <div class="code-block"><pre><code class="language-csharp">
+static class Calculator
+{
+    static int Add(int a, int b)
+    {
+        return a + b;
+    }
+}
+
+// Using it:
+int result = Calculator.Add(5, 3);
+                        </code></pre></div>
+                    </div>
+                    
+                    <div class="vs-column object">
+                        <h3>Object Class</h3>
+                        <ul class="bullet-points">
+                            <li>Must be instantiated to use (create objects)</li>
+                            <li>Call methods on specific instances</li>
+                            <li>Each object has its own data</li>
+                            <li>Use for representing real-world entities</li>
+                        </ul>
+                        <div class="code-block"><pre><code class="language-csharp">
+class Person
+{
+    public string Name;
+    
+    public void SayHello()
+    {
+        Console.WriteLine($"Hello, I'm {Name}");
+    }
+}
+
+// Using it:
+Person student = new Person();
+student.Name = "Alex";
+student.SayHello();
+                        </code></pre></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3: What it Means to Instantiate -->
+            <div class="slide">
+                <div class="slide-title">What it Means to Instantiate</div>
+                
+                <div class="highlight-box">
+                    <h3>Creating Objects from a Class Blueprint</h3>
+                    <p>Instantiation is the process of creating an object (an instance) from a class. The class serves as a blueprint or template, and the object is the actual "thing" created from that blueprint.</p>
+                </div>
+                
+                <div class="code-block"><pre><code class="language-csharp">
+// Class definition (blueprint)
+class Dog
+{
+    public string Name;
+    public string Breed;
+    
+    public void Bark()
+    {
+        Console.WriteLine($"{Name} says: Woof!");
+    }
+}
+
+// Creating instances (actual dogs)
+Dog fido = new Dog();      // Instantiation
+fido.Name = "Fido";        // Setting properties
+fido.Breed = "Labrador";
+fido.Bark();               // Using methods
+
+Dog rex = new Dog();       // Another instance
+rex.Name = "Rex";          // Different data
+rex.Breed = "German Shepherd";
+rex.Bark();
+                </code></pre></div>
+
+                <div class="highlight-box yellow">
+                    <h3>📝 Key Points About Instantiation</h3>
+                    <ul class="bullet-points">
+                        <li>The <code>new</code> keyword creates an instance in memory</li>
+                        <li>Each instance has its own copy of fields/properties</li>
+                        <li>Multiple objects can be created from the same class</li>
+                        <li>Objects can have different data but share the same behavior</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Slide 4: Instantiation Example - Random Class -->
+            <div class="slide">
+                <div class="slide-title">Instantiation Example: Using the Random Class</div>
+                
+                <div class="code-block"><pre><code class="language-csharp">
+// Creating a Random object
+Random rand = new Random();   // Instantiation
+
+// Using the object's methods
+int number1 = rand.Next(1, 101);  // Random number between 1-100
+int number2 = rand.Next(1, 101);  // Different random number
+double value = rand.NextDouble();  // Random decimal between 0-1
+
+// Creating another Random instance
+Random anotherRand = new Random(42);  // Seed of 42
+int number3 = anotherRand.Next(1, 101);
+                </code></pre></div>
+
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>🔍 What's Happening?</h3>
+                        <ul class="bullet-points">
+                            <li>Random is a built-in C# class</li>
+                            <li>We create instances using <code>new Random()</code></li>
+                            <li>Each Random object maintains its own internal state</li>
+                            <li>We call methods like <code>Next()</code> on our instances</li>
+                        </ul>
+                    </div>
+                    <div class="info-card blue">
+                        <h3>Why Use Objects?</h3>
+                        <ul class="bullet-points">
+                            <li>Each Random instance generates its own sequence</li>
+                            <li>They can be configured differently (different seeds)</li>
+                            <li>Can be passed to methods, stored in variables</li>
+                            <li>Encapsulates complex functionality in a simple interface</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 5: Simple Object Class Example -->
+            <div class="slide">
+                <div class="slide-title">Simple Object Class Example: ChatSession</div>
+                
+                <div class="uml-diagram">
+                    <div class="uml-class-name">ChatSession</div>
+                    <div class="uml-attributes">
+                        + ID: string<br>
+                        + ClientName: string<br>
+                        + InitialMessage: string<br>
+                        + CreatedAt: DateTime<br>
+                        + Status: string
+                    </div>
+                    <div class="uml-methods">
+                        + ChatSession()<br>
+                        + DisplayInfo(): void
+                    </div>
+                </div>
+
+                <div class="code-block"><pre><code class="language-csharp">
+public class ChatSession
+{
+    // Fields (attributes)
+    public string ID;
+    public string ClientName;
+    public string InitialMessage;
+    public DateTime CreatedAt;
+    public string Status;
+    
+    // Method
+    public void DisplayInfo()
+    {
+        Console.WriteLine($"Chat ID: {ID}");
+        Console.WriteLine($"Client: {ClientName}");
+        Console.WriteLine($"Started: {CreatedAt}");
+        Console.WriteLine($"Status: {Status}");
+    }
+}
+
+// Using the class
+ChatSession support = new ChatSession();
+support.ID = "CS-12345";
+support.ClientName = "John Smith";
+support.InitialMessage = "I need help with my order";
+support.CreatedAt = DateTime.Now;
+support.Status = "Active";
+support.DisplayInfo();
+                </code></pre></div>
+            </div>
+
+            <!-- Slide 6: Accessors and Modifiers (Part 1) -->
+            <div class="slide">
+                <div class="slide-title">Accessors and Modifiers: Introduction to Encapsulation</div>
+                
+                <div class="highlight-box">
+                    <h3>What is Encapsulation?</h3>
+                    <p>Encapsulation is the bundling of data (attributes) and methods (behaviors) that work on the data, while <strong>restricting direct access</strong> to some of the object's components. It's one of the four fundamental OOP concepts.</p>
+                </div>
+                
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>🛡️ Why Encapsulate Data?</h3>
+                        <ul class="bullet-points">
+                            <li>Protect data from unauthorized access</li>
+                            <li>Prevent invalid data assignments</li>
+                            <li>Hide implementation details</li>
+                            <li>Control how data is accessed and modified</li>
+                            <li>Make code more maintainable</li>
+                        </ul>
+                    </div>
+                    <div class="info-card blue">
+                        <h3>🔑 Access Modifiers</h3>
+                        <ul class="bullet-points">
+                            <li><strong>public</strong>: Accessible from anywhere</li>
+                            <li><strong>private</strong>: Only accessible within the class</li>
+                            <li><strong>protected</strong>: Accessible in class and derived classes</li>
+                            <li><strong>internal</strong>: Accessible within the same assembly</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="highlight-box yellow">
+                    <h3>Best Practice</h3>
+                    <p>Make fields <strong>private</strong> and provide <strong>public</strong> methods or properties to access them when needed. This ensures data integrity and encapsulation.</p>
+                </div>
+            </div>
+
+            <!-- Slide 7: Accessors and Modifiers (Part 2) -->
+            <div class="slide">
+                <div class="slide-title">Getters and Setters: Traditional Methods</div>
+                
+                <div class="property-example">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3>Problem with Public Fields:</h3>
+                            <div class="code-block"><pre><code class="language-csharp">
+public class Person
+{
+    public int Age;  // Public field - no control
+}
+
+Person p = new Person();
+p.Age = -30;  // Invalid age! But allowed
+                            </code></pre></div>
+                        </div>
+                        <div class="col-md-6">
+                            <h3>Solution with Getter/Setter Methods:</h3>
+                            <div class="code-block"><pre><code class="language-csharp">
+public class Person
+{
+    private int age;  // Private field
+    
+    // Getter method
+    public int GetAge()
+    {
+        return age;
+    }
+    
+    // Setter method with validation
+    public void SetAge(int value)
+    {
+        if (value >= 0 && value < 120)
+            age = value;
+        else
+            throw new ArgumentException("Invalid age");
+    }
+}
+
+Person p = new Person();
+p.SetAge(25);      // Valid age
+int age = p.GetAge();
+// p.SetAge(-30);  // Throws exception
+                            </code></pre></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-title">Getters and Setters: Traditional Methods</div>
+                <div class="highlight-box yellow">
+                    <h3>Key Benefits of Getters/Setters</h3>
+                    <ul class="bullet-points">
+                        <li><strong>Encapsulation</strong>: Hide implementation details</li>
+                        <li><strong>Validation</strong>: Check data before accepting it</li>
+                        <li><strong>Control</strong>: Restrict how data can be modified</li>
+                        <li><strong>Flexibility</strong>: Change implementation without affecting clients</li>
+                    </ul>
+                </div>
+                
+                <div class="scaffold-step">
+                    <h4>Common Patterns</h4>
+                    <ul class="bullet-points">
+                        <li><strong>Read-only</strong>: Provide getter but no setter</li>
+                        <li><strong>Write-only</strong>: Provide setter but no getter (password fields)</li>
+                        <li><strong>Lazy calculation</strong>: Compute value only when getter is called</li>
+                        <li><strong>Derived value</strong>: Calculate from other fields</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Slide 8: Properties in C# -->
+            <div class="slide">
+                <div class="slide-title">Properties in C#: Simplified Accessors</div>
+                
+                <div class="highlight-box">
+                    <h3>Properties: C#'s Elegant Accessor Syntax</h3>
+                    <p>C# provides a simplified syntax for creating getters and setters called "properties". They achieve the same encapsulation but with less code.</p>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3>Traditional Getter/Setter Methods:</h3>
+                        <div class="code-block"><pre><code class="language-csharp">
+public class Person
+{
+    private int age;
+    
+    public int GetAge()
+    {
+        return age;
+    }
+    
+    public void SetAge(int value)
+    {
+        if (value >= 0 && value < 120)
+            age = value;
+        else
+            throw new ArgumentException("Invalid age");
+    }
+}
+
+// Usage
+Person p = new Person();
+p.SetAge(25);
+int age = p.GetAge();
+                        </code></pre></div>
+                    </div>
+                    <div class="col-md-6">
+                        <h3>C# Properties:</h3>
+                        <div class="code-block"><pre><code class="language-csharp">
+public class Person
+{
+    private int age;  // Backing field
+    
+    // Property with same functionality
+    public int Age
+    {
+        get { return age; }  // Getter
+        set                  // Setter
+        {
+            if (value >= 0 && value < 120)
+                age = value;
+            else
+                throw new ArgumentException("Invalid age");
+        }
+    }
+}
+
+// Usage
+Person p = new Person();
+p.Age = 25;        // Calls set
+int age = p.Age;   // Calls get
+                        </code></pre></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-title">Properties in C#: Simplified Accessors</div>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>Property Benefits</h3>
+                        <ul class="bullet-points">
+                            <li>Cleaner, more concise syntax</li>
+                            <li>Same encapsulation as traditional methods</li>
+                            <li>More intuitive property-like usage</li>
+                            <li>Compatible with interfaces and inheritance</li>
+                            <li>Can be used with attributes and reflection</li>
+                        </ul>
+                    </div>
+                    <div class="info-card blue">
+                        <h3>Auto-Implemented Properties</h3>
+                        <div class="code-block"><pre><code class="language-csharp">
+public class Person
+{
+    // C# creates backing field automatically
+    public string Name { get; set; }
+    
+    // Read-only after constructor
+    public DateTime Birthday { get; init; }
+    
+    // Read-only property
+    public string FirstName { get; }
+    
+    // Calculated property (no backing field)
+    public bool IsAdult => Age >= 18;
+}
+                        </code></pre></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 9: Improved ChatSession with Properties -->
+            <div class="slide">
+                <div class="slide-title">Improved ChatSession with Properties</div>
+                
+                <div class="code-block"><pre><code class="language-csharp">
+public class ChatSession
+{
+    // Private fields
+    private string id;
+    private string clientName;
+    private string initialMessage;
+    private DateTime createdAt;
+    private string status;
+    
+    // Properties with validation and control
+    public string ID 
+    {
+        get { return id; }
+        set 
+        { 
+            if (!string.IsNullOrEmpty(value))
+                id = value;
+            else
+                throw new ArgumentException("ID cannot be empty");
+        }
+    }
+    
+    public string ClientName { get; set; }
+    
+    public string InitialMessage { get; set; }
+    
+    public DateTime CreatedAt 
+    {
+        get { return createdAt; }
+        private set { createdAt = value; } // Only settable within the class
+    }
+    
+    // Status with validation
+    public string Status
+    {
+        get { return status; }
+        set
+        {
+            // Only allow certain values
+            if (value == "Active" || value == "Pending" || value == "Closed")
+                status = value;
+            else
+                throw new ArgumentException("Invalid status");
+        }
+    }
+    
+    // Calculated property
+    public TimeSpan SessionDuration
+    {
+        get { return DateTime.Now - CreatedAt; }
+    }
+}
+                </code></pre></div>
+            </div>
+
+            <!-- Slide 10: Class Constructor -->
+            <div class="slide">
+                <div class="slide-title">The Class Constructor</div>
+                
+                <div class="highlight-box">
+                    <h3>What is a Constructor?</h3>
+                    <p>A constructor is a special method that is automatically called when an object is created. Its primary purpose is to initialize the object's fields and ensure the object starts in a valid state.</p>
+                </div>
+                
+                <div class="code-block"><pre><code class="language-csharp">
+public class ChatSession
+{
+    public string ID { get; set; }
+    public string ClientName { get; set; }
+    public string InitialMessage { get; set; }
+    public DateTime CreatedAt { get; private set; }
+    public string Status { get; set; }
+    
+    // Constructor
+    public ChatSession()
+    {
+        // Initialize with default values
+        ID = "New";
+        CreatedAt = DateTime.Now;
+        Status = "Pending";
+    }
+}
+
+// Using the constructor
+ChatSession chat = new ChatSession();
+// Fields already initialized: ID is "New", CreatedAt is now, Status is "Pending"
+Console.WriteLine(chat.CreatedAt);  // Current time when created
+                </code></pre></div>
+                
+                <div class="highlight-box yellow">
+                    <h3>📝 Key Points About Constructors</h3>
+                    <ul class="bullet-points">
+                        <li>Same name as the class</li>
+                        <li>No return type (not even void)</li>
+                        <li>Automatically called when using <code>new</code></li>
+                        <li>Initializes object to a usable state</li>
+                        <li>Can have multiple constructors with different parameters</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Slide 11: Multiple Constructors -->
+            <div class="slide">
+                <div class="slide-title">Multiple Constructors</div>
+                
+                <div class="code-block"><pre><code class="language-csharp">
+public class ChatSession
+{
+    public string ID { get; set; }
+    public string ClientName { get; set; }
+    public string InitialMessage { get; set; }
+    public DateTime CreatedAt { get; private set; }
+    public string Status { get; set; }
+    
+    // Default constructor
+    public ChatSession()
+    {
+        ID = "CS" + DateTime.Now.Ticks.ToString().Substring(10);
+        CreatedAt = DateTime.Now;
+        Status = "Pending";
+    }
+    
+    // Parameterized constructor
+    public ChatSession(string clientName, string message)
+    {
+        ID = "CS" + DateTime.Now.Ticks.ToString().Substring(10);
+        ClientName = clientName;
+        InitialMessage = message;
+        CreatedAt = DateTime.Now;
+        Status = "Active";
+    }
+    
+    // Another constructor with ID parameter
+    public ChatSession(string id, string clientName, string message)
+    {
+        ID = id;
+        ClientName = clientName;
+        InitialMessage = message;
+        CreatedAt = DateTime.Now;
+        Status = "Active";
+    }
+}
+                </code></pre></div>
+                
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="code-block"><pre><code class="language-csharp">
+// Using default constructor
+var chat1 = new ChatSession();
+// ID auto-generated
+// Status is "Pending"
+                        </code></pre></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="code-block"><pre><code class="language-csharp">
+// With client info
+var chat2 = new ChatSession(
+    "John", 
+    "I need help"
+);
+// Status is "Active"
+                        </code></pre></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="code-block"><pre><code class="language-csharp">
+// With custom ID
+var chat3 = new ChatSession(
+    "URGENT-1", 
+    "Support", 
+    "Server down"
+);
+                        </code></pre></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 13: Activity Introduction - CreditCard Class -->
+            <div class="slide">
+                <div class="slide-title">Activity: Modeling a CreditCard Class</div>
+                
+                <div class="activity-box">
+                    <h3>🛒 Scenario: Online Payment Processing</h3>
+                    <p>You're building an e-commerce application that needs to process credit card payments. You need to design a <code>CreditCard</code> class to store and validate customer payment information.</p>
+                    
+                    <div class="activity-step">
+                        <h4>Step 1: Identify Essential Attributes</h4>
+                        <p>Think about what information a credit card has that we would need to process a payment:</p>
+                        <ul class="bullet-points">
+                            <li>Card number</li>
+                            <li>Cardholder name</li>
+                            <li>Expiration date</li>
+                            <li>Security code (CVV)</li>
+                            <li>What else might be relevant?</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="activity-step">
+                        <h4>Step 2: Design in UML</h4>
+                        <p>Create a UML class diagram showing:</p>
+                        <ul class="bullet-points">
+                            <li>Class name</li>
+                            <li>Attributes with data types and access modifiers</li>
+                            <li>Methods you might need</li>
+                            <li>Consider: Which fields should be private? What properties should you create?</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 14: CreditCard Class UML -->
+            <div class="slide">
+                <div class="slide-title">CreditCard Class: UML Design</div>
+   
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="uml-diagram" style="margin: 0 auto;">
+                            <div class="uml-class-name">CreditCard</div>
+                            <div class="uml-attributes">
+                                - cardNumber: string<br>
+                                - cardholderName: string<br>
+                                - expirationMonth: int<br>
+                                - expirationYear: int<br>
+                                - securityCode: string<br>
+                                - mii: int<br>
+                                <br>
+                                + CardNumber: string { get; private set; }<br>
+                                + CardholderName: string { get; set; }<br>
+                                + ExpirationMonth: int { get; set; }<br>
+                                + ExpirationYear: int { get; set; }<br>
+                                + SecurityCode: string { get; set; }<br>
+                                + MII: int { get; }<br>
+                            </div>
+                            <div class="uml-methods">
+                                + CreditCard(string cardNumber, string cardholderName, int expMonth, int expYear, string cvv)<br>
+                                + IsExpired(): bool<br>
+                                + GetCardType(): string<br>
+                                - SetMIIFromCardNumber(string cardNumber): void<br>
+                                + GetMII(): int<br>
+                                + DisplayInfo(): void<br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="highlight-box yellow">
+                            <h3>Design Decisions</h3>
+                            <ul class="bullet-points">
+                                <li><strong>Private fields</strong>: Protect sensitive data from direct access</li>
+                                <li><strong>Properties with validation</strong>: Control how data is set and ensure valid values</li>
+                                <li><strong>Read-only MII</strong>: Should be determined from the card number, not set directly</li>
+                                <li><strong>Validation methods</strong>: Check if the card is expired or valid</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Slide 15: CreditCard Implementation (Part 1) -->
+            <div class="slide">
+                <div class="slide-title">CreditCard Implementation</div>
+                
+                <div class="code-block"><pre><code class="language-csharp">
+public class CreditCard
+{
+    // Private fields
+    private string cardNumber;
+    private string cardholderName;
+    private int expirationMonth;
+    private int expirationYear;
+    private string securityCode;
+    private int mii; // Major Industry Identifier
+    
+    // Properties with validation
+    public string CardNumber 
+    { 
+        get { return cardNumber; }
+        private set 
+        {
+            if (IsValidCardNumber(value))
+            {
+                cardNumber = value;
+                SetMIIFromCardNumber(value);
+            }
+            else
+                throw new ArgumentException("Invalid card number");
+        }
+    }
+    
+    public string CardholderName 
+    { 
+        get { return cardholderName; }
+        set 
+        {
+            if (!string.IsNullOrEmpty(value))
+                cardholderName = value;
+            else
+                throw new ArgumentException("Cardholder name cannot be empty");
+        }
+    }
+    
+    public int ExpirationMonth 
+    { 
+        get { return expirationMonth; }
+        set 
+        {
+            if (value >= 1 && value <= 12)
+                expirationMonth = value;
+            else
+                throw new ArgumentException("Month must be between 1 and 12");
+        }
+    }
+    
+    public int ExpirationYear 
+    { 
+        get { return expirationYear; }
+        set 
+        {
+            if (value >= DateTime.Now.Year)
+                expirationYear = value;
+            else
+                throw new ArgumentException("Year cannot be in the past");
+        }
+    }
+    
+    public string SecurityCode 
+    { 
+        get { return securityCode; }
+        set 
+        {
+            if (value.Length >= 3 && value.Length <= 4)
+                securityCode = value;
+            else
+                throw new ArgumentException("Security code must be 3 or 4 digits");
+        }
+    }
+    
+    // Read-only property for MII
+    public int MII 
+    { 
+        get { return mii; }
+    }
+</code></pre></div>
+            </div>
+
+            <!-- Slide 16: CreditCard Implementation (Part 2) -->
+            <div class="slide">
+                <div class="slide-title">CreditCard Implementation (Continued)</div>
+                
+                <div class="code-block"><pre><code class="language-csharp">
+    // Constructor
+    public CreditCard(string cardNumber, string cardholderName, 
+                     int expMonth, int expYear, string cvv)
+    {
+        // Properties handle validation
+        CardNumber = cardNumber; // This also sets MII
+        CardholderName = cardholderName;
+        ExpirationMonth = expMonth;
+        ExpirationYear = expYear;
+        SecurityCode = cvv;
+    }
+    
+    // Check if card is expired
+    public bool IsExpired()
+    {
+        DateTime now = DateTime.Now;
+        return (ExpirationYear < now.Year) || 
+               (ExpirationYear == now.Year && ExpirationMonth < now.Month);
+    }
+    
+    // Get card type based on MII
+    public string GetCardType()
+    {
+        switch(MII)
+        {
+            case 3: return "American Express";
+            case 4: return "Visa";
+            case 5: return "MasterCard";
+            case 6: return "Discover";
+            default: return "Unknown";
+        }
+    }
+    
+    // Sets the MII from card number (first digit)
+    private void SetMIIFromCardNumber(string cardNumber)
+    {
+        if (!string.IsNullOrEmpty(cardNumber) && cardNumber.Length > 0)
+        {
+            mii = int.Parse(cardNumber[0].ToString());
+        }
+    }
+    
+    // Helper method to validate card number (simplified)
+    private bool IsValidCardNumber(string number)
+    {
+        return !string.IsNullOrEmpty(number) && 
+               number.All(char.IsDigit) &&
+               number.Length >= 13 && 
+               number.Length <= 19;
+    }
+    
+    // Display card information
+    public void DisplayInfo()
+    {
+        string lastFour = CardNumber.Substring(CardNumber.Length - 4);
+        Console.WriteLine($"Card: {GetCardType()} ending in {lastFour}");
+        Console.WriteLine($"Cardholder: {CardholderName}");
+        Console.WriteLine($"Expires: {ExpirationMonth}/{ExpirationYear}");
+        Console.WriteLine($"Status: {(IsExpired() ? "Expired" : "Valid")}");
+    }
+}
+</code></pre></div>
+            </div>
+
+            <!-- Slide 17: Using the CreditCard Class -->
+            <div class="slide">
+                <div class="slide-title">Using the CreditCard Class</div>
+                
+                <div class="code-block"><pre><code class="language-csharp">
+// Creating a credit card instance
+CreditCard card = new CreditCard(
+    "4111111111111111",  // Visa card (starts with 4)
+    "John Smith", 
+    12,                  // December
+    2025,                // Year
+    "123"                // CVV
+);
+
+// Using the object
+Console.WriteLine($"Card Type: {card.GetCardType()}");
+Console.WriteLine($"MII: {card.MII}");
+Console.WriteLine($"Expired: {card.IsExpired()}");
+
+// Displaying formatted info
+card.DisplayInfo();
+
+// Try creating an invalid card
+try 
+{
+    CreditCard invalidCard = new CreditCard(
+        "1234",         // Too short, invalid
+        "Jane Doe",
+        6,
+        2025,
+        "456"
+    );
+} 
+catch (ArgumentException ex) 
+{
+    Console.WriteLine($"Error: {ex.Message}");
+}
+                </code></pre></div>
+                
+                <div class="output-block">
+                    <div class="comment">// Output</div>
+                    <div class="output-line">Card Type: Visa</div>
+                    <div class="output-line">MII: 4</div>
+                    <div class="output-line">Expired: False</div>
+                    <div class="output-line">Card: Visa ending in 1111</div>
+                    <div class="output-line">Cardholder: John Smith</div>
+                    <div class="output-line">Expires: 12/2025</div>
+                    <div class="output-line">Status: Valid</div>
+                    <div class="output-line">Error: Invalid card number</div>
+                </div>
+            </div>
+
+            <!-- Slide 18: Objects Working Together -->
+            <div class="slide">
+                <div class="slide-title">How Objects Work Together</div>
+                
+                <div class="highlight-box">
+                    <h3>🔄 Objects in the Real World</h3>
+                    <p>In real applications, objects don't exist in isolation. They interact with each other to form complex systems, just like objects in the real world.</p>
+                </div>
+                
+                <div class="uml-diagram" style="width: 90%; margin: 0 auto;">
+                    <div class="uml-class-name">Customer</div>
+                    <div class="uml-attributes">
+                        - name: string<br>
+                        - email: string<br>
+                        - phone: string<br>
+                        - creditCards: List&lt;CreditCard&gt;<br>
+                    </div>
+                    <div class="uml-methods">
+                        + AddCreditCard(CreditCard card): void<br>
+                        + GetDefaultCard(): CreditCard<br>
+                        + ChargeAmount(decimal amount): bool<br>
+                    </div>
+                </div>
+                
+                <div class="code-block"><pre><code class="language-csharp">
+public class Customer
+{
+    public string Name { get; set; }
+    public string Email { get; set; }
+    public string Phone { get; set; }
+    private List<CreditCard> creditCards;
+    
+    public Customer(string name, string email, string phone)
+    {
+        Name = name;
+        Email = email;
+        Phone = phone;
+        creditCards = new List<CreditCard>();
+    }
+    
+    public void AddCreditCard(CreditCard card)
+    {
+        creditCards.Add(card);
+    }
+    
+    public CreditCard GetDefaultCard()
+    {
+        if (creditCards.Count > 0)
+            return creditCards[0];
+        return null;
+    }
+    
+    public bool ChargeAmount(decimal amount)
+    {
+        CreditCard card = GetDefaultCard();
+        if (card != null && !card.IsExpired())
+        {
+            Console.WriteLine($"Charging ${amount} to {card.GetCardType()} ending in " + 
+                             card.CardNumber.Substring(card.CardNumber.Length - 4));
+            return true;
+        }
+        return false;
+    }
+}
+                </code></pre></div>
+            </div>
+
+            <!-- Slide 19: Objects Working Together Example -->
+            <div class="slide">
+                <div class="slide-title">Objects Working Together: Example</div>
+                
+                <div class="code-block"><pre><code class="language-csharp">
+// Create a customer
+Customer customer = new Customer(
+    "Alice Johnson",
+    "alice@example.com",
+    "555-123-4567"
+);
+
+// Create some credit cards
+CreditCard visaCard = new CreditCard(
+    "4111111111111111",  // Visa
+    "Alice Johnson",
+    8,
+    2026,
+    "123"
+);
+
+CreditCard amexCard = new CreditCard(
+    "378282246310005",   // American Express
+    "Alice Johnson",
+    4,
+    2025,
+    "4321"
+);
+
+// Add cards to customer
+customer.AddCreditCard(visaCard);
+customer.AddCreditCard(amexCard);
+
+// Process a payment
+bool success = customer.ChargeAmount(99.99m);
+Console.WriteLine(success ? "Payment successful!" : "Payment failed!");
+
+// Show default card info
+CreditCard defaultCard = customer.GetDefaultCard();
+if (defaultCard != null)
+{
+    defaultCard.DisplayInfo();
+}
+                </code></pre></div>
+                
+                <div class="output-block">
+                    <div class="comment">// Output</div>
+                    <div class="output-line">Charging $99.99 to Visa ending in 1111</div>
+                    <div class="output-line">Payment successful!</div>
+                    <div class="output-line">Card: Visa ending in 1111</div>
+                    <div class="output-line">Cardholder: Alice Johnson</div>
+                    <div class="output-line">Expires: 8/2026</div>
+                    <div class="output-line">Status: Valid</div>
+                </div>
+            </div>
+
+            <!-- Slide 20: Multiple CS Files -->
+            <div class="slide">
+                <div class="slide-title">Multiple CS Files: Organization</div>
+                
+                <div class="highlight-box">
+                    <h3>📂 Organizing Classes in Separate Files</h3>
+                    <p>As your application grows, it's good practice to organize related classes in separate files for better maintainability and readability.</p>
+                </div>
+                
+                <div class="vs-comparison">
+                    <div class="vs-column static">
+                        <h3>Project Structure</h3>
+                        <div style="text-align: left; font-family: monospace; line-height: 1.4;">
+                            📁 ShoppingApp/<br>
+                            ┣━ 📄 Program.cs<br>
+                            ┣━ 📄 Customer.cs<br>
+                            ┣━ 📄 CreditCard.cs<br>
+                            ┣━ 📄 Order.cs<br>
+                            ┣━ 📄 Product.cs<br>
+                            ┗━ 📄 ShoppingCart.cs
+                        </div>
+                        <br>
+                        <h4>Program.cs</h4>
+                        <div class="code-block"><pre><code class="language-csharp">
+using System;
+
+namespace ShoppingApp
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Create customer
+            Customer customer = new Customer(
+                "Alice Johnson",
+                "alice@example.com",
+                "555-123-4567"
+            );
+            
+            // Create credit card
+            CreditCard card = new CreditCard(
+                "4111111111111111",
+                "Alice Johnson",
+                12, 2025, "123"
+            );
+            
+            // Add card to customer
+            customer.AddCreditCard(card);
+        }
+    }
+}
+                        </code></pre></div>
+                    </div>
+                    
+                    <div class="vs-column object">
+                        <h3>CreditCard.cs</h3>
+                        <div class="code-block"><pre><code class="language-csharp">
+using System;
+
+namespace ShoppingApp
+{
+    public class CreditCard
+    {
+        public string CardNumber { get; private set; }
+        public string CardholderName { get; set; }
+        // Other properties...
+        
+        public CreditCard(string cardNumber,
+                         string cardholderName,
+                         int expMonth, int expYear,
+                         string cvv)
+        {
+            // Initialize properties...
+        }
+        
+        // Methods...
+    }
+}
+                        </code></pre></div>
+                        
+                        <h3>Customer.cs</h3>
+                        <div class="code-block"><pre><code class="language-csharp">
+using System;
+using System.Collections.Generic;
+
+namespace ShoppingApp
+{
+    public class Customer
+    {
+        public string Name { get; set; }
+        private List<CreditCard> creditCards;
+        
+        // Constructor and methods...
+    }
+}
+                        </code></pre></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 21: Access Modifiers and Namespaces -->
+            <div class="slide">
+                <div class="slide-title">Access Modifiers and Namespaces</div>
+                
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>🔒 Class Access Modifiers</h3>
+                        <ul class="bullet-points">
+                            <li><strong>public</strong>: Accessible from any assembly</li>
+                            <li><strong>internal</strong>: Accessible only within the same assembly</li>
+                            <li><strong>private</strong>: Only nested classes can be private</li>
+                        </ul>
+                        <div class="code-block"><pre><code class="language-csharp">
+// Accessible everywhere
+public class Customer { }
+
+// Only in this assembly
+internal class PaymentProcessor { }
+
+// Error! Top-level classes can't be private
+// private class SecretClass { }
+                        </code></pre></div>
+                    </div>
+                    <div class="info-card blue">
+                        <h3>📦 Namespaces</h3>
+                        <p>Namespaces organize classes and prevent naming conflicts</p>
+                        <div class="code-block"><pre><code class="language-csharp">
+// In Payments.cs
+namespace ShoppingApp.Payments
+{
+    public class CreditCard { }
+    public class PayPal { }
+}
+
+// In Customers.cs
+namespace ShoppingApp.Customers
+{
+    public class Customer { }
+    public class Address { }
+}
+
+// In Program.cs
+using ShoppingApp.Payments;
+using ShoppingApp.Customers;
+
+// Now you can use:
+var card = new CreditCard();
+var customer = new Customer();
+                        </code></pre></div>
+                    </div>
+                </div>
+                
+                <div class="highlight-box yellow">
+                    <h3>⚠️ Common Issues</h3>
+                    <ul class="bullet-points">
+                        <li>Forgetting to add <code>using</code> statements</li>
+                        <li>Missing <code>public</code> modifier when class should be accessible</li>
+                        <li>Namespace doesn't match folder structure</li>
+                        <li>Naming conflicts (two classes with same name)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Slide 22: Summary and Best Practices -->
+            <div class="slide">
+                <div class="slide-title">Summary and Best Practices</div>
+                
+                <div class="highlight-box">
+                    <h3>Key Concepts We've Covered</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="bullet-points">
+                                <li>Static vs. Object Classes</li>
+                                <li>Instantiation with <code>new</code></li>
+                                <li>Attributes and Methods</li>
+                                <li>Access Modifiers (public, private)</li>
+                                <li>Properties (getters/setters)</li>
+                                <li>Constructors</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="bullet-points">
+                                <li>Constructor Chaining</li>
+                                <li>Object Relationships</li>
+                                <li>Multiple CS Files</li>
+                                <li>Namespaces</li>
+                                <li>Encapsulation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="scaffold-step">
+                    <h4>Best Practices for Object-Oriented Design</h4>
+                    <ul class="bullet-points">
+                        <li><strong>Encapsulate fields</strong>: Use private fields with public properties</li>
+                        <li><strong>Validate input</strong>: Check parameter values in setters and constructors</li>
+                        <li><strong>Single responsibility</strong>: Each class should have one clear purpose</li>
+                        <li><strong>Meaningful names</strong>: Choose descriptive class and property names</li>
+                        <li><strong>Organize related classes</strong>: Use separate files and namespaces</li>
+                        <li><strong>Use constructor chaining</strong>: Avoid code duplication</li>
+                        <li><strong>Model relationships appropriately</strong>: Consider composition vs. inheritance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-button" id="prev-btn" onclick="previousSlide()">
+                ← Previous
+            </button>
+            <div class="timer-display" id="timer">
+                00:00
+            </div>
+            <button class="nav-button" id="next-btn" onclick="nextSlide()">
+                Next →
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        let startTime = Date.now();
+        let timerInterval;
+
+        // Initialize
+        document.getElementById('total-slides').textContent = totalSlides;
+        updateSlideDisplay();
+        startTimer();
+
+        function updateSlideDisplay() {
+            // Hide all slides
+            slides.forEach(slide => slide.classList.remove('active'));
+            
+            // Show current slide
+            slides[currentSlide].classList.add('active');
+            
+            // Update counter
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+            
+            // Update progress bar
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+            
+            // Update navigation buttons
+            document.getElementById('prev-btn').disabled = currentSlide === 0;
+            document.getElementById('next-btn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updateSlideDisplay();
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlideDisplay();
+            }
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                const elapsed = Math.floor((Date.now() - startTime) / 1000);
+                const minutes = Math.floor(elapsed / 60);
+                const seconds = elapsed % 60;
+                document.getElementById('timer').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+
+        // PDF Generation Function
+        async function generatePDF() {
+            console.log('🎯 INITIATING PDF GENERATION...');
+
+            await document.fonts.ready;
+            
+            // Show loading overlay
+            const loadingOverlay = document.getElementById('pdfLoading');
+            const progressText = document.getElementById('progressText');
+            const slideCounter = document.getElementById('slideCounter');
+            const slideProgressFill = document.getElementById('slideProgressFill');
+            const downloadBtn = document.getElementById('downloadPDF');
+            
+            loadingOverlay.classList.add('active');
+            downloadBtn.disabled = true;
+            
+            try {
+                // Initialize jsPDF with Letter size
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF({
+                    orientation: 'landscape',
+                    unit: 'in',
+                    format: 'letter'
+                });
+                
+                const pageWidth = pdf.internal.pageSize.getWidth();
+                const pageHeight = pdf.internal.pageSize.getHeight();
+                const margin = 0.5;
+                const contentWidth = pageWidth - (2 * margin);
+                const contentHeight = pageHeight - (2 * margin);
+                
+                console.log(`📏 PDF dimensions: ${pageWidth}" x ${pageHeight}"`);
+                
+                // Get all slides and prepare for generation
+                const slideElements = document.querySelectorAll('.slide');
+                const originalSlideContent = document.querySelector('.slide-content');
+                
+                // Store original styles
+                const originalStyles = {
+                    slideContent: originalSlideContent.style.cssText,
+                    slides: Array.from(slideElements).map(slide => slide.style.cssText)
+                };
+                
+                // Apply PDF-friendly styles
+                originalSlideContent.style.cssText += `
+                    overflow: visible !important;
+                    height: auto !important;
+                    padding: 0 !important;
+                `;
+
+                document.body.classList.add('pdf-mode');
+                
+                slideElements.forEach((slide, index) => {
+                    slide.style.cssText += `
+                        display: block !important;
+                        opacity: 1 !important;
+                        visibility: visible !important;
+                        position: static !important;
+                        height: auto !important;
+                        min-height: 800px !important;
+                        background: white !important;
+                        margin-bottom: 20px !important;
+                        padding: 40px !important;
+                        page-break-after: always;
+                        border: none !important;
+                    `;
+                });
+                
+                // Process each slide individually
+                for (let i = 0; i < slideElements.length; i++) {
+                    const slide = slideElements[i];
+                    
+                    progressText.textContent = `🖼️ Capturing slide ${i + 1}...`;
+                    slideCounter.textContent = `Slide ${i + 1} of ${slideElements.length}`;
+                    slideProgressFill.style.width = `${((i + 1) / slideElements.length) * 100}%`;
+                    
+                    // Hide all slides except current one
+                    slideElements.forEach((s, idx) => {
+                        if (idx !== i) {
+                            s.style.display = 'none';
+                        }
+                    });
+                    
+                    // Force reflow and wait for rendering
+                    slide.offsetHeight;
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                    
+                    try {
+                        // Capture the individual slide
+                        const canvas = await html2canvas(slide, {
+                            allowTaint: true,
+                            removeContainer: false,
+                            useCORS: true,
+                            scale: 2,
+                            width: slide.scrollWidth,
+                            height: slide.scrollHeight,
+                            backgroundColor: '#ffffff',
+                            logging: false,
+                            onclone: (clonedDoc) => {
+                                const clonedSlides = clonedDoc.querySelectorAll('.slide');
+                                clonedSlides.forEach(s => {
+                                    s.style.display = 'block';
+                                    s.style.opacity = '1';
+                                    s.style.visibility = 'visible';
+                                });
+                            }
+                        });
+                        
+                        console.log(`📊 Slide ${i + 1} canvas: ${canvas.width}x${canvas.height}`);
+                        
+                        // Calculate scaling to fit page
+                        const canvasAspectRatio = canvas.width / canvas.height;
+                        const pageAspectRatio = contentWidth / contentHeight;
+                        
+                        let finalWidth, finalHeight;
+                        if (canvasAspectRatio > pageAspectRatio) {
+                            finalWidth = contentWidth;
+                            finalHeight = contentWidth / canvasAspectRatio;
+                        } else {
+                            finalHeight = contentHeight;
+                            finalWidth = contentHeight * canvasAspectRatio;
+                        }
+                        
+                        // Center the image on page
+                        const x = (pageWidth - finalWidth) / 2;
+                        const y = (pageHeight - finalHeight) / 2;
+                        
+                        // Add to PDF
+                        if (i > 0) {
+                            pdf.addPage();
+                        }
+                        
+                        progressText.textContent = `📝 Adding slide ${i + 1} to PDF...`;
+                        
+                        pdf.addImage(
+                            canvas.toDataURL('image/jpeg', 0.85),
+                            'JPEG',
+                            x, y,
+                            finalWidth, finalHeight
+                        );
+                        
+                        console.log(`✅ Added slide ${i + 1} to PDF`);
+                        
+                    } catch (slideError) {
+                        console.error(`❌ Error capturing slide ${i + 1}:`, slideError);
+                        
+                        // Add error page instead of failing completely
+                        if (i > 0) {
+                            pdf.addPage();
+                        }
+                        
+                        pdf.setFontSize(20);
+                        pdf.setTextColor(220, 53, 69);
+                        pdf.text(`Error capturing slide ${i + 1}`, pageWidth / 2, pageHeight / 2, { align: 'center' });
+                        pdf.setFontSize(12);
+                        pdf.setTextColor(108, 117, 125);
+                        pdf.text('This slide could not be rendered properly', pageWidth / 2, (pageHeight / 2) + 0.5, { align: 'center' });
+                    }
+                }
+
+                document.body.classList.remove('pdf-mode');
+                
+                // Restore all slides visibility
+                slideElements.forEach(slide => {
+                    slide.style.display = 'block';
+                });
+                
+                // Restore original styles
+                progressText.textContent = '🧹 Cleaning up...';
+                originalSlideContent.style.cssText = originalStyles.slideContent;
+                slideElements.forEach((slide, index) => {
+                    slide.style.cssText = originalStyles.slides[index];
+                });
+                
+                // Save the PDF
+                progressText.textContent = '💾 Saving PDF...';
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                const fileName = `CSCI-1250_Object-Classes-in-CSharp_${new Date().toISOString().split('T')[0]}.pdf`;
+                pdf.save(fileName);
+                
+                // Success!
+                progressText.textContent = '🎉 PDF Generated Successfully!';
+                slideCounter.textContent = `✅ All ${slideElements.length} slides exported`;
+                slideProgressFill.style.width = '100%';
+                
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+            } catch (error) {
+                console.error('💀 PDF GENERATION FAILED:', error);
+                
+                progressText.textContent = '❌ PDF Generation Failed';
+                slideCounter.textContent = 'Error occurred - check console';
+                
+                await new Promise(resolve => setTimeout(resolve, 3000));
+            } finally {
+                // Always hide loading and re-enable button
+                loadingOverlay.classList.remove('active');
+                downloadBtn.disabled = false;
+                updateSlideDisplay(); // Restore normal navigation
+            }
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                previousSlide();
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                currentSlide = 0;
+                updateSlideDisplay();
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                currentSlide = totalSlides - 1;
+                updateSlideDisplay();
+            }
+        });
+
+        // Touch/swipe support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) {
+                nextSlide(); // Swipe left
+            } else if (touchEndX - touchStartX > 50) {
+                previousSlide(); // Swipe right
+            }
+        });
+    </script>
+</body>
+</html>
