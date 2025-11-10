@@ -445,7 +445,7 @@ public class Person
     public void SetAge(int value)
     {
         if (value >= 0 && value < 120)
-            age = value;
+            this.age = value;
         else
             throw new ArgumentException("Invalid age");
     }
@@ -509,7 +509,7 @@ public class Person
     public void SetAge(int value)
     {
         if (value >= 0 && value < 120)
-            age = value;
+            this.age = value;
         else
             throw new ArgumentException("Invalid age");
     }
@@ -535,7 +535,7 @@ public class Person
         set                  // Setter
         {
             if (value >= 0 && value < 120)
-                age = value;
+                this.age = value;
             else
                 throw new ArgumentException("Invalid age");
         }
@@ -607,7 +607,7 @@ public class ChatSession
         set 
         { 
             if (!string.IsNullOrEmpty(value))
-                id = value;
+                this.id = value;
             else
                 throw new ArgumentException("ID cannot be empty");
         }
@@ -631,7 +631,7 @@ public class ChatSession
         {
             // Only allow certain values
             if (value == "Active" || value == "Pending" || value == "Closed")
-                status = value;
+                this.status = value;
             else
                 throw new ArgumentException("Invalid status");
         }
@@ -668,9 +668,9 @@ public class ChatSession
     public ChatSession()
     {
         // Initialize with default values
-        ID = "New";
-        CreatedAt = DateTime.Now;
-        Status = "Pending";
+        this.ID = "New";
+        this.CreatedAt = DateTime.Now;
+        this.Status = "Pending";
     }
 }
 
@@ -708,29 +708,29 @@ public class ChatSession
     // Default constructor
     public ChatSession()
     {
-        ID = "CS" + DateTime.Now.Ticks.ToString().Substring(10);
-        CreatedAt = DateTime.Now;
-        Status = "Pending";
+        this.ID = "CS" + DateTime.Now.Ticks.ToString().Substring(10);
+        this.CreatedAt = DateTime.Now;
+        this.Status = "Pending";
     }
     
     // Parameterized constructor
     public ChatSession(string clientName, string message)
     {
-        ID = "CS" + DateTime.Now.Ticks.ToString().Substring(10);
-        ClientName = clientName;
-        InitialMessage = message;
-        CreatedAt = DateTime.Now;
-        Status = "Active";
+        this.ID = "CS" + DateTime.Now.Ticks.ToString().Substring(10);
+        this.ClientName = clientName;
+        this.InitialMessage = message;
+        this.CreatedAt = DateTime.Now;
+        this.Status = "Active";
     }
     
     // Another constructor with ID parameter
     public ChatSession(string id, string clientName, string message)
     {
-        ID = id;
-        ClientName = clientName;
-        InitialMessage = message;
-        CreatedAt = DateTime.Now;
-        Status = "Active";
+        this.ID = id;
+        this.ClientName = clientName;
+        this.InitialMessage = message;
+        this.CreatedAt = DateTime.Now;
+        this.Status = "Active";
     }
 }
                 </code></pre></div>
@@ -866,12 +866,12 @@ public class CreditCard
     // Properties with validation
     public string CardNumber 
     { 
-        get { return cardNumber; }
+        get { return this.cardNumber; }
         private set 
         {
             if (IsValidCardNumber(value))
             {
-                cardNumber = value;
+                this.cardNumber = value;
                 SetMIIFromCardNumber(value);
             }
             else
@@ -881,11 +881,11 @@ public class CreditCard
     
     public string CardholderName 
     { 
-        get { return cardholderName; }
+        get { return this.cardholderName; }
         set 
         {
             if (!string.IsNullOrEmpty(value))
-                cardholderName = value;
+                this.cardholderName = value;
             else
                 throw new ArgumentException("Cardholder name cannot be empty");
         }
@@ -893,11 +893,11 @@ public class CreditCard
     
     public int ExpirationMonth 
     { 
-        get { return expirationMonth; }
+        get { return this.expirationMonth; }
         set 
         {
             if (value >= 1 && value <= 12)
-                expirationMonth = value;
+                this.expirationMonth = value;
             else
                 throw new ArgumentException("Month must be between 1 and 12");
         }
@@ -905,11 +905,11 @@ public class CreditCard
     
     public int ExpirationYear 
     { 
-        get { return expirationYear; }
+        get { return this.expirationYear; }
         set 
         {
             if (value >= DateTime.Now.Year)
-                expirationYear = value;
+                this.expirationYear = value;
             else
                 throw new ArgumentException("Year cannot be in the past");
         }
@@ -917,11 +917,11 @@ public class CreditCard
     
     public string SecurityCode 
     { 
-        get { return securityCode; }
+        get { return this.securityCode; }
         set 
         {
             if (value.Length >= 3 && value.Length <= 4)
-                securityCode = value;
+                this.securityCode = value;
             else
                 throw new ArgumentException("Security code must be 3 or 4 digits");
         }
@@ -930,7 +930,7 @@ public class CreditCard
     // Read-only property for MII
     public int MII 
     { 
-        get { return mii; }
+        get { return this.mii; }
     }
 </code></pre></div>
             </div>
@@ -945,11 +945,11 @@ public class CreditCard
                      int expMonth, int expYear, string cvv)
     {
         // Properties handle validation
-        CardNumber = cardNumber; // This also sets MII
-        CardholderName = cardholderName;
-        ExpirationMonth = expMonth;
-        ExpirationYear = expYear;
-        SecurityCode = cvv;
+        this.CardNumber = cardNumber; // This also sets MII
+        this.CardholderName = cardholderName;
+        this.ExpirationMonth = expMonth;
+        this.ExpirationYear = expYear;
+        this.SecurityCode = cvv;
     }
     
     // Check if card is expired
@@ -1098,13 +1098,13 @@ public class Customer
     
     public void AddCreditCard(CreditCard card)
     {
-        creditCards.Add(card);
+        this.creditCards.Add(card);
     }
     
     public CreditCard GetDefaultCard()
     {
         if (creditCards.Count > 0)
-            return creditCards[0];
+            return this.creditCards[0];
         return null;
     }
     
