@@ -6,7 +6,7 @@
 using System.IO;
 ```
 
-## Filesystem-Related Classes in the System.IO Namespace
+## Essential File System Classes in the System.IO Namespace
 
 C# file operations are primarily handled through classes in the System.IO namespace:
 
