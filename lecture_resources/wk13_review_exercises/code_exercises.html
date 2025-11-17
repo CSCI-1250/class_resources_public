@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSCI-1250: Code Exercises - Semester Review</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://csci-1250.github.io/class_resources_public/templates/css/slides_primary_theme.css">
+
+    <!-- Prism CSS for syntax highlighting -->
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/themes/prism.css" rel="stylesheet" />
+
+    <!-- jsPDF and html2canvas for PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <!-- Prism JS for syntax highlighting -->
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/components/prism-csharp.min.js"></script>
+
+    <style>
+        .exercise-card {
+            background: #f8f9fa;
+            border: 3px solid #DC2626;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        
+        .exercise-number {
+            background: #DC2626;
+            color: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-right: 15px;
+        }
+        
+        .difficulty-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-left: 10px;
+        }
+        
+        .difficulty-easy {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #28a745;
+        }
+        
+        .difficulty-medium {
+            background: #fff3cd;
+            color: #856404;
+            border: 2px solid #ffc107;
+        }
+        
+        .difficulty-hard {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #dc3545;
+        }
+        
+        .hint-box {
+            background: #e7f3ff;
+            border-left: 4px solid #0ea5e9;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .sample-output {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+        }
+        
+        .requirements-list {
+            background: #fff9e6;
+            border: 2px solid #ffb700;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .requirements-list li {
+            margin: 8px 0;
+            font-size: 1.05em;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading overlay for PDF generation -->
+    <div class="pdf-loading" id="pdfLoading">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <div class="progress-text" id="progressText">🎯 Generating PDF...</div>
+            <div style="font-size: 0.9em; margin-bottom: 15px;">
+                <span id="slideCounter">Slide 0 of 20</span>
+            </div>
+            <div class="slide-progress">
+                <div class="slide-progress-fill" id="slideProgressFill" style="width: 0%"></div>
+            </div>
+            <div style="font-size: 0.8em; margin-top: 15px; opacity: 0.8;">
+                This may take a few moments...
+            </div>
+        </div>
+    </div>
+
+    <div class="presentation-container">
+        <div class="header">
+            <h1>CSCI-1250: Code Exercises - Semester Review</h1>
+            <div class="header-right">
+                <button class="download-btn" id="downloadPDF" onclick="generatePDF()">
+                    <span class="download-icon">📄</span>
+                    <span>Download PDF</span>
+                </button>
+                <div class="slide-counter">
+                    <span id="current-slide">1</span> / <span id="total-slides">20</span>
+                </div>
+            </div>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+        </div>
+
+        <div class="slide-content">
+            <div class="slide active">
+                <div class="slide-title">CSCI-1250 Code Exercises</div>
+                <div style="text-align: center; margin-top: 50px;">
+                    <div style="font-size: 1.5em; color: #1F2937; margin-bottom: 30px;">
+                        Practice Problems Across All Topics
+                    </div>
+                    <div style="background: linear-gradient(135deg, #DC2626, #B91C1C); color: white; padding: 30px; border-radius: 15px; max-width: 800px; margin: 0 auto;">
+                        <p style="font-size: 1.2em; margin-bottom: 15px;"><strong>Topics Covered:</strong></p>
+                        <ul style="list-style: none; font-size: 1.1em;">
+                            <li style="padding: 8px 0;">📊 Arrays & Collections</li>
+                            <li style="padding: 8px 0;">📁 File Input/Output</li>
+                            <li style="padding: 8px 0;">🎯 Classes & Objects</li>
+                            <li style="padding: 8px 0;">🔧 Methods & Parameters</li>
+                            <li style="padding: 8px 0;">🔄 Control Flow & Loops</li>
+                            <li style="padding: 8px 0;">🧮 Variables & Data Types</li>
+                        </ul>
+                    </div>
+                    <div style="margin-top: 30px; font-size: 1.1em; color: #6B7280;">
+                        <p><strong>Difficulty Levels:</strong> 
+                            <span class="difficulty-badge difficulty-easy">Easy</span>
+                            <span class="difficulty-badge difficulty-medium">Medium</span>
+                            <span class="difficulty-badge difficulty-hard">Hard</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ARRAYS SECTION -->
+            <div class="slide">
+                <div class="slide-title">Arrays: Exercise 1 - Grade Calculator</div>
+                <div class="exercise-card">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <span class="exercise-number">1</span>
+                        <h3 style="margin: 0;">Calculate Average Grade</h3>
+                        <span class="difficulty-badge difficulty-easy">Easy</span>
+                    </div>
+                    
+                    <div class="requirements-list">
+                        <h4>📋 Requirements:</h4>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>Create an array of 5 integer test scores</li>
+                            <li>Calculate and display the average score</li>
+                            <li>Display the highest and lowest scores</li>
+                            <li>Use a loop to process the array</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="hint-box">
+                        <strong>💡 Hints:</strong>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>Initialize the array: <code>int[] scores = {85, 92, 78, 95, 88};</code></li>
+                            <li>Use <code>scores.Length</code> to get array size</li>
+                            <li>Track min/max values as you iterate through the array</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sample-output">
+                        <strong>Sample Output:</strong><br>
+                        Test Scores: 85, 92, 78, 95, 88<br>
+                        Average Score: 87.6<br>
+                        Highest Score: 95<br>
+                        Lowest Score: 78
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-title">Arrays: Exercise 2 - Reverse Array</div>
+                <div class="exercise-card">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <span class="exercise-number">2</span>
+                        <h3 style="margin: 0;">Reverse an Array</h3>
+                        <span class="difficulty-badge difficulty-medium">Medium</span>
+                    </div>
+                    
+                    <div class="requirements-list">
+                        <h4>📋 Requirements:</h4>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>Create an array of strings with at least 5 names</li>
+                            <li>Display the original array</li>
+                            <li>Create a method that reverses the array <strong>in place</strong></li>
+                            <li>Display the reversed array</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="hint-box">
+                        <strong>💡 Hints:</strong>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>Method signature: <code>static void ReverseArray(string[] arr)</code></li>
+                            <li>Swap elements from both ends moving toward the middle</li>
+                            <li>Use a temp variable for swapping: <code>temp = arr[i]; arr[i] = arr[j]; arr[j] = temp;</code></li>
+                            <li>Loop only halfway through the array</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sample-output">
+                        <strong>Sample Output:</strong><br>
+                        Original: Alice, Bob, Charlie, Diana, Eve<br>
+                        Reversed: Eve, Diana, Charlie, Bob, Alice
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-title">Arrays: Exercise 3 - Search and Count</div>
+                <div class="exercise-card">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <span class="exercise-number">3</span>
+                        <h3 style="margin: 0;">Find and Count Elements</h3>
+                        <span class="difficulty-badge difficulty-medium">Medium</span>
+                    </div>
+                    
+                    <div class="requirements-list">
+                        <h4>📋 Requirements:</h4>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>Create an array of integers with some duplicates</li>
+                            <li>Write a method <code>FindIndex</code> that returns the first index of a value</li>
+                            <li>Write a method <code>CountOccurrences</code> that counts how many times a value appears</li>
+                            <li>Test both methods with multiple search values</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="hint-box">
+                        <strong>💡 Hints:</strong>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li><code>static int FindIndex(int[] arr, int target)</code></li>
+                            <li><code>static int CountOccurrences(int[] arr, int target)</code></li>
+                            <li>Return -1 if the value is not found in FindIndex</li>
+                            <li>Use a counter variable in CountOccurrences</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sample-output">
+                        <strong>Sample Output:</strong><br>
+                        Array: [5, 3, 7, 3, 9, 3, 2]<br>
+                        Finding 3: First found at index 1<br>
+                        Count of 3: 3 occurrences<br>
+                        Finding 10: Not found (returns -1)
+                    </div>
+                </div>
+            </div>
+
+            <!-- FILE I/O SECTION -->
+            <div class="slide">
+                <div class="slide-title">File I/O: Exercise 4 - Simple File Writer</div>
+                <div class="exercise-card">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <span class="exercise-number">4</span>
+                        <h3 style="margin: 0;">Create a To-Do List File</h3>
+                        <span class="difficulty-badge difficulty-easy">Easy</span>
+                    </div>
+                    
+                    <div class="requirements-list">
+                        <h4>📋 Requirements:</h4>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>Create an array of to-do items (strings)</li>
+                            <li>Write all items to a file called "todo.txt", one per line</li>
+                            <li>Add a timestamp at the top of the file</li>
+                            <li>Confirm to user that file was created successfully</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="hint-box">
+                        <strong>💡 Hints:</strong>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>Use <code>using System.IO;</code> at the top</li>
+                            <li>Use <code>File.WriteAllLines("todo.txt", items);</code></li>
+                            <li>Or use <code>StreamWriter</code> for more control</li>
+                            <li>Get timestamp: <code>DateTime.Now.ToString()</code></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sample-output">
+                        <strong>Sample Output (Console):</strong><br>
+                        Creating to-do list...<br>
+                        File 'todo.txt' created successfully!<br><br>
+                        <strong>File Contents (todo.txt):</strong><br>
+                        Created: 11/17/2024 2:30 PM<br>
+                        Buy groceries<br>
+                        Finish homework<br>
+                        Call dentist
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-title">File I/O: Exercise 5 - Student Data Parser</div>
+                <div class="exercise-card">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <span class="exercise-number">5</span>
+                        <h3 style="margin: 0;">Read and Parse CSV Data</h3>
+                        <span class="difficulty-badge difficulty-medium">Medium</span>
+                    </div>
+                    
+                    <div class="requirements-list">
+                        <h4>📋 Requirements:</h4>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>First, create a CSV file "students.csv" with format: name,major,gpa</li>
+                            <li>Read the file line by line</li>
+                            <li>Split each line by comma and display formatted output</li>
+                            <li>Calculate and display the average GPA of all students</li>
+                            <li>Handle any potential errors (file not found, invalid data)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="hint-box">
+                        <strong>💡 Hints:</strong>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>Use <code>File.ReadAllLines("students.csv")</code></li>
+                            <li>Split each line: <code>string[] parts = line.Split(',');</code></li>
+                            <li>Parse GPA: <code>double gpa = double.Parse(parts[2]);</code></li>
+                            <li>Use try-catch for error handling</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sample-output">
+                        <strong>Sample Output:</strong><br>
+                        Reading student data...<br>
+                        Name: Alice Johnson | Major: Computer Science | GPA: 3.8<br>
+                        Name: Bob Smith | Major: Mathematics | GPA: 3.5<br>
+                        Name: Carol White | Major: Physics | GPA: 3.9<br>
+                        <br>
+                        Average GPA: 3.73
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-title">File I/O: Exercise 6 - Log File Analyzer</div>
+                <div class="exercise-card">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <span class="exercise-number">6</span>
+                        <h3 style="margin: 0;">Analyze a Log File</h3>
+                        <span class="difficulty-badge difficulty-hard">Hard</span>
+                    </div>
+                    
+                    <div class="requirements-list">
+                        <h4>📋 Requirements:</h4>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>Create a log file with entries like: "2024-11-17 ERROR: Connection failed"</li>
+                            <li>Read the log file and count occurrences of each log level (ERROR, WARNING, INFO)</li>
+                            <li>Find and display all lines containing "ERROR"</li>
+                            <li>Write a summary report to a new file "log_summary.txt"</li>
+                            <li>Handle the case where the log file doesn't exist</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="hint-box">
+                        <strong>💡 Hints:</strong>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>Use <code>line.Contains("ERROR")</code> to search</li>
+                            <li>Maintain counters for each log level</li>
+                            <li>Use <code>File.Exists()</code> before reading</li>
+                            <li>Create methods: <code>CountLogLevel(string[] lines, string level)</code></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sample-output">
+                        <strong>Sample Output:</strong><br>
+                        Analyzing log.txt...<br>
+                        Total lines: 15<br>
+                        ERROR: 3 occurrences<br>
+                        WARNING: 5 occurrences<br>
+                        INFO: 7 occurrences<br>
+                        <br>
+                        Summary written to log_summary.txt
+                    </div>
+                </div>
+            </div>
+
+            <!-- CLASSES & OBJECTS SECTION -->
+            <div class="slide">
+                <div class="slide-title">Classes: Exercise 7 - Book Class</div>
+                <div class="exercise-card">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <span class="exercise-number">7</span>
+                        <h3 style="margin: 0;">Create a Book Class</h3>
+                        <span class="difficulty-badge difficulty-easy">Easy</span>
+                    </div>
+                    
+                    <div class="requirements-list">
+                        <h4>📋 Requirements:</h4>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>Create a <code>Book</code> class with private fields: title, author, pages, yearPublished</li>
+                            <li>Add public methods to set and get each field</li>
+                            <li>Add a <code>DisplayInfo()</code> method</li>
+                            <li>In Main, create 3 book objects and display their information</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="code-block"><pre><code class="language-csharp">
+// Starter code structure:
+class Book
+{
+    private string title;
+    private string author;
+    // Add other fields...
+    
+    public void SetTitle(string t) { title = t; }
+    public string GetTitle() { return title; }
+    // Add other methods...
+    
+    public void DisplayInfo()
+    {
+        // Display all book information
+    }
+}
+                    </code></pre></div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-title">Classes: Exercise 8 - BankAccount Class</div>
+                <div class="exercise-card">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <span class="exercise-number">8</span>
+                        <h3 style="margin: 0;">Simulate a Bank Account</h3>
+                        <span class="difficulty-badge difficulty-medium">Medium</span>
+                    </div>
+                    
+                    <div class="requirements-list">
+                        <h4>📋 Requirements:</h4>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>Create a <code>BankAccount</code> class with: accountNumber, ownerName, balance (private)</li>
+                            <li>Add methods: <code>Deposit(double amount)</code>, <code>Withdraw(double amount)</code>, <code>GetBalance()</code></li>
+                            <li>Prevent withdrawing more than the current balance</li>
+                            <li>Display messages for successful/failed transactions</li>
+                            <li>Create a constructor that initializes the account</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="hint-box">
+                        <strong>💡 Hints:</strong>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>Constructor: <code>public BankAccount(string num, string name, double initial)</code></li>
+                            <li>In Withdraw: check if <code>amount <= balance</code> before subtracting</li>
+                            <li>Use <code>this</code> keyword in constructor to avoid naming conflicts</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sample-output">
+                        <strong>Sample Output:</strong><br>
+                        Account created for John Doe<br>
+                        Initial balance: $1000.00<br>
+                        Deposited $500.00. New balance: $1500.00<br>
+                        Withdrew $200.00. New balance: $1300.00<br>
+                        Cannot withdraw $2000.00. Insufficient funds.
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-title">Classes: Exercise 9 - Student Records System</div>
+                <div class="exercise-card">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <span class="exercise-number">9</span>
+                        <h3 style="margin: 0;">Student Management with Arrays</h3>
+                        <span class="difficulty-badge difficulty-hard">Hard</span>
+                    </div>
+                    
+                    <div class="requirements-list">
+                        <h4>📋 Requirements:</h4>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>Create a <code>Student</code> class with: id, name, major, gpa</li>
+                            <li>Override <code>ToString()</code> to return formatted student info</li>
+                            <li>In Main, create an array of 5 Student objects</li>
+                            <li>Write methods to: find student by ID, calculate average GPA, find top student</li>
+                            <li>Display all students and statistics</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="hint-box">
+                        <strong>💡 Hints:</strong>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li><code>static Student FindStudentById(Student[] students, int id)</code></li>
+                            <li><code>static double CalculateAverageGPA(Student[] students)</code></li>
+                            <li><code>static Student FindTopStudent(Student[] students)</code></li>
+                            <li>Override ToString: <code>public override string ToString() { ... }</code></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sample-output">
+                        <strong>Sample Output:</strong><br>
+                        All Students:<br>
+                        ID: 101 | Alice Johnson | CS | GPA: 3.8<br>
+                        ID: 102 | Bob Smith | Math | GPA: 3.5<br>
+                        ...<br>
+                        <br>
+                        Average GPA: 3.62<br>
+                        Top Student: Alice Johnson (3.8)
+                    </div>
+                </div>
+            </div>
+
+            <!-- METHODS SECTION -->
+            <div class="slide">
+                <div class="slide-title">Methods: Exercise 10 - Temperature Converter</div>
+                <div class="exercise-card">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <span class="exercise-number">10</span>
+                        <h3 style="margin: 0;">Temperature Conversion Methods</h3>
+                        <span class="difficulty-badge difficulty-easy">Easy</span>
+                    </div>
+                    
+                    <div class="requirements-list">
+                        <h4>📋 Requirements:</h4>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>Create method: <code>static double CelsiusToFahrenheit(double celsius)</code></li>
+                            <li>Create method: <code>static double FahrenheitToCelsius(double fahrenheit)</code></li>
+                            <li>Create a menu that lets user choose conversion direction</li>
+                            <li>Display results with 2 decimal places</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="hint-box">
+                        <strong>💡 Hints:</strong>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>C to F formula: <code>F = (C × 9/5) + 32</code></li>
+                            <li>F to C formula: <code>C = (F - 32) × 5/9</code></li>
+                            <li>Format output: <code>Console.WriteLine($"Result: {temp:F2}°")</code></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sample-output">
+                        <strong>Sample Output:</strong><br>
+                        Temperature Converter<br>
+                        1. Celsius to Fahrenheit<br>
+                        2. Fahrenheit to Celsius<br>
+                        Enter choice: 1<br>
+                        Enter temperature in Celsius: 25<br>
+                        25.00°C = 77.00°F
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-title">Methods: Exercise 11 - String Utilities</div>
+                <div class="exercise-card">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <span class="exercise-number">11</span>
+                        <h3 style="margin: 0;">Create String Helper Methods</h3>
+                        <span class="difficulty-badge difficulty-medium">Medium</span>
+                    </div>
+                    
+                    <div class="requirements-list">
+                        <h4>📋 Requirements:</h4>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>Create <code>static int CountVowels(string text)</code> - counts a, e, i, o, u</li>
+                            <li>Create <code>static string ReverseString(string text)</code> - returns reversed string</li>
+                            <li>Create <code>static bool IsPalindrome(string text)</code> - checks if text reads same forwards/backwards</li>
+                            <li>Test all methods with various inputs</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="hint-box">
+                        <strong>💡 Hints:</strong>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>For CountVowels: convert to lowercase first, check each character</li>
+                            <li>For ReverseString: loop backwards or use character array</li>
+                            <li>For IsPalindrome: compare with reversed version</li>
+                            <li>Consider ignoring spaces and case for palindrome check</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sample-output">
+                        <strong>Sample Output:</strong><br>
+                        Text: "Hello World"<br>
+                        Vowels: 3<br>
+                        Reversed: "dlroW olleH"<br>
+                        Is Palindrome: False<br>
+                        <br>
+                        Text: "racecar"<br>
+                        Is Palindrome: True
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-title">Methods: Exercise 12 - Math Operations Library</div>
+                <div class="exercise-card">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <span class="exercise-number">12</span>
+                        <h3 style="margin: 0;">Build a Math Utilities Class</h3>
+                        <span class="difficulty-badge difficulty-medium">Medium</span>
+                    </div>
+                    
+                    <div class="requirements-list">
+                        <h4>📋 Requirements:</h4>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>Create <code>static int Factorial(int n)</code> - returns n!</li>
+                            <li>Create <code>static bool IsPrime(int n)</code> - checks if number is prime</li>
+                            <li>Create <code>static int[] GetPrimes(int max)</code> - returns all primes up to max</li>
+                            <li>Create <code>static double Power(double baseNum, int exponent)</code></li>
+                            <li>Test all methods and display results</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="hint-box">
+                        <strong>💡 Hints:</strong>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>Factorial: multiply n × (n-1) × (n-2) × ... × 1</li>
+                            <li>Prime: check if divisible by any number from 2 to sqrt(n)</li>
+                            <li>Use a List&lt;int&gt; for GetPrimes, then convert to array</li>
+                            <li>Power: multiply baseNum by itself exponent times</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sample-output">
+                        <strong>Sample Output:</strong><br>
+                        Factorial(5) = 120<br>
+                        IsPrime(17) = True<br>
+                        IsPrime(15) = False<br>
+                        Primes up to 20: 2, 3, 5, 7, 11, 13, 17, 19<br>
+                        Power(2, 5) = 32.0
+                    </div>
+                </div>
+            </div>
+
+            <!-- COMBINED CHALLENGES -->
+            <div class="slide">
+                <div class="slide-title">Combined: Exercise 13 - Grade Book System</div>
+                <div class="exercise-card">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <span class="exercise-number">13</span>
+                        <h3 style="margin: 0;">Complete Grade Management System</h3>
+                        <span class="difficulty-badge difficulty-hard">Hard</span>
+                    </div>
+                    
+                    <div class="requirements-list">
+                        <h4>📋 Requirements:</h4>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>Create a <code>Student</code> class with name and an array of grades</li>
+                            <li>Add methods: <code>AddGrade(int grade)</code>, <code>GetAverage()</code>, <code>GetLetterGrade()</code></li>
+                            <li>Create students array and populate with data from "grades.csv"</li>
+                            <li>Write a report to "grade_report.txt" with all student info and statistics</li>
+                            <li>Display class average and highest/lowest performing student</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="hint-box">
+                        <strong>💡 Hints:</strong>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>Use List&lt;int&gt; for grades array or initialize with fixed size</li>
+                            <li>Letter grade: A (90+), B (80-89), C (70-79), D (60-69), F (below 60)</li>
+                            <li>Read CSV: name,grade1,grade2,grade3,...</li>
+                            <li>Combine file I/O, arrays, classes, and methods</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-title">Combined: Exercise 14 - Inventory System</div>
+                <div class="exercise-card">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <span class="exercise-number">14</span>
+                        <h3 style="margin: 0;">Product Inventory Manager</h3>
+                        <span class="difficulty-badge difficulty-hard">Hard</span>
+                    </div>
+                    
+                    <div class="requirements-list">
+                        <h4>📋 Requirements:</h4>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>Create <code>Product</code> class: id, name, price, quantity</li>
+                            <li>Load products from "inventory.csv" file</li>
+                            <li>Create methods: <code>AddProduct()</code>, <code>RemoveProduct()</code>, <code>UpdateQuantity()</code>, <code>SearchByName()</code></li>
+                            <li>Display menu for user actions (add, remove, search, display all, exit)</li>
+                            <li>Save changes back to file when exiting</li>
+                            <li>Calculate total inventory value</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="hint-box">
+                        <strong>💡 Hints:</strong>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>Use List&lt;Product&gt; to store products dynamically</li>
+                            <li>CSV format: id,name,price,quantity</li>
+                            <li>Total value = sum of (price × quantity) for all products</li>
+                            <li>Use while loop for menu until user chooses exit</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTROL FLOW & LOOPS -->
+            <div class="slide">
+                <div class="slide-title">Loops: Exercise 15 - Pattern Generator</div>
+                <div class="exercise-card">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <span class="exercise-number">15</span>
+                        <h3 style="margin: 0;">Create ASCII Patterns</h3>
+                        <span class="difficulty-badge difficulty-easy">Easy</span>
+                    </div>
+                    
+                    <div class="requirements-list">
+                        <h4>📋 Requirements:</h4>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>Create method <code>static void PrintTriangle(int height)</code></li>
+                            <li>Create method <code>static void PrintSquare(int size)</code></li>
+                            <li>Create method <code>static void PrintPyramid(int height)</code></li>
+                            <li>Let user choose pattern and size</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sample-output">
+                        <strong>Sample Output - Triangle (height 5):</strong><br>
+                        *<br>
+                        **<br>
+                        ***<br>
+                        ****<br>
+                        *****<br>
+                        <br>
+                        <strong>Sample Output - Pyramid (height 4):</strong><br>
+                        &nbsp;&nbsp;&nbsp;*<br>
+                        &nbsp;&nbsp;***<br>
+                        &nbsp;*****<br>
+                        *******
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-title">Loops: Exercise 16 - Number Guessing Game</div>
+                <div class="exercise-card">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <span class="exercise-number">16</span>
+                        <h3 style="margin: 0;">Interactive Guessing Game</h3>
+                        <span class="difficulty-badge difficulty-medium">Medium</span>
+                    </div>
+                    
+                    <div class="requirements-list">
+                        <h4>📋 Requirements:</h4>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>Generate a random number between 1-100</li>
+                            <li>Let user guess until they get it right</li>
+                            <li>Give hints: "Too high" or "Too low"</li>
+                            <li>Count number of guesses</li>
+                            <li>Ask if user wants to play again</li>
+                            <li>Track and display best score (fewest guesses)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="hint-box">
+                        <strong>💡 Hints:</strong>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>Generate random: <code>Random rand = new Random(); int num = rand.Next(1, 101);</code></li>
+                            <li>Use do-while loop for input validation</li>
+                            <li>Use while loop for game continuation</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sample-output">
+                        <strong>Sample Output:</strong><br>
+                        I'm thinking of a number between 1-100!<br>
+                        Guess #1: 50<br>
+                        Too low!<br>
+                        Guess #2: 75<br>
+                        Too high!<br>
+                        Guess #3: 63<br>
+                        Correct! You got it in 3 guesses!
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-title">Loops: Exercise 17 - Multiplication Table</div>
+                <div class="exercise-card">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <span class="exercise-number">17</span>
+                        <h3 style="margin: 0;">Generate Multiplication Tables</h3>
+                        <span class="difficulty-badge difficulty-easy">Easy</span>
+                    </div>
+                    
+                    <div class="requirements-list">
+                        <h4>📋 Requirements:</h4>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>Ask user for a number (1-12)</li>
+                            <li>Display complete multiplication table for that number</li>
+                            <li>Format output in aligned columns</li>
+                            <li>Use nested loops to create a full 12×12 table (bonus)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sample-output">
+                        <strong>Sample Output - Table for 7:</strong><br>
+                        7 × 1 = 7<br>
+                        7 × 2 = 14<br>
+                        7 × 3 = 21<br>
+                        ...<br>
+                        7 × 12 = 84<br>
+                        <br>
+                        <strong>Bonus - Full 12×12 Grid</strong> (formatted table)
+                    </div>
+                </div>
+            </div>
+
+            <!-- DATA TYPES & PARSING -->
+            <div class="slide">
+                <div class="slide-title">Parsing: Exercise 18 - User Input Validator</div>
+                <div class="exercise-card">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <span class="exercise-number">18</span>
+                        <h3 style="margin: 0;">Safe Input Methods</h3>
+                        <span class="difficulty-badge difficulty-medium">Medium</span>
+                    </div>
+                    
+                    <div class="requirements-list">
+                        <h4>📋 Requirements:</h4>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>Create <code>static int GetValidInt(string prompt)</code> - loops until valid integer</li>
+                            <li>Create <code>static double GetValidDouble(string prompt)</code> - loops until valid double</li>
+                            <li>Create <code>static int GetIntInRange(string prompt, int min, int max)</code></li>
+                            <li>Use <code>int.TryParse()</code> and <code>double.TryParse()</code></li>
+                            <li>Test all methods with various valid/invalid inputs</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="hint-box">
+                        <strong>💡 Hints:</strong>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>TryParse syntax: <code>if (int.TryParse(input, out int result))</code></li>
+                            <li>Use do-while loop to keep asking until valid</li>
+                            <li>Range validation: check if <code>value >= min && value <= max</code></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sample-output">
+                        <strong>Sample Output:</strong><br>
+                        Enter your age: abc<br>
+                        Invalid input! Please enter a number.<br>
+                        Enter your age: 25<br>
+                        Age accepted: 25<br>
+                        <br>
+                        Enter a number (1-10): 15<br>
+                        Out of range! Try again.<br>
+                        Enter a number (1-10): 7<br>
+                        Valid choice: 7
+                    </div>
+                </div>
+            </div>
+
+            <!-- BONUS CHALLENGES -->
+            <div class="slide">
+                <div class="slide-title">Bonus: Exercise 19 - Text Adventure Game</div>
+                <div class="exercise-card">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <span class="exercise-number">19</span>
+                        <h3 style="margin: 0;">Interactive Story Game</h3>
+                        <span class="difficulty-badge difficulty-hard">Hard</span>
+                    </div>
+                    
+                    <div class="requirements-list">
+                        <h4>📋 Requirements:</h4>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>Create <code>Player</code> class with: name, health, inventory (string array)</li>
+                            <li>Create <code>Room</code> class with: description, items, exits</li>
+                            <li>Create methods: <code>DisplayRoom()</code>, <code>TakeItem()</code>, <code>Move()</code></li>
+                            <li>Implement game loop with commands: look, take, move, inventory, quit</li>
+                            <li>Save/load game state to file</li>
+                            <li>Create at least 5 connected rooms</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="hint-box">
+                        <strong>💡 Hints:</strong>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>Use switch statement for command parsing</li>
+                            <li>Store current room as variable, update when moving</li>
+                            <li>Use arrays or lists for inventory and room connections</li>
+                            <li>Combine all concepts: classes, arrays, file I/O, methods, loops</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-title">Bonus: Exercise 20 - Contact Management System</div>
+                <div class="exercise-card">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <span class="exercise-number">20</span>
+                        <h3 style="margin: 0;">Full CRUD Application</h3>
+                        <span class="difficulty-badge difficulty-hard">Hard</span>
+                    </div>
+                    
+                    <div class="requirements-list">
+                        <h4>📋 Requirements:</h4>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>Create <code>Contact</code> class: id, name, phone, email</li>
+                            <li>Implement Create, Read, Update, Delete operations</li>
+                            <li>Save contacts to "contacts.csv"</li>
+                            <li>Load contacts when program starts</li>
+                            <li>Search by name or phone number</li>
+                            <li>Display contacts in sorted order</li>
+                            <li>Menu-driven interface with input validation</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="hint-box">
+                        <strong>💡 Hints:</strong>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>Use List&lt;Contact&gt; for dynamic collection</li>
+                            <li>Generate unique IDs automatically</li>
+                            <li>Override ToString() for easy display</li>
+                            <li>Use LINQ or manual loops for sorting and searching</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sample-output">
+                        <strong>Menu:</strong><br>
+                        1. Add Contact<br>
+                        2. View All Contacts<br>
+                        3. Search Contact<br>
+                        4. Update Contact<br>
+                        5. Delete Contact<br>
+                        6. Exit
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="slide-title">Tips for Success</div>
+                <div style="padding: 20px;">
+                    <div class="highlight-box">
+                        <h3>🎯 Approach These Exercises Effectively</h3>
+                        <ul class="bullet-points">
+                            <li><strong>Start Small:</strong> Begin with Easy exercises to build confidence</li>
+                            <li><strong>Read Carefully:</strong> Understand all requirements before coding</li>
+                            <li><strong>Plan First:</strong> Sketch out your approach on paper</li>
+                            <li><strong>Test Frequently:</strong> Run your code after each feature</li>
+                            <li><strong>Use Hints:</strong> Don't struggle too long - check the hints</li>
+                            <li><strong>Combine Concepts:</strong> Many exercises require multiple skills</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="info-grid" style="margin-top: 30px;">
+                        <div class="info-card">
+                            <h3>🏗️ Scaffolding Strategy</h3>
+                            <ol style="margin: 10px 0 0 20px;">
+                                <li>Create method stubs/class shells</li>
+                                <li>Implement basic functionality</li>
+                                <li>Test thoroughly</li>
+                                <li>Add features incrementally</li>
+                                <li>Refine and optimize</li>
+                            </ol>
+                        </div>
+                        <div class="info-card blue">
+                            <h3>🐛 Debugging Tips</h3>
+                            <ul style="margin: 10px 0 0 20px;">
+                                <li>Add Console.WriteLine() to trace execution</li>
+                                <li>Check variable values at each step</li>
+                                <li>Test with simple inputs first</li>
+                                <li>Read error messages carefully</li>
+                                <li>Use try-catch for file operations</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div style="background: #dcfce7; border: 3px solid #22c55e; border-radius: 15px; padding: 20px; margin-top: 30px; text-align: center;">
+                        <h3 style="color: #15803d;">🌟 Remember: Practice Makes Perfect!</h3>
+                        <p style="font-size: 1.1em; margin: 10px 0;">Each exercise builds on previous concepts. Don't skip ahead - master the fundamentals first!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-button" id="prev-btn" onclick="previousSlide()">
+                ← Previous
+            </button>
+            <div class="timer-display" id="timer">
+                00:00
+            </div>
+            <button class="nav-button" id="next-btn" onclick="nextSlide()">
+                Next →
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        let startTime = Date.now();
+        let timerInterval;
+
+        // Initialize
+        document.getElementById('total-slides').textContent = totalSlides;
+        updateSlideDisplay();
+        startTimer();
+
+        function updateSlideDisplay() {
+            // Hide all slides
+            slides.forEach(slide => slide.classList.remove('active'));
+            
+            // Show current slide
+            slides[currentSlide].classList.add('active');
+            
+            // Update counter
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+            
+            // Update progress bar
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+            
+            // Update navigation buttons
+            document.getElementById('prev-btn').disabled = currentSlide === 0;
+            document.getElementById('next-btn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updateSlideDisplay();
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlideDisplay();
+            }
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                const elapsed = Math.floor((Date.now() - startTime) / 1000);
+                const minutes = Math.floor(elapsed / 60);
+                const seconds = elapsed % 60;
+                document.getElementById('timer').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+
+        // PDF Generation Function
+        async function generatePDF() {
+            console.log('🎯 INITIATING PDF GENERATION...');
+
+            await document.fonts.ready;
+            
+            // Show loading overlay
+            const loadingOverlay = document.getElementById('pdfLoading');
+            const progressText = document.getElementById('progressText');
+            const slideCounter = document.getElementById('slideCounter');
+            const slideProgressFill = document.getElementById('slideProgressFill');
+            const downloadBtn = document.getElementById('downloadPDF');
+            
+            loadingOverlay.classList.add('active');
+            downloadBtn.disabled = true;
+            
+            try {
+                // Initialize jsPDF with Letter size
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF({
+                    orientation: 'landscape',
+                    unit: 'in',
+                    format: 'letter'
+                });
+                
+                const pageWidth = pdf.internal.pageSize.getWidth();
+                const pageHeight = pdf.internal.pageSize.getHeight();
+                const margin = 0.5;
+                const contentWidth = pageWidth - (2 * margin);
+                const contentHeight = pageHeight - (2 * margin);
+                
+                console.log(`📏 PDF dimensions: ${pageWidth}" x ${pageHeight}"`);
+                
+                // Get all slides and prepare for generation
+                const slideElements = document.querySelectorAll('.slide');
+                const originalSlideContent = document.querySelector('.slide-content');
+                
+                // Store original styles
+                const originalStyles = {
+                    slideContent: originalSlideContent.style.cssText,
+                    slides: Array.from(slideElements).map(slide => slide.style.cssText)
+                };
+                
+                // Apply PDF-friendly styles
+                originalSlideContent.style.cssText += `
+                    overflow: visible !important;
+                    height: auto !important;
+                    padding: 0 !important;
+                `;
+
+                document.body.classList.add('pdf-mode');
+                
+                slideElements.forEach((slide, index) => {
+                    slide.style.cssText += `
+                        display: block !important;
+                        opacity: 1 !important;
+                        visibility: visible !important;
+                        position: static !important;
+                        height: auto !important;
+                        min-height: 800px !important;
+                        background: white !important;
+                        margin-bottom: 20px !important;
+                        padding: 40px !important;
+                        page-break-after: always;
+                        border: none !important;
+                    `;
+                });
+                
+                // Process each slide individually
+                for (let i = 0; i < slideElements.length; i++) {
+                    const slide = slideElements[i];
+                    
+                    progressText.textContent = `🖼️ Capturing slide ${i + 1}...`;
+                    slideCounter.textContent = `Slide ${i + 1} of ${slideElements.length}`;
+                    slideProgressFill.style.width = `${((i + 1) / slideElements.length) * 100}%`;
+                    
+                    // Hide all slides except current one
+                    slideElements.forEach((s, idx) => {
+                        if (idx !== i) {
+                            s.style.display = 'none';
+                        }
+                    });
+                    
+                    // Force reflow and wait for rendering
+                    slide.offsetHeight;
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                    
+                    try {
+                        // Capture the individual slide
+                        const canvas = await html2canvas(slide, {
+                            allowTaint: true,
+                            removeContainer: false,
+                            useCORS: true,
+                            scale: 2,
+                            width: slide.scrollWidth,
+                            height: slide.scrollHeight,
+                            backgroundColor: '#ffffff',
+                            logging: false,
+                            onclone: (clonedDoc) => {
+                                const clonedSlides = clonedDoc.querySelectorAll('.slide');
+                                clonedSlides.forEach(s => {
+                                    s.style.display = 'block';
+                                    s.style.opacity = '1';
+                                    s.style.visibility = 'visible';
+                                });
+                            }
+                        });
+                        
+                        console.log(`📊 Slide ${i + 1} canvas: ${canvas.width}x${canvas.height}`);
+                        
+                        // Calculate scaling to fit page
+                        const canvasAspectRatio = canvas.width / canvas.height;
+                        const pageAspectRatio = contentWidth / contentHeight;
+                        
+                        let finalWidth, finalHeight;
+                        if (canvasAspectRatio > pageAspectRatio) {
+                            finalWidth = contentWidth;
+                            finalHeight = contentWidth / canvasAspectRatio;
+                        } else {
+                            finalHeight = contentHeight;
+                            finalWidth = contentHeight * canvasAspectRatio;
+                        }
+                        
+                        // Center the image on page
+                        const x = (pageWidth - finalWidth) / 2;
+                        const y = (pageHeight - finalHeight) / 2;
+                        
+                        // Add to PDF
+                        if (i > 0) {
+                            pdf.addPage();
+                        }
+                        
+                        progressText.textContent = `📝 Adding slide ${i + 1} to PDF...`;
+                        
+                        pdf.addImage(
+                            canvas.toDataURL('image/jpeg', 0.85),
+                            'JPEG',
+                            x, y,
+                            finalWidth, finalHeight
+                        );
+                        
+                        console.log(`✅ Added slide ${i + 1} to PDF`);
+                        
+                    } catch (slideError) {
+                        console.error(`❌ Error capturing slide ${i + 1}:`, slideError);
+                        
+                        // Add error page instead of failing completely
+                        if (i > 0) {
+                            pdf.addPage();
+                        }
+                        
+                        pdf.setFontSize(20);
+                        pdf.setTextColor(220, 53, 69);
+                        pdf.text(`Error capturing slide ${i + 1}`, pageWidth / 2, pageHeight / 2, { align: 'center' });
+                        pdf.setFontSize(12);
+                        pdf.setTextColor(108, 117, 125);
+                        pdf.text('This slide could not be rendered properly', pageWidth / 2, (pageHeight / 2) + 0.5, { align: 'center' });
+                    }
+                }
+
+                document.body.classList.remove('pdf-mode');
+                
+                // Restore all slides visibility
+                slideElements.forEach(slide => {
+                    slide.style.display = 'block';
+                });
+                
+                // Restore original styles
+                progressText.textContent = '🧹 Cleaning up...';
+                originalSlideContent.style.cssText = originalStyles.slideContent;
+                slideElements.forEach((slide, index) => {
+                    slide.style.cssText = originalStyles.slides[index];
+                });
+                
+                // Save the PDF
+                progressText.textContent = '💾 Saving PDF...';
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                const fileName = `CSCI-1250_Code-Exercises_${new Date().toISOString().split('T')[0]}.pdf`;
+                pdf.save(fileName);
+                
+                // Success!
+                progressText.textContent = '🎉 PDF Generated Successfully!';
+                slideCounter.textContent = `✅ All ${slideElements.length} slides exported`;
+                slideProgressFill.style.width = '100%';
+                
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+            } catch (error) {
+                console.error('💀 PDF GENERATION FAILED:', error);
+                
+                progressText.textContent = '❌ PDF Generation Failed';
+                slideCounter.textContent = 'Error occurred - check console';
+                
+                await new Promise(resolve => setTimeout(resolve, 3000));
+            } finally {
+                // Always hide loading and re-enable button
+                loadingOverlay.classList.remove('active');
+                downloadBtn.disabled = false;
+                updateSlideDisplay(); // Restore normal navigation
+            }
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                previousSlide();
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                currentSlide = 0;
+                updateSlideDisplay();
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                currentSlide = totalSlides - 1;
+                updateSlideDisplay();
+            }
+        });
+
+        // Touch/swipe support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) {
+                nextSlide(); // Swipe left
+            } else if (touchEndX - touchStartX > 50) {
+                previousSlide(); // Swipe right
+            }
+        });
+    </script>
+</body>
+</html>
