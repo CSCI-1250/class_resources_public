@@ -6,6 +6,19 @@
 using System.IO;
 ```
 
+## Filesystem-Related Classes in the System.IO Namespace
+
+C# file operations are primarily handled through classes in the System.IO namespace:
+
+`File` - Static methods for file operations
+`FileInfo` - Instance methods for file operations
+`Directory` - Static methods for directory operations
+`DirectoryInfo` - Instance methods for directory operations
+`Path` - Utilities for working with file and directory paths
+`Stream` - Abstract base class for reading and writing bytes
+Various specialized streams: `FileStream`, `MemoryStream`, etc.
+Reader/Writer classes: `StreamReader`, `StreamWriter`, `BinaryReader`, `BinaryWriter`
+
 ## File Class (Static Methods)
 
 ### Reading Files
