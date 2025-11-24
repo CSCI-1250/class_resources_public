@@ -12,7 +12,6 @@ theme_color: red
 
 defaults:
   - scope:
-      path: ""
-      type: "pages"
+      path: "**/*.md"
     values:
       layout: "custom_post"
