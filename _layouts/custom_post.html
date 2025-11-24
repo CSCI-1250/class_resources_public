@@ -48,6 +48,11 @@
           overflow-x: auto;
       }
 
+      pre.highlight {
+        background-color: #f9f9f9;
+        border: 1px solid #0b00a3;
+      }
+
       .highlight pre {
           margin: 0;
           overflow-x: auto;
@@ -59,7 +64,7 @@
       }
 
       .highlight pre::-webkit-scrollbar-track {
-          background: #eff1f2;
+          background: #f1f1f1;
       }
 
       .highlight pre::-webkit-scrollbar-thumb {
@@ -69,6 +74,12 @@
 
       .highlight pre::-webkit-scrollbar-thumb:hover {
           background: #555;
+      }
+
+      /* For Firefox */
+      .highlight pre {
+          scrollbar-width: thin;
+          scrollbar-color: #888 #f1f1f1;
       }
 
       /* Syntax colors */
