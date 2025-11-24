@@ -246,7 +246,13 @@
                 li.className = 'file-item';
                 
                 const link = document.createElement('a');
-                link.href = `${GITHUB_PAGES_BASE}/${file.path}`;
+                // Handle index.md files - remove the filename from the path for Jekyll
+                if (file.name === 'index.md') {
+                    const dirPath = file.path.substring(0, file.path.lastIndexOf('/'));
+                    link.href = `${GITHUB_PAGES_BASE}/${dirPath}/`;
+                } else {
+                    link.href = `${GITHUB_PAGES_BASE}/${file.path}`;
+                }
                 link.target = '_blank';
                 link.textContent = file.name;
                 
