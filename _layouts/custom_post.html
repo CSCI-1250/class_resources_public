@@ -21,6 +21,12 @@
       ::-moz-selection {
         background-color: #fbf434bd;
       }
+      .highlight-h2 {
+        background-color: #fbf434bd;
+        padding: 0.5rem;
+        border-left: 4px solid #fbf434;
+        transition: all 0.3s ease;
+    }
     </style>
   </head>
   <body>
@@ -46,4 +52,51 @@
       </article>
     </div>
   </body>
+  <script>
+  let scrollTimeout;
+  let isScrolling = false;
+
+  function findClosestH2ToCenter() {
+      const viewportCenter = window.innerHeight / 2;
+      const h2Elements = document.querySelectorAll('h2');
+      
+      let closestH2 = null;
+      let minDistance = Infinity;
+      
+      h2Elements.forEach(h2 => {
+          const rect = h2.getBoundingClientRect();
+          const h2Center = rect.top + (rect.height / 2);
+          const distance = Math.abs(h2Center - viewportCenter);
+          
+          if (distance < minDistance) {
+              minDistance = distance;
+              closestH2 = h2;
+          }
+      });
+      
+      // Remove highlight from all h2s
+      h2Elements.forEach(h2 => h2.classList.remove('highlight-h2'));
+      
+      // Add highlight to closest h2
+      if (closestH2) {
+          closestH2.classList.add('highlight-h2');
+      }
+  }
+
+  // Throttled scroll handler
+  window.addEventListener('scroll', function() {
+      if (!isScrolling) {
+          isScrolling = true;
+          
+          clearTimeout(scrollTimeout);
+          scrollTimeout = setTimeout(function() {
+              findClosestH2ToCenter();
+              isScrolling = false;
+          }, 100); // 100ms delay - adjust as needed
+      }
+  });
+
+  // Run once on page load
+  findClosestH2ToCenter();
+  </script>
 </html>
