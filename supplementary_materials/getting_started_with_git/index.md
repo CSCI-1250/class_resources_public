@@ -1,7 +1,7 @@
 ---
 layout: custom_post
 title: Getting Started with Git and GitHub
-date: 2025-11-24 13:36:00 -0500
+date: 2025-11-24 15:13:00 -0500
 author: Ryan Haas
 categories: [supplementary, guide, version-control, git, github]
 ---
@@ -27,7 +27,7 @@ Bottom line: **Every professional developer uses source control.** Learning it n
 
 ### 2. Dive In!
 
-Work through the [Atlassian Git Tutorials](https://www.atlassian.com/git/tutorials) (start with "Getting Started" and "Collaborating"). These are fast-paced, practical, and excellent. Trust me—the time you invest now will pay dividends later:
+Work through the [Atlassian Git Tutorials](https://www.atlassian.com/git/tutorials/setting-up-a-repository) (start with "Getting Started" and "Collaborating"). These are fast-paced, practical, and excellent. Trust me—the time you invest now will pay dividends later:
 
 - **In CSCI-1260**: Push your changes to GitHub at the end of class, then pull them down at home to keep working. No more losing work on a flash drive or fighting OneDrive for your own IDE to have permission to read from, or write to, a OneDrive location.
 - **In Software Engineering**: While other teams panic over merge conflicts because they didn't set up a proper `.gitignore` file (and committed all their build artifacts), you'll be calmly managing branches like a pro.
