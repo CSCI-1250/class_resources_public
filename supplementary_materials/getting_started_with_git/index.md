@@ -22,8 +22,8 @@ Bottom line: **Every professional developer uses source control.** Learning it n
 
 ### 1. Install Git
 
-- **Windows users**: Install [Git Bash](https://git-scm.com/downloads) (includes a Linux-like terminal that works beautifully)
-- **Mac/Linux users**: Git likely comes pre-installed, but you can download it from the same link
+- **Windows users**: Install [Git Bash](https://gitforwindows.org/) (includes a Linux-like terminal that works beautifully)
+- **Mac/Linux users**: Git may come pre-installed, or you can [download it from here](https://git-scm.com/install/mac) 
 
 ### 2. Dive In!
 
