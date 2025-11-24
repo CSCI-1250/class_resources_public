@@ -232,6 +232,17 @@
             
             return filesList;
         }
+
+        function titleizePath(path) {
+            const tokens = path.split('_'); // Split on underscore to get individual words
+            const prepositions = ["a", "an", "the", "but", "as", "if", "and", "of", "or", "nor"];
+            tokens.forEach((token, i) => {
+            if (!prepositions.includes(token)) {
+                tokens[i] = token[0].toUpperCase() + token.slice(1);
+            }
+            });
+            return tokens.join(" ");
+        }
         
         function createFileList(files) {
             if (!files || files.length === 0) {
@@ -248,6 +259,9 @@
                 const link = document.createElement('a');
                 // Handle index.md files - remove the filename from the path for Jekyll
                 if (file.name === 'index.md') {
+                    let fileSplit = file.path.split('/');
+                    let filename = fileSplit[fileSplit.length - 2];
+                    file.name = titleizePath(filename);
                     const dirPath = file.path.substring(0, file.path.lastIndexOf('/'));
                     link.href = `${GITHUB_PAGES_BASE}/${dirPath}/`;
                 } else {
