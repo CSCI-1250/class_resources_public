@@ -142,7 +142,11 @@
       }
   });
 
-  // Run once on page load
-  findClosestH2ToCenter();
+  document.addEventListener('DOMContentLoaded', () => {
+    // Remove redundant title
+    document.querySelectorAll('h1')[1].remove();
+    // Run once on DOM load
+    findClosestH2ToCenter();
+  });
   </script>
 </html>
