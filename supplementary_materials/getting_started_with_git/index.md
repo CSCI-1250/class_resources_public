@@ -1,3 +1,11 @@
+---
+layout: post
+title: Getting Started with Git and GitHub
+date: 2025-11-24 13:36:00 -0500
+author: Ryan Haas
+categories: [supplementary, guide, version-control, git, github]
+---
+
 # Get Started with Git and GitHub
 
 ## Why Source Control?
