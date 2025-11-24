@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: category_index
 title: Getting Started with Git and GitHub
 date: 2025-11-24 13:36:00 -0500
 author: Ryan Haas
