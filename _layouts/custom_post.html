@@ -59,7 +59,7 @@
       }
 
       .highlight pre::-webkit-scrollbar-track {
-          background: #f1f1f1;
+          background: #eff1f2;
       }
 
       .highlight pre::-webkit-scrollbar-thumb {
@@ -81,10 +81,10 @@
 
       .copy-code-button {
           position: absolute;
-            top: 8px;
+          top: 8px;
           right: 8px;
           padding: 4px 12px;
-          background: #0366d6;
+          background: #0b00a3;
           color: white;
           border: none;
           border-radius: 4px;
@@ -97,6 +97,7 @@
           background: #0256c7;
       }
     </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   </head>
   <body>
     <header class="border-bottom-thick px-2 clearfix" style="background: linear-gradient(135deg, #fb4934 0%, #df3d2b 100%); color: white;">
@@ -176,7 +177,7 @@
         // Create copy button
         const copyButton = document.createElement('button');
         copyButton.className = 'copy-code-button';
-        copyButton.textContent = 'Copy';
+        copyButton.innerHTML = '<i class="bi bi-clipboard-plus"></i> Copy';
         
         // Insert button at the top of the code block
         codeBlock.style.position = 'relative';
@@ -186,9 +187,9 @@
         copyButton.addEventListener('click', function() {
             const code = codeBlock.querySelector('code').textContent;
             navigator.clipboard.writeText(code).then(function() {
-                copyButton.textContent = 'Copied!';
+                copyButton.innerHTML = '<i class="bi bi-clipboard-check"></i> Copied';
                 setTimeout(function() {
-                    copyButton.textContent = 'Copy';
+                    copyButton.innerHTML = '<i class="bi bi-clipboard-plus"></i> Copy';
                 }, 2000);
             });
         });
