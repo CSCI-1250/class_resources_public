@@ -235,7 +235,7 @@
 
         function titleizePath(path) {
             const tokens = path.split('_'); // Split on underscore to get individual words
-            const prepositions = ["a", "an", "the", "but", "as", "if", "and", "of", "or", "nor"];
+            const prepositions = ["a", "an", "the", "but", "as", "if", "and", "of", "or", "nor", "with"];
             tokens.forEach((token, i) => {
             if (!prepositions.includes(token)) {
                 tokens[i] = token[0].toUpperCase() + token.slice(1);
@@ -265,6 +265,9 @@
                     const dirPath = file.path.substring(0, file.path.lastIndexOf('/'));
                     link.href = `${GITHUB_PAGES_BASE}/${dirPath}/`;
                 } else {
+                    let fileSplit = file.path.split('/');
+                    let filename = fileSplit[fileSplit.length - 1];
+                    file.name = titleizePath(filename);
                     link.href = `${GITHUB_PAGES_BASE}/${file.path}`;
                 }
                 link.target = '_blank';
