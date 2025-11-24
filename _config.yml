@@ -9,3 +9,10 @@ plugins:
 
 remote_theme: broccolini/swiss
 theme_color: red
+
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "custom_post"
