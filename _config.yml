@@ -1,6 +1,11 @@
 title: CSCI 1250 - Prof Haas' Public Class Resources
+
 markdown: kramdown
 kramdown:
   syntax_highlighter: rouge
+
+plugins:
+  - jekyll-remote-theme
+
 remote_theme: broccolini/swiss
 theme_color: red
