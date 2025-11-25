@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSCI 1250 - C# Final Exam Study Guide</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+        body {
+            font-family: 'Outfit', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: #333;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 2px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            color: #4a5568;
+            text-align: center;
+            border-bottom: 3px solid #0b00a3;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: #2d3748;
+            background: linear-gradient(90deg, #fffefed2, #ffffffd7);
+            padding: 12px 15px;
+            border-left: 4px solid #e74c3c;
+            border-radius: 5px;
+            margin-top: 25px;
+        }
+        
+        h3 {
+            color: #4a5568;
+            margin-top: 15px;
+        }
+        
+        .concept-box {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .example {
+            background: #e8f5e8;
+            border-left: 4px solid #28a745;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .code {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 12px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 10px 0;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        
+        .operator-table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 15px 0;
+        }
+        
+        .operator-table th,
+        .operator-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        .operator-table th {
+            background-color: #e74c3c;
+            color: white;
+            text-align: center;
+        }
+        
+        .key-point {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        
+        .warning-box {
+            background: #ffe0e0;
+            border-left: 4px solid #dc3545;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 15px 0;
+        }
+        
+        .memory-diagram {
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        
+        ::selection {
+            background-color: #ffe600bf;
+        }
+
+        ::-moz-selection {
+            background-color: #ffe600bf;
+        }
+
+        .highlight-h2 {
+            background-color: #ff3300;
+            padding: 1.4rem;
+            border-left: 6px solid #e74c3c;
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CSCI 1250 C# Final Exam Study Guide</h1>
+        
+        <h2>🔢 C# Operators Reference</h2>
+        <div class="concept-box">
+            <h3>Arithmetic Operators</h3>
+            <table class="operator-table">
+                <tr>
+                    <th>Operation</th>
+                    <th>Symbol</th>
+                    <th>Example</th>
+                    <th>Result</th>
+                </tr>
+                <tr>
+                    <td>Addition</td>
+                    <td><strong>+</strong></td>
+                    <td>5 + 3</td>
+                    <td>8</td>
+                </tr>
+                <tr>
+                    <td>Subtraction</td>
+                    <td><strong>-</strong></td>
+                    <td>5 - 3</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>Multiplication</td>
+                    <td><strong>*</strong></td>
+                    <td>5 * 3</td>
+                    <td>15</td>
+                </tr>
+                <tr>
+                    <td>Division</td>
+                    <td><strong>/</strong></td>
+                    <td>10.0 / 3</td>
+                    <td>3.333...</td>
+                </tr>
+                <tr>
+                    <td>Modulo (Remainder)</td>
+                    <td><strong>%</strong></td>
+                    <td>10 % 3</td>
+                    <td>1</td>
+                </tr>
+            </table>
+
+            <h3>Comparison/Relational Operators</h3>
+            <table class="operator-table">
+                <tr>
+                    <th>Operation</th>
+                    <th>Symbol</th>
+                    <th>Example</th>
+                    <th>Evaluates To</th>
+                </tr>
+                <tr>
+                    <td>Equal To</td>
+                    <td><strong>==</strong></td>
+                    <td>5 == 5</td>
+                    <td>true</td>
+                </tr>
+                <tr>
+                    <td>Not Equal To</td>
+                    <td><strong>!=</strong></td>
+                    <td>5 != 3</td>
+                    <td>true</td>
+                </tr>
+                <tr>
+                    <td>Greater Than</td>
+                    <td><strong>&gt;</strong></td>
+                    <td>5 &gt; 3</td>
+                    <td>true</td>
+                </tr>
+                <tr>
+                    <td>Less Than</td>
+                    <td><strong>&lt;</strong></td>
+                    <td>5 &lt; 3</td>
+                    <td>false</td>
+                </tr>
+                <tr>
+                    <td>Greater Than or Equal To</td>
+                    <td><strong>&gt;=</strong></td>
+                    <td>5 &gt;= 5</td>
+                    <td>true</td>
+                </tr>
+                <tr>
+                    <td>Less Than or Equal To</td>
+                    <td><strong>&lt;=</strong></td>
+                    <td>3 &lt;= 5</td>
+                    <td>true</td>
+                </tr>
+            </table>
+
+            <div class="key-point">
+                <strong>Relational Operators:</strong> Operators that compare two values and return a boolean result (true/false). Used to establish relationships between values (equal, greater, less, etc.).
+            </div>
+
+            <h3>Logical Operators</h3>
+            <table class="operator-table">
+                <tr>
+                    <th>Operation</th>
+                    <th>Symbol</th>
+                    <th>Description</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td>AND</td>
+                    <td><strong>&amp;&amp;</strong></td>
+                    <td>Both conditions must be true</td>
+                    <td>true &amp;&amp; false = false</td>
+                </tr>
+                <tr>
+                    <td>OR</td>
+                    <td><strong>||</strong></td>
+                    <td>At least one condition must be true</td>
+                    <td>true || false = true</td>
+                </tr>
+                <tr>
+                    <td>NOT</td>
+                    <td><strong>!</strong></td>
+                    <td>Reverses the boolean value</td>
+                    <td>!true = false</td>
+                </tr>
+            </table>
+
+            <div class="key-point">
+                <strong>Logical Operators:</strong> Operators that combine or modify boolean expressions. Used to create complex conditions by connecting multiple boolean values.
+            </div>
+
+            <h3>Assignment Operators</h3>
+            <table class="operator-table">
+                <tr>
+                    <th>Operator</th>
+                    <th>Example</th>
+                    <th>Equivalent To</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><strong>=</strong></td>
+                    <td>x = 5</td>
+                    <td>x = 5</td>
+                    <td>Basic assignment</td>
+                </tr>
+                <tr>
+                    <td><strong>+=</strong></td>
+                    <td>x += 3</td>
+                    <td>x = x + 3</td>
+                    <td>Add and assign</td>
+                </tr>
+                <tr>
+                    <td><strong>-=</strong></td>
+                    <td>x -= 3</td>
+                    <td>x = x - 3</td>
+                    <td>Subtract and assign</td>
+                </tr>
+                <tr>
+                    <td><strong>*=</strong></td>
+                    <td>x *= 3</td>
+                    <td>x = x * 3</td>
+                    <td>Multiply and assign</td>
+                </tr>
+                <tr>
+                    <td><strong>/=</strong></td>
+                    <td>x /= 3</td>
+                    <td>x = x / 3</td>
+                    <td>Divide and assign</td>
+                </tr>
+                <tr>
+                    <td><strong>++</strong></td>
+                    <td>x++</td>
+                    <td>x = x + 1</td>
+                    <td>Increment by 1</td>
+                </tr>
+                <tr>
+                    <td><strong>--</strong></td>
+                    <td>x--</td>
+                    <td>x = x - 1</td>
+                    <td>Decrement by 1</td>
+                </tr>
+            </table>
+        </div>
+
+        <h2>🔤 Data Types and Selection</h2>
+        <div class="concept-box">
+            <table class="operator-table">
+                <tr>
+                    <th>Data Type</th>
+                    <th>Use When...</th>
+                    <th>Example Values</th>
+                </tr>
+                <tr>
+                    <td><strong>int</strong></td>
+                    <td>Storing whole numbers (no decimals)</td>
+                    <td>42, -17, 0, 1000</td>
+                </tr>
+                <tr>
+                    <td><strong>double</strong></td>
+                    <td>Storing decimal numbers, measurements</td>
+                    <td>3.14, -0.5, 98.6</td>
+                </tr>
+                <tr>
+                    <td><strong>string</strong></td>
+                    <td>Storing text, names, messages</td>
+                    <td>"Hello", "Ryan", "CS1250"</td>
+                </tr>
+                <tr>
+                    <td><strong>bool</strong></td>
+                    <td>Storing true/false conditions, flags</td>
+                    <td>true, false</td>
+                </tr>
+                <tr>
+                    <td><strong>char</strong></td>
+                    <td>Storing a single character</td>
+                    <td>'A', 'x', '5', '!'</td>
+                </tr>
+            </table>
+
+            <div class="example">
+                <strong>Selection Guidelines:</strong><br>
+                • Age, count, quantity → <strong>int</strong><br>
+                • Price, temperature, GPA → <strong>double</strong><br>
+                • Name, email, message → <strong>string</strong><br>
+                • Is active, has permission → <strong>bool</strong><br>
+                • Grade letter, menu choice → <strong>char</strong>
+            </div>
+        </div>
+
+        <h2>📝 Variable Declaration and Initialization</h2>
+        <div class="concept-box">
+            <div class="code">// Declaration (creating the variable)
+int age;
+string name;
+double price;
+
+// Initialization (giving it a value)
+age = 20;
+name = "Ryan";
+price = 9.99;
+
+// Declaration and initialization together (preferred)
+int count = 0;
+string greeting = "Hello";
+double temperature = 72.5;
+bool isActive = true;</div>
+
+            <div class="key-point">
+                <strong>Best Practice:</strong> Always initialize variables when you declare them to avoid using unassigned variables.
+            </div>
+        </div>
+
+        <h2>➗ Division Results in C#</h2>
+        <div class="concept-box">
+            <div class="warning-box">
+                <strong>Critical Concept:</strong> The result type depends on the operand types!
+            </div>
+
+            <table class="operator-table">
+                <tr>
+                    <th>Expression</th>
+                    <th>Result</th>
+                    <th>Explanation</th>
+                </tr>
+                <tr>
+                    <td>10 / 3</td>
+                    <td>3</td>
+                    <td>int / int = int (truncates decimal)</td>
+                </tr>
+                <tr>
+                    <td>10.0 / 3</td>
+                    <td>3.333...</td>
+                    <td>double / int = double</td>
+                </tr>
+                <tr>
+                    <td>10 / 3.0</td>
+                    <td>3.333...</td>
+                    <td>int / double = double</td>
+                </tr>
+                <tr>
+                    <td>10.0 / 3.0</td>
+                    <td>3.333...</td>
+                    <td>double / double = double</td>
+                </tr>
+                <tr>
+                    <td>(double)10 / 3</td>
+                    <td>3.333...</td>
+                    <td>Cast to double first</td>
+                </tr>
+            </table>
+
+            <div class="example">
+                <strong>Common Pitfall:</strong>
+                <div class="code">// WRONG - integer division!
+double average = 5 / 2;  // average = 2.0 (not 2.5!)
+
+// CORRECT
+double average = 5.0 / 2;  // average = 2.5
+// OR
+double average = (double)5 / 2;  // average = 2.5</div>
+            </div>
+        </div>
+
+        <h2>🏷️ Naming Conventions</h2>
+        <div class="concept-box">
+            <div class="two-column">
+                <div>
+                    <h3>PascalCase</h3>
+                    <div class="example">
+                        <strong>Used For:</strong><br>
+                        • Class names<br>
+                        • Method names<br>
+                        • Property names<br><br>
+                        <strong>Examples:</strong><br>
+                        • StudentRecord<br>
+                        • CalculateGrade<br>
+                        • FirstName
+                    </div>
+                </div>
+                <div>
+                    <h3>camelCase</h3>
+                    <div class="example">
+                        <strong>Used For:</strong><br>
+                        • Local variables<br>
+                        • Parameters<br>
+                        • Private fields<br><br>
+                        <strong>Examples:</strong><br>
+                        • studentCount<br>
+                        • firstName<br>
+                        • totalScore
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2>🔤 String Properties and Methods</h2>
+        <div class="concept-box">
+            <table class="operator-table">
+                <tr>
+                    <th>Member</th>
+                    <th>Type</th>
+                    <th>Example</th>
+                    <th>Result</th>
+                </tr>
+                <tr>
+                    <td><strong>Length</strong></td>
+                    <td>Property</td>
+                    <td>"Hello".Length</td>
+                    <td>5</td>
+                </tr>
+                <tr>
+                    <td><strong>ToUpper()</strong></td>
+                    <td>Method</td>
+                    <td>"Hello".ToUpper()</td>
+                    <td>"HELLO"</td>
+                </tr>
+                <tr>
+                    <td><strong>ToLower()</strong></td>
+                    <td>Method</td>
+                    <td>"Hello".ToLower()</td>
+                    <td>"hello"</td>
+                </tr>
+                <tr>
+                    <td><strong>Trim()</strong></td>
+                    <td>Method</td>
+                    <td>" Hi ".Trim()</td>
+                    <td>"Hi"</td>
+                </tr>
+                <tr>
+                    <td><strong>Substring()</strong></td>
+                    <td>Method</td>
+                    <td>"Hello".Substring(1, 3)</td>
+                    <td>"ell"</td>
+                </tr>
+                <tr>
+                    <td><strong>Contains()</strong></td>
+                    <td>Method</td>
+                    <td>"Hello".Contains("ell")</td>
+                    <td>true</td>
+                </tr>
+            </table>
+
+            <div class="key-point">
+                <strong>Remember:</strong> Length is a property (no parentheses), but ToUpper, ToLower, etc. are methods (require parentheses).
+            </div>
+        </div>
+
+        <h2>🔍 String Indexing</h2>
+        <div class="concept-box">
+            <div class="code">string word = "HELLO";
+
+// Indexing starts at 0
+char first = word[0];   // 'H'
+char second = word[1];  // 'E'
+char last = word[4];    // 'O'
+
+// Using Length property
+char lastChar = word[word.Length - 1];  // 'O'
+
+// Loop through each character
+for (int i = 0; i &lt; word.Length; i++)
+{
+    Console.WriteLine(word[i]);
+}</div>
+
+            <div class="warning-box">
+                <strong>Index Out of Range:</strong> Accessing word[5] when Length is 5 causes an error!
+            </div>
+        </div>
+
+        <h2>🔄 Type Conversion and Parsing</h2>
+        <div class="concept-box">
+            <div class="code">// Parsing strings to numbers
+string input = "42";
+int number = int.Parse(input);        // 42
+double decimal = double.Parse("3.14"); // 3.14
+
+// Safe parsing (recommended)
+string userInput = Console.ReadLine();
+int age;
+if (int.TryParse(userInput, out age))
+{
+    Console.WriteLine($"Age is {age}");
+}
+else
+{
+    Console.WriteLine("Invalid input!");
+}
+
+// Converting numbers to strings
+int score = 95;
+string scoreText = score.ToString();
+
+// Explicit casting
+double price = 9.99;
+int dollars = (int)price;  // 9 (truncates decimal)</div>
+        </div>
+
+        <h2>✅ Evaluating Complex Boolean Conditions</h2>
+        <div class="concept-box">
+            <div class="key-point">
+                <strong>Order of Operations:</strong> Parentheses → ! (NOT) → &amp;&amp; (AND) → || (OR)
+            </div>
+
+            <div class="example">
+                <strong>Example 1:</strong> Evaluate (true || false) &amp;&amp; true || true
+                <div class="code">Step 1: (true || false) = true
+Step 2: true &amp;&amp; true = true
+Step 3: true || true = true
+Final Result: true</div>
+            </div>
+
+            <div class="example">
+                <strong>Example 2:</strong> Evaluate !false &amp;&amp; (true || false)
+                <div class="code">Step 1: !false = true
+Step 2: (true || false) = true
+Step 3: true &amp;&amp; true = true
+Final Result: true</div>
+            </div>
+
+            <div class="example">
+                <strong>Example 3:</strong> Practical scenario
+                <div class="code">int age = 25;
+bool hasLicense = true;
+bool isWeekend = false;
+
+// Can rent a car if: age >= 21 AND has license AND it's weekend
+bool canRent = (age >= 21) &amp;&amp; hasLicense &amp;&amp; isWeekend;
+// Result: true &amp;&amp; true &amp;&amp; false = false</div>
+            </div>
+        </div>
+
+        <h2>🔁 Loop Structures</h2>
+        <div class="concept-box">
+            <h3>While Loop (Pre-test Loop)</h3>
+            <div class="code">// Condition checked BEFORE entering loop
+// May execute 0 times if condition is false initially
+int count = 0;
+while (count &lt; 5)  // Pre-test
+{
+    Console.WriteLine(count);
+    count++;  // Incrementing control variable
+}</div>
+
+            <div class="key-point">
+                <strong>Control Variable:</strong> A variable that determines how many times a loop executes. It's initialized before the loop, tested in the condition, and modified within the loop body.
+            </div>
+
+            <h3>Do-While Loop (Post-test Loop)</h3>
+            <div class="code">// Condition checked AFTER executing loop body
+// ALWAYS executes at least once
+int count = 0;
+do
+{
+    Console.WriteLine(count);
+    count--;  // Decrementing control variable
+} while (count &gt; 0);  // Post-test</div>
+
+            <div class="warning-box">
+                <strong>Key Difference:</strong> do-while is guaranteed to run at least once, even if the condition is initially false!
+            </div>
+
+            <h3>For Loop</h3>
+            <div class="code">// Compact syntax with initialization, condition, and update
+for (int i = 0; i &lt; 10; i++)  // i is the control variable
+{
+    Console.WriteLine(i);
+}
+
+// Counting down
+for (int i = 10; i >= 0; i--)
+{
+    Console.WriteLine(i);
+}</div>
+
+            <h3>Foreach Loop</h3>
+            <div class="code">// Iterates through each element in a collection
+int[] scores = {85, 90, 78, 92, 88};
+
+foreach (int score in scores)
+{
+    Console.WriteLine(score);
+}
+
+List&lt;string&gt; names = new List&lt;string&gt; {"Alice", "Bob", "Charlie"};
+foreach (string name in names)
+{
+    Console.WriteLine(name);
+}</div>
+
+            <div class="key-point">
+                <strong>Purpose of Foreach:</strong> Provides a clean, readable way to iterate through all elements in a collection without managing index variables. You cannot modify the collection or access the index directly within a foreach loop.
+            </div>
+        </div>
+
+        <h2>🔧 Modulo Applications</h2>
+        <div class="concept-box">
+            <div class="example">
+                <strong>Checking Even/Odd Numbers:</strong>
+                <div class="code">int number = 7;
+
+if (number % 2 == 0)
+{
+    Console.WriteLine("Even");
+}
+else
+{
+    Console.WriteLine("Odd");
+}
+
+// Even numbers: remainder is 0 when divided by 2
+// Odd numbers: remainder is 1 when divided by 2</div>
+            </div>
+
+            <div class="example">
+                <strong>Other Common Uses:</strong>
+                <div class="code">// Check if divisible by a number
+if (number % 5 == 0)  // divisible by 5
+
+// Cycle through values (wrapping)
+int dayOfWeek = (currentDay + 1) % 7;  // 0-6
+
+// Get last digit of a number
+int lastDigit = number % 10;</div>
+            </div>
+        </div>
+
+        <h2>⚙️ Methods (Functions)</h2>
+        <div class="concept-box">
+            <h3>Method Structure</h3>
+            <div class="code">// Access modifier | return type | method name | parameters
+public static int CalculateSum(int a, int b)
+{
+    int sum = a + b;
+    return sum;  // Returns value to caller
+}
+
+// Calling the method
+int result = CalculateSum(5, 3);  // result = 8</div>
+
+            <h3>The void Keyword</h3>
+            <div class="code">// void means the method doesn't return a value
+public static void PrintGreeting(string name)
+{
+    Console.WriteLine($"Hello, {name}!");
+    // No return statement needed
+}
+
+// Calling a void method
+PrintGreeting("Ryan");  // Prints but returns nothing</div>
+
+            <div class="key-point">
+                <strong>Parameters vs Arguments:</strong><br>
+                • <strong>Parameters:</strong> Variables in the method signature (a, b in CalculateSum)<br>
+                • <strong>Arguments:</strong> Actual values passed when calling (5, 3 when calling CalculateSum)
+            </div>
+
+            <h3>Return Values</h3>
+            <div class="code">// Method with return value
+public static double CalculateAverage(int score1, int score2)
+{
+    return (score1 + score2) / 2.0;  // Return sends value back
+}
+
+// Method without return (void)
+public static void DisplayMessage(string msg)
+{
+    Console.WriteLine(msg);
+    // void methods can use 'return;' to exit early
+}</div>
+
+            <div class="example">
+                <strong>Why Use Methods?</strong><br>
+                • <strong>Focused Responsibilities:</strong> Each method does one specific task<br>
+                • <strong>Code Reuse:</strong> Write once, use many times<br>
+                • <strong>Easier Modification:</strong> Change logic in one place<br>
+                • <strong>Improved Readability:</strong> Break complex problems into manageable pieces<br>
+                • <strong>Testing:</strong> Easier to test individual components
+            </div>
+        </div>
+
+        <h2>🔐 Access Modifiers</h2>
+        <div class="concept-box">
+            <table class="operator-table">
+                <tr>
+                    <th>Modifier</th>
+                    <th>Accessibility</th>
+                    <th>Common Use</th>
+                </tr>
+                <tr>
+                    <td><strong>public</strong></td>
+                    <td>Accessible from anywhere</td>
+                    <td>Methods and properties you want other classes to use</td>
+                </tr>
+                <tr>
+                    <td><strong>private</strong></td>
+                    <td>Only accessible within the same class</td>
+                    <td>Internal implementation details, fields</td>
+                </tr>
+                <tr>
+                    <td><strong>protected</strong></td>
+                    <td>Accessible in the class and derived classes</td>
+                    <td>Inheritance scenarios</td>
+                </tr>
+                <tr>
+                    <td><strong>internal</strong></td>
+                    <td>Accessible within the same assembly/project</td>
+                    <td>Classes meant to stay within one project</td>
+                </tr>
+            </table>
+
+            <h3>At the Class Level</h3>
+            <div class="code">public class Student  // Can be accessed by any code
+{
+    // Class members...
+}
+
+internal class Helper  // Only accessible within this project
+{
+    // Class members...
+}</div>
+
+            <h3>At the Method/Field Level</h3>
+            <div class="code">public class BankAccount
+{
+    private double balance;  // Can only be accessed inside this class
+    
+    public void Deposit(double amount)  // Can be called from outside
+    {
+        balance += amount;
+    }
+    
+    private bool ValidateAmount(double amount)  // Helper method
+    {
+        return amount > 0;
+    }
+}</div>
+
+            <div class="key-point">
+                <strong>Encapsulation Principle:</strong> Keep fields private and provide public methods to interact with them. This protects data integrity.
+            </div>
+        </div>
+
+        <h2>🏗️ Object-Oriented Programming Concepts</h2>
+        <div class="concept-box">
+            <h3>Classes vs Objects</h3>
+            <div class="example">
+                <strong>Class:</strong> A blueprint or template that defines the structure and behavior<br>
+                <strong>Object:</strong> A specific instance created from that class
+            </div>
+
+            <div class="code">// Class definition (the blueprint)
+public class Car
+{
+    public string Make { get; set; }
+    public string Model { get; set; }
+    public int Year { get; set; }
+    
+    public void Start()
+    {
+        Console.WriteLine($"{Make} {Model} is starting...");
+    }
+}
+
+// Creating objects (instances) from the class
+Car myCar = new Car();  // Instance 1
+myCar.Make = "Toyota";
+myCar.Model = "Camry";
+
+Car yourCar = new Car();  // Instance 2 (separate from myCar)
+yourCar.Make = "Honda";
+yourCar.Model = "Accord";</div>
+
+            <div class="key-point">
+                <strong>Class Members:</strong> Belong to the class itself (static)<br>
+                <strong>Instance Members:</strong> Belong to each individual object<br><br>
+                <strong>Static vs Instance:</strong> Static members are shared across all instances and accessed via the class name (Math.Sqrt()). Instance members are unique to each object and accessed via object references (myCar.Start()).
+            </div>
+        </div>
+
+        <h2>🏗️ Constructors</h2>
+        <div class="concept-box">
+            <div class="code">public class Student
+{
+    // Fields
+    private string name;
+    private int id;
+    private double gpa;
+    
+    // Default constructor
+    public Student()
+    {
+        name = "Unknown";
+        id = 0;
+        gpa = 0.0;
+    }
+    
+    // Parameterized constructor
+    public Student(string studentName, int studentId, double studentGpa)
+    {
+        name = studentName;
+        id = studentId;
+        gpa = studentGpa;
+    }
+    
+    // Using constructors
+    Student student1 = new Student();  // Uses default
+    Student student2 = new Student("Ryan", 12345, 3.8);  // Uses parameterized
+}</div>
+
+            <div class="key-point">
+                <strong>Constructor Purpose:</strong> Special method called automatically when creating an object. Initializes the object's state (sets initial values for fields).
+            </div>
+        </div>
+
+        <h2>📊 Properties: Accessors and Modifiers</h2>
+        <div class="concept-box">
+            <h3>Auto-Implemented Properties</h3>
+            <div class="code">public class Person
+{
+    // Auto-implemented properties
+    public string Name { get; set; }  // Both accessor and modifier
+    public int Age { get; set; }
+    public string Email { get; private set; }  // Public get, private set
+}</div>
+
+            <h3>Properties with Backing Fields</h3>
+            <div class="code">public class BankAccount
+{
+    private double balance;  // Backing field (private)
+    
+    // Property with validation
+    public double Balance
+    {
+        get { return balance; }  // Accessor (getter)
+        set                      // Modifier (setter)
+        { 
+            if (value >= 0)
+            {
+                balance = value;
+            }
+        }
+    }
+    
+    // Read-only property (accessor only)
+    public string AccountNumber { get; }
+    
+    public BankAccount(string accountNum)
+    {
+        AccountNumber = accountNum;  // Can set in constructor
+    }
+}</div>
+
+            <div class="key-point">
+                <strong>Accessors (get):</strong> Allow reading the property value<br>
+                <strong>Modifiers (set):</strong> Allow changing the property value<br><br>
+                Properties provide controlled access to private fields.
+            </div>
+        </div>
+
+        <h2>💾 Memory Management: Stack vs Heap</h2>
+        <div class="concept-box">
+            <div class="memory-diagram">
+                <h3>Stack Memory</h3>
+                <strong>Stores:</strong> Value types (int, double, bool, char, struct)<br>
+                <strong>Characteristics:</strong><br>
+                • Fast access<br>
+                • Automatic memory management<br>
+                • Limited size<br>
+                • Variables exist only in their scope
+                
+                <div class="code">int x = 5;     // Stored on stack
+double y = 3.14;  // Stored on stack
+bool flag = true; // Stored on stack</div>
+            </div>
+
+            <div class="memory-diagram">
+                <h3>Heap Memory</h3>
+                <strong>Stores:</strong> Reference types (objects, arrays, strings)<br>
+                <strong>Characteristics:</strong><br>
+                • Larger capacity<br>
+                • Managed by garbage collector<br>
+                • Slower access than stack<br>
+                • Objects persist until no references remain
+                
+                <div class="code">Student s = new Student();  // Object on heap, reference on stack
+string name = "Ryan";       // String on heap, reference on stack
+int[] scores = new int[5];  // Array on heap, reference on stack</div>
+            </div>
+
+            <h3>Reference Type Behavior</h3>
+            <div class="code">// Reference types point to memory locations
+Student student1 = new Student("Alice", 101, 3.5);
+Student student2 = student1;  // Both refer to SAME object
+
+student2.Name = "Bob";
+Console.WriteLine(student1.Name);  // Prints "Bob" - same object!
+
+// Compare to value types
+int a = 5;
+int b = a;  // b gets a COPY of the value
+b = 10;
+Console.WriteLine(a);  // Prints 5 - separate variables!</div>
+
+            <div class="warning-box">
+                <strong>Important:</strong> When you assign one reference variable to another, you're copying the reference (address), not the object. Both variables point to the same object in memory.
+            </div>
+        </div>
+
+        <h2>📝 Overriding ToString()</h2>
+        <div class="concept-box">
+            <div class="code">public class Student
+{
+    public string Name { get; set; }
+    public int ID { get; set; }
+    public double GPA { get; set; }
+    
+    // Override ToString() for custom string representation
+    public override string ToString()
+    {
+        return $"Student: {Name}, ID: {ID}, GPA: {GPA:F2}";
+    }
+}
+
+// Using ToString()
+Student s = new Student { Name = "Ryan", ID = 12345, GPA = 3.85 };
+Console.WriteLine(s);  // Automatically calls ToString()
+// Output: Student: Ryan, ID: 12345, GPA: 3.85
+
+string info = s.ToString();  // Explicitly call ToString()</div>
+
+            <div class="key-point">
+                <strong>Purpose:</strong> Provides a readable string representation of an object. Useful for debugging and displaying object information. Every object inherits ToString() from the Object class, but you can override it for custom behavior.
+            </div>
+        </div>
+
+        <h2>📂 File Input/Output</h2>
+        <div class="concept-box">
+            <h3>Reading All Lines from a File</h3>
+            <div class="code">// File.ReadAllLines() returns string array
+string[] lines = File.ReadAllLines("data.txt");
+
+foreach (string line in lines)
+{
+    Console.WriteLine(line);
+}
+
+// Process each line
+for (int i = 0; i &lt; lines.Length; i++)
+{
+    Console.WriteLine($"Line {i + 1}: {lines[i]}");
+}</div>
+
+            <h3>Writing All Lines to a File</h3>
+            <div class="code">// File.WriteAllLines() takes a string array or collection
+string[] output = new string[3];
+output[0] = "First line";
+output[1] = "Second line";
+output[2] = "Third line";
+
+File.WriteAllLines("output.txt", output);
+
+// Or using a List
+List&lt;string&gt; data = new List&lt;string&gt;
+{
+    "Line 1",
+    "Line 2",
+    "Line 3"
+};
+File.WriteAllLines("output.txt", data);</div>
+
+            <h3>Common Patterns</h3>
+            <div class="code">// Read, process, and write back
+string[] lines = File.ReadAllLines("scores.txt");
+List&lt;string&gt; processed = new List&lt;string&gt;();
+
+foreach (string line in lines)
+{
+    // Process each line
+    int score = int.Parse(line);
+    processed.Add($"Score: {score}, Grade: {CalculateGrade(score)}");
+}
+
+File.WriteAllLines("results.txt", processed);</div>
+
+            <div class="warning-box">
+                <strong>Remember:</strong> File I/O can throw exceptions! In production code, you should use try-catch blocks to handle potential errors (file not found, permission denied, etc.).
+            </div>
+        </div>
+
+        <h2>📚 Arrays vs Lists</h2>
+        <div class="concept-box">
+            <div class="two-column">
+                <div>
+                    <h3>Arrays</h3>
+                    <div class="code">// Declaration and initialization
+int[] scores = new int[5];  // Fixed size
+
+// With initial values
+int[] numbers = {1, 2, 3, 4, 5};
+string[] names = new string[3] {"Alice", "Bob", "Charlie"};
+
+// Accessing elements
+scores[0] = 95;
+scores[1] = 87;
+
+// Size property
+int size = scores.Length;</div>
+                    
+                    <div class="key-point">
+                        <strong>Arrays:</strong><br>
+                        • Fixed size<br>
+                        • Use <strong>Length</strong> property<br>
+                        • Better performance<br>
+                        • Cannot add/remove elements
+                    </div>
+                </div>
+                
+                <div>
+                    <h3>Lists</h3>
+                    <div class="code">// Must import: using System.Collections.Generic;
+
+// Declaration and initialization
+List&lt;int&gt; scores = new List&lt;int&gt;();
+
+// With initial values
+List&lt;string&gt; names = new List&lt;string&gt; {"Alice", "Bob"};
+
+// Adding elements
+scores.Add(95);
+scores.Add(87);
+
+// Size property
+int size = scores.Count;</div>
+                    
+                    <div class="key-point">
+                        <strong>Lists:</strong><br>
+                        • Dynamic size<br>
+                        • Use <strong>Count</strong> property<br>
+                        • More flexibility<br>
+                        • Can Add(), Remove(), Insert()
+                    </div>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <strong>Common Mistake:</strong> Using .Length on a List or .Count on an array!<br>
+                Arrays use <strong>Length</strong> (property, no parentheses)<br>
+                Lists use <strong>Count</strong> (property, no parentheses)
+            </div>
+
+            <h3>Common List Methods</h3>
+            <div class="code">List&lt;int&gt; numbers = new List&lt;int&gt; {10, 20, 30, 40};
+
+numbers.Add(50);           // Adds to end: {10, 20, 30, 40, 50}
+numbers.Remove(20);        // Removes first 20: {10, 30, 40, 50}
+numbers.RemoveAt(0);       // Removes at index 0: {30, 40, 50}
+numbers.Insert(1, 35);     // Insert at index 1: {30, 35, 40, 50}
+bool has40 = numbers.Contains(40);  // true
+numbers.Clear();           // Removes all elements</div>
+        </div>
+
+        <h2>🎯 Why Use Methods and Classes?</h2>
+        <div class="concept-box">
+            <div class="example">
+                <h3>Benefits of Methods</h3>
+                <strong>1. Focused Responsibilities</strong><br>
+                Each method does one specific task, making code easier to understand
+                <div class="code">// Instead of one giant method...
+public static void ProcessStudent()
+{
+    // Calculate grade
+    // Validate input  
+    // Format output
+    // Save to file
+}
+
+// Break into focused methods
+public static double CalculateGrade(int score) { }
+public static bool ValidateScore(int score) { }
+public static string FormatOutput(double grade) { }
+public static void SaveToFile(string data) { }</div>
+
+                <strong>2. Code Reuse</strong><br>
+                Write logic once, use it many times
+                <div class="code">public static bool IsEven(int number)
+{
+    return number % 2 == 0;
+}
+
+// Use it everywhere without rewriting
+if (IsEven(score)) { }
+if (IsEven(age)) { }
+if (IsEven(count)) { }</div>
+
+                <strong>3. Easier Modification</strong><br>
+                Change behavior in one place, affects all uses
+                <div class="code">// Change how grade is calculated in ONE method
+public static char CalculateLetterGrade(double percent)
+{
+    // Update this logic once, affects entire program
+    if (percent >= 90) return 'A';
+    // ...
+}</div>
+            </div>
+
+            <div class="example">
+                <h3>Benefits of Classes</h3>
+                <strong>1. Encapsulation</strong><br>
+                Bundle related data and methods together, hide implementation details
+                <div class="code">public class BankAccount
+{
+    private double balance;  // Hidden from outside
+    
+    public void Deposit(double amount)  // Controlled access
+    {
+        if (amount > 0)
+            balance += amount;
+    }
+}</div>
+
+                <strong>2. Organization</strong><br>
+                Group related functionality logically
+                <div class="code">// All student-related logic in one place
+public class Student
+{
+    public string Name { get; set; }
+    public double CalculateGPA() { }
+    public bool IsHonorsStudent() { }
+    public void PrintTranscript() { }
+}</div>
+
+                <strong>3. Reusability and Scalability</strong><br>
+                Create multiple instances with different data
+                <div class="code">Student alice = new Student("Alice", 3.8);
+Student bob = new Student("Bob", 3.5);
+Student charlie = new Student("Charlie", 3.9);
+
+// Each object maintains its own data</div>
+            </div>
+        </div>
+
+        <h2>📝 Final Exam Tips</h2>
+        <div class="concept-box">
+            <h3>Key Areas to Focus On</h3>
+            <ul>
+                <li><strong>Operator Symbols:</strong> Memorize all operators (especially &&, ||, !=, >=, %)</li>
+                <li><strong>Division Rules:</strong> Know when you get int vs double results</li>
+                <li><strong>Data Type Selection:</strong> Practice choosing the right type for scenarios</li>
+                <li><strong>Boolean Logic:</strong> Practice evaluating complex conditions step-by-step</li>
+                <li><strong>Loop Types:</strong> Understand when to use while, do-while, for, or foreach</li>
+                <li><strong>String Operations:</strong> Know the difference between Length (property) and methods</li>
+                <li><strong>Arrays vs Lists:</strong> Remember Length vs Count!</li>
+                <li><strong>Access Modifiers:</strong> Understand public vs private at class and member level</li>
+                <li><strong>Memory Concepts:</strong> Understand stack vs heap and reference types</li>
+                <li><strong>OOP Principles:</strong> Know constructors, properties, and why we use classes</li>
+            </ul>
+
+            <h3>Practice Strategies</h3>
+            <ul>
+                <li>Trace code execution line by line with specific values</li>
+                <li>Write out the order of operations for complex boolean expressions</li>
+                <li>Practice converting between data types (especially with division)</li>
+                <li>Create sample classes with constructors and properties</li>
+                <li>Work through loop execution with different control variable values</li>
+                <li>Draw diagrams showing object references in memory</li>
+            </ul>
+
+            <h3>Common Pitfalls to Avoid</h3>
+            <div class="warning-box">
+                ❌ Using = instead of == in conditions<br>
+                ❌ Forgetting .Length on arrays or .Count on lists<br>
+                ❌ Integer division when you need a decimal result<br>
+                ❌ Off-by-one errors with array/string indexing<br>
+                ❌ Confusing parameters with arguments<br>
+                ❌ Mixing up stack vs heap concepts<br>
+                ❌ Using parentheses on Length property: .Length()<br>
+                ❌ Forgetting that foreach doesn't give you the index
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px; padding: 20px; background: linear-gradient(90deg, #e74c3c 0%, #c0392b 100%); color: white; border-radius: 5px;">
+            <h2>Good Luck on Your Final Exam! 🎓</h2>
+        </div>
+    </div>
+    <script>
+        let scrollTimeout;
+        let isScrolling = false;
+
+        function findClosestH2ToCenter() {
+            const viewportCenter = window.innerHeight / 2;
+            const h2Elements = document.querySelectorAll('h2');
+            
+            let closestH2 = null;
+            let minDistance = Infinity;
+            
+            h2Elements.forEach(h2 => {
+                const rect = h2.getBoundingClientRect();
+                const h2Center = rect.top + (rect.height / 2);
+                const distance = Math.abs(h2Center - viewportCenter);
+                
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closestH2 = h2;
+                }
+            });
+            
+            // Remove highlight from all h2s
+            h2Elements.forEach(h2 => h2.classList.remove('highlight-h2'));
+            
+            // Add highlight to closest h2
+            if (closestH2) {
+                closestH2.classList.add('highlight-h2');
+            }
+        }
+
+        // Throttled scroll handler
+        window.addEventListener('scroll', function() {
+            if (!isScrolling) {
+                isScrolling = true;
+                
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(function() {
+                    findClosestH2ToCenter();
+                    isScrolling = false;
+                }, 100); // 100ms delay - adjust as needed
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Run once on DOM load
+            findClosestH2ToCenter();
+        });
+    </script>
+</body>
+</html>
