@@ -283,7 +283,7 @@
                     let pathWithoutExt = file.path.replace(/\.md$/, '');
                     link.href = `${GITHUB_PAGES_BASE}/${pathWithoutExt}`;
                 }
-                elif (file.name.endsWith('.html')) {
+                else if (file.name.endsWith('.html')) {
                     file.name = file.name.replace(/\.html$/, '');
                     let pathWithoutExt = file.path.replace(/\.html$/, '');
                     link.href = `${GITHUB_PAGES_BASE}/${pathWithoutExt}`;
