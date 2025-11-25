@@ -40,6 +40,15 @@ li {
     position: relative;
 }
 
+.title-slide-goals {
+    background: linear-gradient(135deg, #fb4934 0%, #df3d2b 100%);
+    color: white;
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
 .header {
     background: linear-gradient(135deg, #f9533d, #c0392b);
     color: white;
