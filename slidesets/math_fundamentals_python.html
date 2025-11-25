@@ -28,6 +28,10 @@
             font-size: 1.2em;
         }
 
+        li {
+            white-space: pre-wrap;
+        }
+
         .presentation-container {
             background: white;
             border-radius: 20px;
@@ -223,7 +227,7 @@
         }
 
         .code-block {
-            background: #2d3748;
+            background: #f1ebe4;
             color: #e2e8f0;
             padding: 20px;
             border-radius: 10px;
@@ -1127,7 +1131,7 @@
                 <div class="slide-title">Conditionals – Prediction</div>
                 <ul class="bullet-points" style="font-size: 1.1em;">
                     <li>If we can predict the outcome of these branched conditions, we can make execution of a program much, much faster.</li>
-                    <li>Modern processors can look <strong>hundreds</strong>&nbsp;of instructions into the future, just by looking back at what previous branches it took.</li>
+                    <li>Modern processors can look <strong>hundreds</strong> of instructions into the future, just by looking back at what previous branches it took.</li>
                     <li>Though not inherently guaranteed, a 4KiB program running on an Apple M1 can successfully predict 95+% of all the branches the code will take</li>
                     <li>This allows computers to potentially process entire chunks of a program ahead of time and is a lot of the reason that modern CPUs have gotten so fast.</li>
                 </ul>

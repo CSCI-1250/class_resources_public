@@ -41,7 +41,7 @@ li {
 }
 
 .title-slide-goals {
-    background: linear-gradient(135deg, #fb4934 0%, #df3d2b 100%);
+    background-color: #fb4934;
     color: white;
     padding: 30px;
     border-radius: 15px;
