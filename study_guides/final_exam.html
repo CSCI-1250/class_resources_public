@@ -16,6 +16,14 @@
             background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
             color: #333;
         }
+
+        header {
+            margin-bottom: -26px;
+            line-height: 4.2rem;
+            background-color: #e74c3c;
+            border-radius: 2px;
+            box-shadow: 0 20px 30px rgba(0,0,0,0.2);
+        }
         
         .container {
             background: white;
@@ -25,9 +33,9 @@
         }
         
         h1 {
-            color: #4a5568;
+            font-size: 4em;
+            color: white;
             text-align: center;
-            border-bottom: 3px solid #0b00a3;
             padding-bottom: 15px;
             margin-bottom: 30px;
         }
@@ -55,8 +63,8 @@
         }
         
         .example {
-            background: #e8f5e8;
-            border-left: 4px solid #28a745;
+            background: #e8eaf5;
+            border-left: 4px solid #0b00a3;
             padding: 10px 15px;
             margin: 10px 0;
             border-radius: 0 5px 5px 0;
@@ -142,9 +150,10 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <header>
         <h1>CSCI 1250 C# Final Exam Study Guide</h1>
-        
+    </header>
+    <div class="container">
         <h2>🔢 C# Operators Reference</h2>
         <div class="concept-box">
             <h3>Arithmetic Operators</h3>
@@ -1260,7 +1269,7 @@ Student charlie = new Student("Charlie", 3.9);
         </div>
 
         <div style="text-align: center; margin-top: 30px; padding: 20px; background: linear-gradient(90deg, #e74c3c 0%, #c0392b 100%); color: white; border-radius: 5px;">
-            <h2>Good Luck on Your Final Exam! 🎓</h2>
+            <span style="font-size: 2.3em;">Good Luck on Your Final Exam! 🎓</span>
         </div>
     </div>
     <script>
