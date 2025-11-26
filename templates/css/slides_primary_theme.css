@@ -304,7 +304,7 @@ li {
     color: #f9533d;
     font-size: 2em;
     font-weight: bolder;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     text-align: center;
     border-bottom: 3px solid #f9533d;
     padding-bottom: 15px;
@@ -313,7 +313,7 @@ li {
 .section-header {
     display: flex;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     padding: 20px;
     background: linear-gradient(135deg, #f8f9fa, #e9ecef);
     border-radius: 15px;
