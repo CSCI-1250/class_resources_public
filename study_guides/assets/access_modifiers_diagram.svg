@@ -1,0 +1,197 @@
+<svg viewBox="0 0 1000 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="assemblyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#e1f5fe;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#b3e5fc;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="publicGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#c8e6c9;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#a5d6a7;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="internalGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#fff3e0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffe0b2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="privateGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffebee;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffcdd2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="protectedGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f3e5f5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e1bee7;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Title -->
+  <text x="500" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#333">
+    C# Access Modifiers: Assembly and Class Scope
+  </text>
+  
+  <!-- Assembly 1 -->
+  <rect x="50" y="70" width="400" height="320" fill="url(#assemblyGradient)" stroke="#0277bd" stroke-width="3" rx="15"/>
+  <text x="250" y="95" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#0277bd">
+    Assembly 1 (Your Project)
+  </text>
+  
+  <!-- Class A in Assembly 1 -->
+  <rect x="70" y="110" width="170" height="260" fill="white" stroke="#333" stroke-width="2" rx="8"/>
+  <text x="155" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">
+    Class A
+  </text>
+  
+  <!-- Public member -->
+  <rect x="80" y="140" width="150" height="25" fill="url(#publicGradient)" stroke="#4caf50" stroke-width="1" rx="3"/>
+  <text x="85" y="155" font-family="monospace" font-size="10" fill="#333">public int Count;</text>
+  <circle cx="220" cy="152" r="8" fill="#4caf50"/>
+  <text x="220" y="157" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="white" font-weight="bold">✓</text>
+  
+  <!-- Internal member -->
+  <rect x="80" y="170" width="150" height="25" fill="url(#internalGradient)" stroke="#ff9800" stroke-width="1" rx="3"/>
+  <text x="85" y="185" font-family="monospace" font-size="10" fill="#333">internal string Name;</text>
+  <circle cx="220" cy="182" r="8" fill="#ff9800"/>
+  <text x="220" y="187" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="white" font-weight="bold">~</text>
+  
+  <!-- Protected member -->
+  <rect x="80" y="200" width="150" height="25" fill="url(#protectedGradient)" stroke="#9c27b0" stroke-width="1" rx="3"/>
+  <text x="85" y="215" font-family="monospace" font-size="10" fill="#333">protected double Score;</text>
+  <circle cx="220" cy="212" r="8" fill="#9c27b0"/>
+  <text x="220" y="217" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="white" font-weight="bold">#</text>
+  
+  <!-- Private member -->
+  <rect x="80" y="230" width="150" height="25" fill="url(#privateGradient)" stroke="#f44336" stroke-width="1" rx="3"/>
+  <text x="85" y="245" font-family="monospace" font-size="10" fill="#333">private bool _isActive;</text>
+  <circle cx="220" cy="242" r="8" fill="#f44336"/>
+  <text x="220" y="247" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="white" font-weight="bold">-</text>
+  
+  <!-- Public method -->
+  <rect x="80" y="270" width="150" height="35" fill="url(#publicGradient)" stroke="#4caf50" stroke-width="1" rx="3"/>
+  <text x="85" y="285" font-family="monospace" font-size="9" fill="#333">public void Display()</text>
+  <text x="85" y="297" font-family="monospace" font-size="9" fill="#666">{ ... }</text>
+  
+  <!-- Private method -->
+  <rect x="80" y="310" width="150" height="35" fill="url(#privateGradient)" stroke="#f44336" stroke-width="1" rx="3"/>
+  <text x="85" y="325" font-family="monospace" font-size="9" fill="#333">private void Validate()</text>
+  <text x="85" y="337" font-family="monospace" font-size="9" fill="#666">{ ... }</text>
+  
+  <!-- Class B in Assembly 1 -->
+  <rect x="260" y="110" width="170" height="160" fill="white" stroke="#333" stroke-width="2" rx="8"/>
+  <text x="345" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">
+    Class B (Same Assembly)
+  </text>
+  
+  <!-- Access examples from Class B -->
+  <text x="270" y="150" font-family="Arial, sans-serif" font-size="11" fill="#333" font-weight="bold">Can access from Class A:</text>
+  <text x="270" y="167" font-family="monospace" font-size="9" fill="#4caf50">✓ public Count</text>
+  <text x="270" y="182" font-family="monospace" font-size="9" fill="#ff9800">✓ internal Name</text>
+  <text x="270" y="197" font-family="monospace" font-size="9" fill="#f44336">✗ protected Score</text>
+  <text x="270" y="212" font-family="monospace" font-size="9" fill="#f44336">✗ private _isActive</text>
+  <text x="270" y="227" font-family="monospace" font-size="9" fill="#4caf50">✓ public Display()</text>
+  <text x="270" y="242" font-family="monospace" font-size="9" fill="#f44336">✗ private Validate()</text>
+  
+  <!-- Assembly 2 -->
+  <rect x="550" y="70" width="400" height="320" fill="#fff8e1" stroke="#f57c00" stroke-width="3" rx="15"/>
+  <text x="750" y="95" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#f57c00">
+    Assembly 2 (External Library)
+  </text>
+  
+  <!-- Class C in Assembly 2 -->
+  <rect x="570" y="110" width="170" height="160" fill="white" stroke="#333" stroke-width="2" rx="8"/>
+  <text x="655" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#333">
+    Class C (External)
+  </text>
+  
+  <!-- Access examples from external assembly -->
+  <text x="580" y="150" font-family="Arial, sans-serif" font-size="11" fill="#333" font-weight="bold">Can access from Class A:</text>
+  <text x="580" y="167" font-family="monospace" font-size="9" fill="#4caf50">✓ public Count</text>
+  <text x="580" y="182" font-family="monospace" font-size="9" fill="#f44336">✗ internal Name</text>
+  <text x="580" y="197" font-family="monospace" font-size="9" fill="#f44336">✗ protected Score</text>
+  <text x="580" y="212" font-family="monospace" font-size="9" fill="#f44336">✗ private _isActive</text>
+  <text x="580" y="227" font-family="monospace" font-size="9" fill="#4caf50">✓ public Display()</text>
+  <text x="580" y="242" font-family="monospace" font-size="9" fill="#f44336">✗ private Validate()</text>
+  
+  <!-- Inheritance example -->
+  <rect x="760" y="110" width="170" height="160" fill="white" stroke="#333" stroke-width="2" rx="8"/>
+  <text x="845" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#333">
+    Class D : Class A
+  </text>
+  <text x="845" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#666">(Inherits from A)</text>
+  
+  <text x="770" y="165" font-family="Arial, sans-serif" font-size="11" fill="#333" font-weight="bold">Can access from Class A:</text>
+  <text x="770" y="182" font-family="monospace" font-size="9" fill="#4caf50">✓ public Count</text>
+  <text x="770" y="197" font-family="monospace" font-size="9" fill="#f44336">✗ internal Name</text>
+  <text x="770" y="212" font-family="monospace" font-size="9" fill="#9c27b0">✓ protected Score</text>
+  <text x="770" y="227" font-family="monospace" font-size="9" fill="#f44336">✗ private _isActive</text>
+  <text x="770" y="242" font-family="monospace" font-size="9" fill="#4caf50">✓ public Display()</text>
+  
+  <!-- Legend -->
+  <rect x="50" y="420" width="900" height="160" fill="#f9f9f9" stroke="#666" stroke-width="2" rx="10"/>
+  <text x="500" y="445" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#333">
+    Access Modifier Reference
+  </text>
+  
+  <!-- Legend items -->
+  <g id="legend">
+    <!-- Public -->
+    <rect x="80" y="460" width="20" height="15" fill="url(#publicGradient)" stroke="#4caf50"/>
+    <text x="110" y="472" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#4caf50">public</text>
+    <text x="170" y="472" font-family="Arial, sans-serif" font-size="11" fill="#333">Accessible everywhere - any class, any assembly</text>
+    
+    <!-- Internal -->
+    <rect x="80" y="485" width="20" height="15" fill="url(#internalGradient)" stroke="#ff9800"/>
+    <text x="110" y="497" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#ff9800">internal</text>
+    <text x="170" y="497" font-family="Arial, sans-serif" font-size="11" fill="#333">Only within the same assembly/project</text>
+    
+    <!-- Protected -->
+    <rect x="80" y="510" width="20" height="15" fill="url(#protectedGradient)" stroke="#9c27b0"/>
+    <text x="110" y="522" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#9c27b0">protected</text>
+    <text x="170" y="522" font-family="Arial, sans-serif" font-size="11" fill="#333">Only within the same class or derived classes</text>
+    
+    <!-- Private -->
+    <rect x="80" y="535" width="20" height="15" fill="url(#privateGradient)" stroke="#f44336"/>
+    <text x="110" y="547" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#f44336">private</text>
+    <text x="170" y="547" font-family="Arial, sans-serif" font-size="11" fill="#333">Only within the same class</text>
+    
+    <!-- Key examples -->
+    <rect x="520" y="460" width="400" height="90" fill="white" stroke="#666" stroke-width="1" rx="5"/>
+    <text x="720" y="480" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#333">
+      Key Rules to Remember:
+    </text>
+    <text x="530" y="500" font-family="Arial, sans-serif" font-size="11" fill="#333">• Fields should typically be private</text>
+    <text x="530" y="515" font-family="Arial, sans-serif" font-size="11" fill="#333">• Properties should be public (with private set if needed)</text>
+    <text x="530" y="530" font-family="Arial, sans-serif" font-size="11" fill="#333">• Methods should be public if used by other classes</text>
+    <text x="530" y="545" font-family="Arial, sans-serif" font-size="11" fill="#333">• Use internal for classes meant to stay within project</text>
+  </g>
+  
+  <!-- Assembly boundary arrows -->
+  <path d="M 450 230 L 550 230" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead2)"/>
+  <text x="500" y="225" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#333" font-weight="bold">
+    Assembly Boundary
+  </text>
+  
+  <!-- Arrow marker for assembly boundary -->
+  <defs>
+    <marker id="arrowhead2" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
+    </marker>
+  </defs>
+  
+  <!-- Best practices box -->
+  <rect x="200" y="600" width="600" height="80" fill="#e8f5e8" stroke="#4caf50" stroke-width="2" rx="10"/>
+  <text x="500" y="625" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2e7d32">
+    💡 Best Practice: Encapsulation
+  </text>
+  <text x="500" y="645" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#2e7d32">
+    Keep fields private and provide public properties/methods for controlled access
+  </text>
+  <text x="500" y="660" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#2e7d32">
+    This protects your data and allows you to add validation or logging later
+  </text>
+  
+  <!-- Visual indicators -->
+  <text x="20" y="230" text-anchor="middle" font-family="Arial, sans-serif" font-size="40" fill="#0277bd">🏢</text>
+  <text x="980" y="230" text-anchor="middle" font-family="Arial, sans-serif" font-size="40" fill="#f57c00">🏛️</text>
+  
+  <text x="500" y="780" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#666" font-style="italic">
+    Assembly = Your compiled .exe or .dll file containing your classes
+  </text>
+</svg>
