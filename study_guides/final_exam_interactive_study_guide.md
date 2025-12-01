@@ -16,7 +16,7 @@ Fill in the blanks with the correct operator symbols:
 ```
 !true && (false || true) && 5 >= 3
 ```
-Step through it: ________________
+Step through it: `________________`
 
 ---
 
