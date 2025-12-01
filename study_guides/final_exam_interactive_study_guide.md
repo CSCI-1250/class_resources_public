@@ -124,6 +124,7 @@ What's the output difference?
 
 **Code A:**
 ```csharp
+// 1. Pre-test loop
 int x = 10;
 while (x < 5)
 {
@@ -135,6 +136,7 @@ Output: _______________
 
 **Code B:**
 ```csharp
+// 2. Post-test loop
 int x = 10;
 do
 {
